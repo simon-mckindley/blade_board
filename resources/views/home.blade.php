@@ -21,6 +21,12 @@
             @csrf
             <button type="submit">Logout</button>
         </form>
+
+        <br>
+
+        <a href="{{ route('create') }}">Create</a>
+        <br>
+        <a href="{{ route('display') }}">Display</a>
     @endauth
 
     @guest
@@ -31,11 +37,6 @@
         </div>
     @endguest
 
-        <br>
-
-        <a href="{{ route('create') }}">Create</a>
-        <br>
-        <a href="{{ route('display') }}">Display</a>
     </main>
 </body>
 </html>

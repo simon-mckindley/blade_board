@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -39,7 +40,38 @@ class UserController extends Controller
 
         return redirect('/login');
     }
-    
+
+
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+
+    // Handle the registration form submission
+    public function register(Request $request)
+    {
+        // Validate input
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        // Create the user
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        // Log the user in
+        Auth::login($user);
+
+        // Redirect to dashboard or home
+        return redirect()->route('home')->with('success', 'Registration successful!');
+    }
+
+
     /**
      * Display a listing of the resource.
      */

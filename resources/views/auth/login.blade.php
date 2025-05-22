@@ -21,19 +21,21 @@
         
             <label>Email:</label>
             <input type="email" name="email" required>
-            
+            <br>
             <label>Password:</label>
             <input type="password" name="password" required>
-        
+            <br>
             <button type="submit">Login</button>
         
             @error('email')
-                <div>{{ $message }}</div>
+                <div style="color: crimson">{{ $message }}</div>
             @enderror
         </form>
+
+        <br>
         
         <div>
-            <p>Don't have an account?</p>
+            <span>Don't have an account?</span>
             <a href="{{ route('register') }}">Register</a>        
         </div>
     </main>
