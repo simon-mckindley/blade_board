@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
 
 Route::get('/', function () {
     return view('home');
@@ -15,32 +16,20 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [UserController::class, 'register'])->name('register.submit');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/posts', [PostController::class, 'index'])->name('posts.display');
+});
+
+
 Route::get('/myaccount', function () {
     return view('myaccount');
 })->name('myaccount');
 
-Route::get('/create', function () {
-    return view('create');
-})->middleware('auth')->name('create');
-
-
-Route::post('/store', function (Request $request) {
-
-    $validated = $request->validate([
-        'title' => 'required|min:3|max:255',
-        'post' => 'required',
-    ]);
-
-    $title = $request->input('title');
-    $post = $request->input('post');
-    // Handle the form submission and store the data
-    // For example, you can use a model to save the data to the database
-    return redirect()->route('display')->with($validated);
-})->name('store');
-
 
 Route::get('/display', function () {
-    return view('display', [
+    return view('posts.display', [
         'title' => session('title'),
         'post' => session('post')
     ]);

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -12,7 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::with('tags')->get();
+        return view('posts.display', compact('posts'));
     }
 
     /**
@@ -20,15 +24,31 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $tags = Tag::all();
+        return view('posts.create', compact('tags'));
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'tags' => 'required|array',
+            'tags.*' => 'exists:tags,id',
+        ]);
+
+        $post = new Post();
+        $post->title = $validated['title'];
+        $post->content = $validated['content'];
+        $post->user_id = Auth::id();
+        $post->save();
+
+        $post->tags()->attach($validated['tags']); // sync tags
+
+        return redirect()->route('posts.create')->with('success', 'Post created with tags!');
     }
 
     /**
