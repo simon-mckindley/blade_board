@@ -15,10 +15,13 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [UserController::class, 'register'])->name('register.submit');
 
+Route::get('/myaccount', function () {
+    return view('myaccount');
+})->name('myaccount');
 
 Route::get('/create', function () {
     return view('create');
-})->name('create');
+})->middleware('auth')->name('create');
 
 
 Route::post('/store', function (Request $request) {
@@ -41,4 +44,4 @@ Route::get('/display', function () {
         'title' => session('title'),
         'post' => session('post')
     ]);
-})->name('display');
+})->middleware('auth')->name('display');

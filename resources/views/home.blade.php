@@ -1,42 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+@extends('layouts.default')
 
-<body>
-    <header>
-        <h1>BLADE_<span>board</span></h1>
-    </header>
+@section('header')
+    <h1>BLADE_<span>board</span></h1>
+@endsection
 
-    <main>        
-        <h3>Welcome</h3>
-
+@section('maincontent')
+        
+    <h3>Welcome</h3>
+    
     @auth
-        <p>Hello {{ auth()->user()->name }}</p>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit">Logout</button>
-        </form>
-
-        <br>
-
-        <a href="{{ route('create') }}">Create</a>
-        <br>
-        <a href="{{ route('display') }}">Display</a>
+    <p>Hello {{ auth()->user()->name }}</p>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
+    
+    <br>
+    
+    <a href="{{ route('create') }}">Create</a>
+    <br>
+    <a href="{{ route('display') }}">Display</a>
+    <br>
+    <a href="{{ route('myaccount') }}">My Account</a>
     @endauth
-
+    
     @guest
-        <div>
-            <a href="{{ route('login') }}">Login</a>
-            <br>
-            <a href="{{ route('register') }}">Register</a>
-        </div>
+    <div>
+        <a href="{{ route('login') }}">Login</a>
+        <br>
+        <a href="{{ route('register') }}">Register</a>
+    </div>
     @endguest
-
-    </main>
-</body>
-</html>
+    
+@endsection
