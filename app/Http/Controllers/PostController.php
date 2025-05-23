@@ -27,7 +27,7 @@ class PostController extends Controller
         $tags = Tag::all();
         return view('posts.create', compact('tags'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -56,7 +56,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $post->load('tags');
+        return view('posts.post', compact('post'));
     }
 
     /**

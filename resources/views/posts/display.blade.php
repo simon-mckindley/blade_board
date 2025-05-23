@@ -13,7 +13,9 @@
 
     @foreach ($posts as $post)
         <div class="post">
-            <h3>{{ $post->title }}</h3>
+            <a href="{{ route('posts.show', $post->id) }}">
+                <h3>{{ $post->title }}</h3>
+            </a>
             <p>{{ $post->content }}</p>
             <p>Tags: 
                 @foreach ($post->tags as $tag)
@@ -21,8 +23,7 @@
                 @endforeach
             </p>
             <p>{{ $post->user->name }}</p>
-        </div> 
-        <br>
+        </div>
     @endforeach
 
     <a href="{{ route('posts.create') }}">Create another</a>
