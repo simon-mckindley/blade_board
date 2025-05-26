@@ -10,6 +10,17 @@
 
 @section('maincontent')   
     <div class="post">
+        @if ($post->user->id === auth()->id())
+            <div class="post-actions" style="background-color: blue; color: white;">
+                <a href="" style="color: inherit">Edit</a>
+                <form method="POST" action="{{ route('posts.destroy', $post->id) }}" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" style="color: inherit; background-color: transparent;">Delete</button>
+                </form>
+            </div>
+        @endif
+
         <h2 style="margin-block: 0 5px">{{ ucfirst($post->title) }}</h2>
         <div style="font-size: 0.8em; display: flex; flex-direction: column;">
             <span>{{ ucwords($post->user->name) }}</span>

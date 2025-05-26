@@ -8,7 +8,13 @@
     <h1>Display</h1>
 @endsection
 
-@section('maincontent')   
+@section('maincontent')
+    @if (session('success'))
+        <div style="color: green">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <h2>All Posts</h2>
 
     <a href="{{ route('posts.create') }}">Create a Post</a>
@@ -16,6 +22,12 @@
 
     @foreach ($posts as $post)
         <div class="post">
+            @if ($post->user->id === auth()->id())
+                <div class="post-actions" style="background-color: blue; color: white;">
+                    Mine
+                </div>
+            @endif
+
             <a href="{{ route('posts.show', $post->id) }}">
                 <h3>{{ $post->title }}</h3>
             </a>

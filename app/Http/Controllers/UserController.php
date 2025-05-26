@@ -55,6 +55,13 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:6',
+        ],
+        [
+            'name.required' => 'The name field is required.',
+            'email.email' => 'The email must be a valid email address.',
+            'email.required' => 'The email field is required.',
+            'email.unique' => 'This email is already registered.',
+            'password.confirmed' => 'The password confirmation does not match.',
         ]);
 
         // Create the user
@@ -67,7 +74,7 @@ class UserController extends Controller
         // Log the user in
         Auth::login($user);
 
-        // Redirect to dashboard or home
+        // Redirect to home
         return redirect()->route('home')->with('success', 'Registration successful!');
     }
 

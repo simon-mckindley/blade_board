@@ -60,6 +60,12 @@ class PostController extends Controller
             'content' => 'required|string',
             'tags' => 'required|array',
             'tags.*' => 'exists:tags,id',
+        ],
+        [
+            'title.required' => 'A title is required for the post.',
+            'content.required' => 'The post content is required.',
+            'tags.required' => 'At least one tag is required.',
+            'tags.*.exists' => 'One or more selected tags do not exist.',
         ]);
 
         $post = new Post();
@@ -108,6 +114,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()
+            ->route('posts.display')
+            ->with('success', 'Post deleted successfully!');
     }
 }

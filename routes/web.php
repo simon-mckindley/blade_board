@@ -21,17 +21,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/posts', [PostController::class, 'index'])->name('posts.display');
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 });
 
 
 Route::get('/myaccount', function () {
     return view('myaccount');
 })->name('myaccount');
-
-
-Route::get('/display', function () {
-    return view('posts.display', [
-        'title' => session('title'),
-        'post' => session('post')
-    ]);
-})->middleware('auth')->name('display');
