@@ -11,6 +11,9 @@
 @section('maincontent')   
     <h2>All Posts</h2>
 
+    <a href="{{ route('posts.create') }}">Create a Post</a>
+    <br>
+
     @foreach ($posts as $post)
         <div class="post">
             <a href="{{ route('posts.show', $post->id) }}">
@@ -25,6 +28,4 @@
             <p>{{ $post->user->name }}</p>
         </div>
     @endforeach
-
-    <a href="{{ route('posts.create') }}">Create another</a>
 @endsection

@@ -10,11 +10,11 @@
 
 @section('maincontent')   
     <div class="post">
-        <h2 style="margin-block: 0 5px">{{ $post->title }}</h2>
+        <h2 style="margin-block: 0 5px">{{ ucfirst($post->title) }}</h2>
         <div style="font-size: 0.8em; display: flex; flex-direction: column;">
-            <span>Author: {{ $post->user->name }}</span>
-            <span>Created: {{ $post->created_at }}</span>
-            <span>Updated: {{ $post->updated_at }}</span>
+            <span>{{ ucwords($post->user->name) }}</span>
+            <span>Created: {{ $post->created_at->diffForHumans() }}</span>
+            <span>Updated: {{ $post->updated_at->format('F j, Y') }}</span>
         </div>
         <p>{{ $post->content }}</p>
         <p>Tags: 

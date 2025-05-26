@@ -48,7 +48,12 @@ class PostController extends Controller
 
         $post->tags()->attach($validated['tags']); // sync tags
 
-        return redirect()->route('posts.create')->with('success', 'Post created with tags!');
+        return redirect()
+            ->route('posts.create')
+            ->with('success', [
+                'message' => 'Post created!',
+                'post_id' => $post->id,
+            ]);
     }
 
     /**

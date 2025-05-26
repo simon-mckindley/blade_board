@@ -38,6 +38,20 @@
         </div>        
 
         <button type="submit">Publish</button>
+
+        @if (session('success'))
+            <div style="color: green; margin-top: 10px;">
+                <p>{{ session('success')['message'] }}</p>
+                <p>
+                    <a href="{{ route('posts.show', session('success')['post_id']) }}">
+                        View Post
+                    </a>
+                </p>
+            </div>
+        @endif
+
+        <br><br>
+        <a href="{{ route('posts.display') }}">View All Posts</a>
     </form>
     
 @endsection

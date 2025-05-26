@@ -19,7 +19,7 @@
     
     <a href="{{ route('posts.create') }}">Create</a>
     <br>
-    <a href="{{ route('posts.display') }}">Display</a>
+    <a href="{{ route('posts.display') }}">Posts</a>
     <br>
     <a href="{{ route('myaccount') }}">My Account</a>
     @endauth
