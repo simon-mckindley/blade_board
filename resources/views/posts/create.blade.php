@@ -9,7 +9,10 @@
 @endsection
 
 @section('maincontent')   
+    <a href="{{ route('posts.display') }}">View All Posts</a>
+
     <h2>Create a new item</h2>
+    
     <form method="POST" action="{{ route('posts.store') }}">
         @csrf
 
@@ -38,20 +41,17 @@
         </div>        
 
         <button type="submit">Publish</button>
-
-        @if (session('success'))
-            <div style="color: green; margin-top: 10px;">
-                <p>{{ session('success')['message'] }}</p>
-                <p>
-                    <a href="{{ route('posts.show', session('success')['post_id']) }}">
-                        View Post
-                    </a>
-                </p>
-            </div>
-        @endif
-
-        <br><br>
-        <a href="{{ route('posts.display') }}">View All Posts</a>
     </form>
+
+    @if (session('success'))
+        <div style="color: green; margin-top: 10px;">
+            <p>{{ session('success')['message'] }}</p>
+            <p>
+                <a href="{{ route('posts.show', session('success')['post_id']) }}">
+                    View Post
+                </a>
+            </p>
+        </div>
+    @endif
     
 @endsection

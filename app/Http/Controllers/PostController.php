@@ -13,10 +13,32 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with('tags')->get();
-        return view('posts.display', compact('posts'));
+        $query = Post::with('tags')->orderBy('created_at', 'desc');
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                  ->orWhere('content', 'like', '%' . $search . '%');
+            });
+        }
+        // Filter by user if specified
+        if ($request->has('user')) {
+            $query->where('user_id', $request->user);
+        }
+        // Filter by tag if specified
+        if ($request->has('tag')) {
+            $query->whereHas('tags', function ($q) use ($request) {
+                $q->where('id', $request->tag);
+            });
+        }
+
+        $posts = $query->get();
+        $tags = Tag::all();
+
+        return view('posts.display', compact('posts', 'tags'));
     }
 
     /**
