@@ -21,7 +21,7 @@ class PostController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', '%' . $search . '%')
-                  ->orWhere('content', 'like', '%' . $search . '%');
+                    ->orWhere('content', 'like', '%' . $search . '%');
             });
         }
         // Filter by user if specified
@@ -55,18 +55,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'tags' => 'required|array',
-            'tags.*' => 'exists:tags,id',
-        ],
-        [
-            'title.required' => 'A title is required for the post.',
-            'content.required' => 'The post content is required.',
-            'tags.required' => 'At least one tag is required.',
-            'tags.*.exists' => 'One or more selected tags do not exist.',
-        ]);
+        $validated = $request->validate(
+            [
+                'title' => 'required|string|max:255',
+                'content' => 'required|string',
+                'tags' => 'required|array',
+                'tags.*' => 'exists:tags,id',
+            ],
+            [
+                'title.required' => 'A title is required for the post.',
+                'content.required' => 'The post content is required.',
+                'tags.required' => 'At least one tag is required.',
+                'tags.*.exists' => 'One or more selected tags do not exist.',
+            ]
+        );
 
         $post = new Post();
         $post->title = $validated['title'];
@@ -98,7 +100,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $post->load('tags');
+        $tags = Tag::all();
+        return view('posts.edit', compact('post', 'tags'));
     }
 
     /**
@@ -106,7 +110,19 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'tags' => 'required|array',
+            'tags.*' => 'exists:tags,id',
+        ]);
+        $post->title = $validated['title'];
+        $post->content = $validated['content'];
+        $post->save();
+        $post->tags()->sync($validated['tags']); // sync tags
+        return redirect()
+            ->route('posts.show', $post->id)
+            ->with('success', 'Post updated successfully!');
     }
 
     /**

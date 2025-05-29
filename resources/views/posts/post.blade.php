@@ -12,7 +12,7 @@
     <div class="post">
         @if ($post->user->id === auth()->id())
             <div class="post-actions" style="background-color: blue; color: white;">
-                <a href="" style="color: inherit">Edit</a>
+                <a href="{{ route('posts.edit', $post) }}" style="color: inherit">Edit</a>
                 <form method="POST" action="{{ route('posts.destroy', $post->id) }}" style="display:inline;">
                     @csrf
                     @method('DELETE')
@@ -34,6 +34,12 @@
             @endforeach
         </p>
     </div>
+
+    @if (session('success'))
+        <div style="color: green; margin-top: 10px;">
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
 
     <a href="{{ route('posts.display') }}">Posts</a>
 @endsection
