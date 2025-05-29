@@ -7,10 +7,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+    /**
+     * Get the posts for the user.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -46,8 +58,4 @@ class User extends Authenticatable
         ];
     }
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
 }

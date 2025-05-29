@@ -106,10 +106,21 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show()
     {
-        //
+        // Return the user profile view with the user data
+        $user = Auth::user();
+        return view('user.profile', compact('user'));
     }
+
+    public function userPosts()
+    {
+        $user = Auth::user();
+        $posts = $user->posts()->orderBy('created_at', 'desc')->with('tags')->get();
+
+        return view('user.posts', compact('posts', 'user'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.

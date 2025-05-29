@@ -3,7 +3,7 @@
 @section('header')
     <a href="{{ route('home') }}" class="back-button">&lt</a>
     @auth
-        <span>{{ auth()->user()->name }}</span>
+        <a href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
     @endauth
     <h1>Post</h1>
 @endsection
@@ -41,5 +41,7 @@
         </div>
     @endif
 
-    <a href="{{ route('posts.display') }}">Posts</a>
+    <a href="{{ route('posts.display') }}">All Posts</a>
+    <br>
+    <a href="{{ route('user.posts') }}">Your Posts</a>
 @endsection

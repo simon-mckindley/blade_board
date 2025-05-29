@@ -3,7 +3,7 @@
 @section('header')
     <a href="{{ route('home') }}" class="back-button">&lt</a>
     @auth
-        <span>{{ auth()->user()->name }}</span>
+        <a href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
     @endauth
     <h1>Edit Post</h1>
 @endsection

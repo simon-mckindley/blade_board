@@ -2,23 +2,24 @@
 
 @section('header')
     <a href="{{ route('home') }}" class="back-button">&lt</a>
-    <h1>Your Account</h1>
+    <h1>{{ $user->name }}</h1>
 @endsection
 
 @section('maincontent')
         
     <dl>
-        <dt>Name</dt>
-        <dd>{{ auth()->user()->name }}</dd>
-
         <dt>Email</dt>
-        <dd>{{ auth()->user()->email }}</dd>
+        <dd>{{ $user->email }}</dd>
 
         <dt>Created At</dt>
-        <dd>{{ auth()->user()->created_at }}</dd>
+        <dd>{{ $user->created_at }}</dd>
 
         <dt>Updated At</dt>
-        <dd>{{ auth()->user()->updated_at }}</dd>
+        <dd>{{ $user->updated_at }}</dd>
     </dl>
+
+    <a href="">Edit</a>
+    <br>
+    <a href="{{ route('user.posts') }}">Your Posts</a>
     
 @endsection

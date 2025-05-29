@@ -5,39 +5,32 @@
     @auth
         <a href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
     @endauth
-    <h1>Posts Page</h1>
+    <h1>Your Posts</h1>
 @endsection
 
 @section('maincontent')
-    @if (session('success'))
-        <div style="color: green">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <h2>All Posts</h2>
-
     <a href="{{ route('posts.create') }}">Create a Post</a>
     <br>
 
     @foreach ($posts as $post)
-        <div class="post">
-            @if ($post->user->id === auth()->id())
-                <div class="post-actions" style="background-color: blue; color: white;">
-                    Mine
-                </div>
-            @endif
-
+        <div class="post">               
             <a href="{{ route('posts.show', $post->id) }}">
                 <h3>{{ $post->title }}</h3>
             </a>
             <p>{{ $post->content }}</p>
             <p>Tags: 
                 @foreach ($post->tags as $tag)
-                    <span>{{ $tag->name }}</span>
+                <span>{{ $tag->name }}</span>
                 @endforeach
             </p>
-            <p>{{ $post->user->name }}</p>
+            <span>Created: {{ $post->created_at->diffForHumans() }}</span>
+            <br>
+            <span>Updated: {{ $post->updated_at->format('F j, Y') }}</span>
         </div>
     @endforeach
+
+    @if ($posts->isEmpty())
+        <p>No posts found.</p>
+    @endif
+
 @endsection

@@ -27,6 +27,12 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user', [UserController::class, 'show'])->name('user.show');
+    Route::get('/user/posts', [UserController::class, 'userPosts'])->name('user.posts');
+    Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/user', [UserController::class, 'update'])->name('user.update');
+});
 Route::get('/myaccount', function () {
-    return view('myaccount');
+    return view('user.myaccount');
 })->name('myaccount');

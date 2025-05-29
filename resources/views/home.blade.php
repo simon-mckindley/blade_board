@@ -19,9 +19,9 @@
     
     <a href="{{ route('posts.create') }}">Create</a>
     <br>
-    <a href="{{ route('posts.display') }}">Posts</a>
+    <a href="{{ route('posts.display') }}">All Posts</a>
     <br>
-    <a href="{{ route('myaccount') }}">My Account</a>
+    <a href="{{ route('user.show') }}">Profile</a>
     @endauth
     
     @guest
