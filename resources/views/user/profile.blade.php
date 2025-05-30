@@ -18,8 +18,12 @@
         <dd>{{ $user->updated_at }}</dd>
     </dl>
 
-    <a href="">Edit</a>
+    <a href="{{ route('user.edit', $user->id) }}">Edit</a>
     <br>
     <a href="{{ route('user.posts') }}">Your Posts</a>
+
+    @if (session('success'))
+        <p style="color: green">{{ session('success') }}</p>
+    @endif
     
 @endsection

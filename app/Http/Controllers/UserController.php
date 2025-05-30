@@ -51,18 +51,20 @@ class UserController extends Controller
     public function register(Request $request)
     {
         // Validate input
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|min:6',
-        ],
-        [
-            'name.required' => 'The name field is required.',
-            'email.email' => 'The email must be a valid email address.',
-            'email.required' => 'The email field is required.',
-            'email.unique' => 'This email is already registered.',
-            'password.confirmed' => 'The password confirmation does not match.',
-        ]);
+        $validated = $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|confirmed|min:6',
+            ],
+            [
+                'name.required' => 'The name field is required.',
+                'email.email' => 'The email must be a valid email address.',
+                'email.required' => 'The email field is required.',
+                'email.unique' => 'This email is already registered.',
+                'password.confirmed' => 'The password confirmation does not match.',
+            ]
+        );
 
         // Create the user
         $user = User::create([
@@ -127,7 +129,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        // Ensure the authenticated user can only edit their own profile
+        if (Auth::user()->id !== $user->id) {
+            return redirect()->route('user.show')->withErrors(['You do not have permission to edit this profile.']);
+        }
+
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -135,7 +142,35 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // Ensure the authenticated user can only update their own profile
+        if (Auth::user()->id !== $user->id) {
+            return redirect()->route('user.show')->withErrors(['You do not have permission to update this profile.']);
+        }
+
+        // Validate input
+        $validated = $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,' . $user->id,
+                'password' => 'nullable|confirmed|min:6',
+            ],
+            [
+                'email.email' => 'The email must be a valid email address.',
+                'email.required' => 'The email field is required.',
+                'email.unique' => 'This email is already registered.',
+                'password.confirmed' => 'The password confirmation does not match.',
+            ]
+        );
+
+        // Update the user
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        if ($request->filled('password')) {
+            $user->password = Hash::make($validated['password']);
+        }
+        $user->save();
+
+        return redirect()->route('user.show')->with('success', 'Profile updated successfully!');
     }
 
     /**
