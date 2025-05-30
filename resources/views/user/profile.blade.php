@@ -1,7 +1,6 @@
 @extends('layouts.default')
 
 @section('header')
-    <a href="{{ route('home') }}" class="back-button">&lt</a>
     <h1>{{ $user->name }}</h1>
 @endsection
 

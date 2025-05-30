@@ -1,10 +1,6 @@
 @extends('layouts.default')
 
 @section('header')
-    <a href="{{ route('home') }}" class="back-button">&lt</a>
-    @auth
-        <a href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
-    @endauth
     <h1>Edit Post</h1>
 @endsection
 
@@ -18,7 +14,7 @@
                     <h2 style="margin-block: 0 5px">{{ ucfirst($post->title) }}</h2>
                 </label>
                 <input type="text" name="title" id="title" value="{{ $post->title }}" required>
-                @error('title') <p style="color:crimson">{{ $message }}</p> @enderror
+                @error('title') <span style="color:crimson">{{ $message }}</span> @enderror
                 
                 <div style="font-size: 0.8em; display: flex; flex-direction: column;">
                     <span>Created: {{ $post->created_at->diffForHumans() }}</span>
@@ -27,7 +23,7 @@
 
                 <label for="content">Edit content</label>
                 <textarea name="content" id="content" rows="5" required>{{ $post->content }}</textarea>
-                @error('content') <p style="color:crimson">{{ $message }}</p> @enderror
+                @error('content') <span style="color:crimson">{{ $message }}</span> @enderror
 
                 <br>
                 <label>Edit Tags:</label><br>
@@ -39,7 +35,7 @@
                         {{ $tag->name }}
                     </label><br>
                 @endforeach
-                @error('tags') <p style="color:crimson">{{ $message }}</p> @enderror
+                @error('tags') <span style="color:crimson">{{ $message }}</span> @enderror
 
                 <button type="submit">Update</button>
             </form>                

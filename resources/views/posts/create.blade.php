@@ -1,17 +1,13 @@
 @extends('layouts.default')
 
 @section('header')
-    <a href="{{ route('home') }}" class="back-button">&lt</a>
-    @auth
-        <a href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
-    @endauth
     <h1>Create</h1>
 @endsection
 
 @section('maincontent')   
     <a href="{{ route('posts.display') }}">View All Posts</a>
 
-    <h2>Create a new item</h2>
+    <h2>Create a new post</h2>
     
     <form method="POST" action="{{ route('posts.store') }}">
         @csrf
@@ -19,13 +15,13 @@
         <div>
             <label>Title:</label>
             <input type="text" name="title" value="{{ old('title') }}">
-            @error('title') <p style="color:crimson">{{ $message }}</p> @enderror
+            @error('title') <span style="color:crimson">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Content:</label>
             <textarea name="content">{{ old('content') }}</textarea>
-            @error('content') <p style="color:crimson">{{ $message }}</p> @enderror
+            @error('content') <span style="color:crimson">{{ $message }}</span> @enderror
         </div>
 
         <div>
@@ -37,7 +33,7 @@
                     {{ $tag->name }}
                 </label><br>
             @endforeach
-            @error('tags') <p style="color:crimson">{{ $message }}</p> @enderror
+            @error('tags') <span style="color:crimson">{{ $message }}</span> @enderror
         </div>        
 
         <button type="submit">Publish</button>
