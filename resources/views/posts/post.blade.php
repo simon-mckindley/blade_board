@@ -1,5 +1,7 @@
 @extends('layouts.default')
 
+@section('title', 'Post - {{ ucfirst($post->title) }}')
+
 @section('header')
     <h1>Post</h1>
 @endsection

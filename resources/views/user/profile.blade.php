@@ -1,5 +1,7 @@
 @extends('layouts.default')
 
+@section('title', 'User Profile')
+
 @section('header')
     <h1>{{ $user->name }}</h1>
 @endsection

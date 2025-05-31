@@ -1,5 +1,7 @@
 @extends('layouts.default')
 
+@section('title', 'My Posts')
+
 @section('header')
     <h1>Your Posts</h1>
 @endsection

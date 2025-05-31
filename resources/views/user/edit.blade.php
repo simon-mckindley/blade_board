@@ -1,5 +1,7 @@
 @extends('layouts.default')
 
+@section('title', 'Edit Profile')
+
 @section('header')
     <h1>Edit Profile</h1>
 @endsection
