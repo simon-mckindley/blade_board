@@ -1,12 +1,18 @@
 @extends('layouts.default')
 
-@section('title', 'Post - {{ ucfirst($post->title) }}')
+@section('title', 'Post - ' . ucfirst($post->title))
 
 @section('header')
     <h1>Post</h1>
 @endsection
 
 @section('maincontent')   
+
+    <a href="{{ route('posts.display') }}">All Posts</a>
+    <br>
+    <a href="{{ route('user.posts') }}">Your Posts</a>
+    <br>
+
     <div class="post">
         @if ($post->user->id === auth()->id())
             <div class="post-actions" style="background-color: blue; color: white;">
@@ -39,7 +45,25 @@
         </div>
     @endif
 
-    <a href="{{ route('posts.display') }}">All Posts</a>
     <br>
-    <a href="{{ route('user.posts') }}">Your Posts</a>
+    <form action="{{ route('comments.store', $post) }}" method="POST">
+        @csrf
+        <label for="comment">Add a comment:</label>
+        <textarea name="comment" id="comment" rows="3" required></textarea>
+        @error('comment') <span style="color:crimson">{{ $message }}</span> @enderror
+        <br>
+        <button type="submit">Submit Comment</button>
+    </form>
+
+    <h3>Comments ({{ $post->comments->count() }})</h3>
+    @if ($post->comments->isEmpty())
+        <p>No comments yet.</p>
+    @else
+        @foreach ($post->comments->sortByDesc('created_at') as $comment)
+            <div class="comment">
+                <p><strong>{{ $comment->user->name }}:</strong> {{ $comment->content }}</p>
+                <span style="font-size: 0.8em;">Posted: {{ $comment->created_at->diffForHumans() }}</span>
+            </div>
+        @endforeach
+    @endif
 @endsection

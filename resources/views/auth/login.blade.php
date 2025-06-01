@@ -1,7 +1,8 @@
 @extends('layouts.default')
 
+@section('title', 'Login')
+
 @section('header')
-    <a href="{{ route('home') }}" class="back-button">&lt;</a>
     <h1>BLADE_board</h1>
 @endsection
 

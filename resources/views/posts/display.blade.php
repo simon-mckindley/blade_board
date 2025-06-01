@@ -36,6 +36,7 @@
                 @endforeach
             </p>
             <p>{{ $post->user->name }}</p>
+            <p>Comments: {{ $post->comments_count }}</p>
         </div>
     @endforeach
 @endsection
