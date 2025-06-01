@@ -22,4 +22,10 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    // Each post can have multiple comments
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

@@ -25,6 +25,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the comments for the user.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
