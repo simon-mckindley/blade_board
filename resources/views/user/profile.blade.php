@@ -12,15 +12,25 @@
         <dt>Email</dt>
         <dd>{{ $user->email }}</dd>
 
-        <a href="{{ route('user.posts') }}">
+        @if ($postCount === 0) disabled 
+        <dt>Posts</dt>
+        <dd>{{ $postCount }}</dd>        
+        @else
+        <a href="{{ route('user.posts') }}" >
             <dt>Posts</dt>
             <dd>{{ $postCount }}</dd>
         </a>
+        @endif
 
+        @if ($commentCount === 0)
+        <dt>Comments</dt>
+        <dd>{{ $commentCount }}</dd>
+        @else
         <a href="{{ route('user.commented') }}">
             <dt>Comments</dt>
             <dd>{{ $commentCount }}</dd>
         </a>
+        @endif
 
         <dt>Joined</dt>
         <dd>{{ $user->created_at }}</dd>

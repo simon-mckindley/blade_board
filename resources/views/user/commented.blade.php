@@ -3,7 +3,7 @@
 @section('title', 'Commented Posts')
 
 @section('header')
-    <h1>Commented Posts</h1>
+    <h1>My Commented Posts</h1>
 @endsection
 
 @section('maincontent')

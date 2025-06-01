@@ -19,13 +19,7 @@
     <br>
 
     @foreach ($posts as $post)
-        <div class="post">
-            @if ($post->user->id === auth()->id())
-                <div class="post-actions" style="background-color: blue; color: white;">
-                    Mine
-                </div>
-            @endif
-
+        <div class="post @if ($post->user->id === auth()->id()) highlighted @endif">
             <a href="{{ route('posts.show', $post->id) }}">
                 <h3>{{ $post->title }}</h3>
             </a>

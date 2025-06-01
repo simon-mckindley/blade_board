@@ -10,7 +10,7 @@
 
     <a href="{{ route('posts.display') }}">All Posts</a>
     <br>
-    <a href="{{ route('user.posts') }}">Your Posts</a>
+    <a href="{{ route('user.posts') }}">My Posts</a>
     <br>
 
     <div class="post">
@@ -60,7 +60,7 @@
         <p>No comments yet.</p>
     @else
         @foreach ($post->comments->sortByDesc('created_at') as $comment)
-            <div class="comment">
+            <div class="comment @if ($comment->user->id === auth()->id()) highlighted @endif">
                 <p><strong>{{ $comment->user->name }}:</strong> {{ $comment->content }}</p>
                 <span style="font-size: 0.8em;">Posted: {{ $comment->created_at->diffForHumans() }}</span>
             </div>

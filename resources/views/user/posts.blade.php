@@ -3,7 +3,7 @@
 @section('title', 'My Posts')
 
 @section('header')
-    <h1>Your Posts</h1>
+    <h1>My Posts</h1>
 @endsection
 
 @section('maincontent')

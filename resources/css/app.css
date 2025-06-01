@@ -71,3 +71,7 @@ h1 span {
     padding: 1em;
     margin-bottom: 1em;
 }
+
+.highlighted {
+    border: 2px solid darkblue;
+}
