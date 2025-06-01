@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -30,6 +32,7 @@ class UserController extends Controller
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
+
 
     public function logout(Request $request)
     {
@@ -112,17 +115,46 @@ class UserController extends Controller
     {
         // Return the user profile view with the user data
         $user = Auth::user();
-        return view('user.profile', compact('user'));
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['You must be logged in to view this page.']);
+        }
+
+        // Count posts and comments for the authenticated user
+        $postCount = $user->posts()->count();
+        $commentCount = $user->comments()->count();
+
+        return view('user.profile', compact('user', 'postCount', 'commentCount'));
     }
 
+    /**
+     * Display the posts created by the user.
+     */
     public function userPosts()
     {
         $user = Auth::user();
-        $posts = $user->posts()->orderBy('created_at', 'desc')->with('tags')->get();
+        $posts = $user->posts()->orderBy('created_at', 'desc')->with('tags')->withCount("comments")->get();
 
         return view('user.posts', compact('posts', 'user'));
     }
 
+    /**
+     * Display the posts that the user has commented on.
+     */
+    public function commentedPosts()
+    {
+        $user = Auth::user();
+
+        // Get unique post IDs from the user's comments, then load the posts
+        $postIds = $user->comments()->pluck('post_id')->unique();
+
+        $posts = Post::with(['user', 'tags'])
+            ->whereIn('id', $postIds)
+            ->orderBy('created_at', 'desc')
+            ->withCount("comments")
+            ->get();
+
+        return view('user.commented', compact('posts'));
+    }
 
     /**
      * Show the form for editing the specified resource.

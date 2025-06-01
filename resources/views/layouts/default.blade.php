@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ asset('images/bladeboard_icon.png') }}" type="image/x-icon">
-    <title>@yield('title', "Blade_board")</title>
+    <title>@yield('title', "BLADE_board")</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 

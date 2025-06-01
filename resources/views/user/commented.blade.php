@@ -1,31 +1,31 @@
 @extends('layouts.default')
 
-@section('title', 'My Posts')
+@section('title', 'Commented Posts')
 
 @section('header')
-    <h1>Your Posts</h1>
+    <h1>Commented Posts</h1>
 @endsection
 
 @section('maincontent')
-    <a href="{{ route('posts.create') }}">Create a Post</a>
-    <br>
-
     @foreach ($posts as $post)
-        <div class="post">               
+        <div class="post">
+            @if ($post->user->id === auth()->id())
+                <div class="post-actions" style="background-color: blue; color: white;">
+                    Mine
+                </div>
+            @endif
+
             <a href="{{ route('posts.show', $post->id) }}">
                 <h3>{{ $post->title }}</h3>
             </a>
             <p>{{ $post->content }}</p>
             <p>Tags: 
                 @foreach ($post->tags as $tag)
-                <span>{{ $tag->name }}</span>
+                    <span>{{ $tag->name }}</span>
                 @endforeach
             </p>
-            <span>Created: {{ $post->created_at->diffForHumans() }}</span>
-            <br>
-            <span>Updated: {{ $post->updated_at->format('F j, Y') }}</span>
-
-            <p>Comments: {{ $post->comments_count }}</p>`
+            <p>{{ $post->user->name }}</p>
+            <p>Comments: {{ $post->comments_count }}</p>
         </div>
     @endforeach
 

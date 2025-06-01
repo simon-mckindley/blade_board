@@ -12,16 +12,24 @@
         <dt>Email</dt>
         <dd>{{ $user->email }}</dd>
 
-        <dt>Created At</dt>
+        <a href="{{ route('user.posts') }}">
+            <dt>Posts</dt>
+            <dd>{{ $postCount }}</dd>
+        </a>
+
+        <a href="{{ route('user.commented') }}">
+            <dt>Comments</dt>
+            <dd>{{ $commentCount }}</dd>
+        </a>
+
+        <dt>Joined</dt>
         <dd>{{ $user->created_at }}</dd>
 
-        <dt>Updated At</dt>
+        <dt>Last Updated</dt>
         <dd>{{ $user->updated_at }}</dd>
     </dl>
 
     <a href="{{ route('user.edit', $user->id) }}">Edit</a>
-    <br>
-    <a href="{{ route('user.posts') }}">Your Posts</a>
 
     @if (session('success'))
         <p style="color: green">{{ session('success') }}</p>

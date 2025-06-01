@@ -31,9 +31,11 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/user', [UserController::class, 'show'])->name('user.show');
     Route::get('/user/posts', [UserController::class, 'userPosts'])->name('user.posts');
+    Route::get('/user/commented', [UserController::class, 'commentedPosts'])->name('user.commented');
     Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
 });
 
 Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
+Route::get('/user/{user}/comments', [CommentController::class, 'index'])->name('comments.index')->middleware('auth');
 
