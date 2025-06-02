@@ -2,7 +2,7 @@
     $highlightClass = $highlightOwn && $post->user->id === auth()->id() ? 'highlighted' : '';
 @endphp
 
-<div class="post {{ $highlightClass }}">
+<div class="post-card {{ $highlightClass }}">
     <div class="post-created">{{ $post->created_at->format('j F Y') }}</div>
     
     <a class="post-title" href="{{ route('posts.show', $post->id) }}">
