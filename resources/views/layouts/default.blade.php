@@ -9,15 +9,17 @@
 </head>
 
 <body>
-    <nav>
-        <a href="{{ route('home') }}" class="back-button">&lt</a>
-        @auth
-            <a href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
-        @endauth
-    </nav>
-
     <header>
-        @yield('header')</h1>
+        <nav>
+            <a href="{{ route('home') }}" class="back-button">
+                <img src="{{ asset('images/bladeboard_icon.png') }}" alt="B" width="32">
+            </a>
+            @auth
+                <a href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
+            @endauth
+        </nav>
+        
+        @yield('header')
     </header>
     
     <main>

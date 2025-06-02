@@ -1,7 +1,9 @@
 @extends('layouts.default')
 
 @section('header')
-    <h1>BLADE_<span>board</span></h1>
+    <h1>
+        <div class="home-title">BLADE_<span>board</span></div>
+    </h1>
 @endsection
 
 @section('maincontent')
