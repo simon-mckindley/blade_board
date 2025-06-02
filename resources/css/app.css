@@ -8,6 +8,7 @@
 
 html {
     --text-color: #ebebeb;
+    --text-color-secondary: #acacac;
     --bg-color: #073f41;
 }
 
@@ -24,8 +25,13 @@ main {
 }
 
 a {
-    color: blue;
+    color: white;
     text-decoration: none;
+    transition: color 300ms ease;
+}
+
+a:hover {
+    color: var(--text-color-secondary);
 }
 
 img {
@@ -118,7 +124,37 @@ h1 {
     border-radius: 10px;
     padding: 1em;
     margin-bottom: 1em;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    .post-created {
+        font-size: 0.8em;
+        color: var(--text-color-secondary);
+    }
+
+    .post-main {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        margin-top: 1em;
+    }
+
+    .post-title {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    .post-tags {
+
+    }
+
+    .post-name {
+        font-size: 0.9em;
+        color: var(--text-color-secondary);
+    }
+
+    .post-comments {
+        display: flex;
+        gap: 0.5em;
+    }
 }
 
 .comment {
