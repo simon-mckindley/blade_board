@@ -2,14 +2,10 @@
 
 @section('title', 'Create Post')
 
-@section('header')
-    <h1>Create</h1>
-@endsection
+@section('pagetitle', 'Create a Post')
 
 @section('maincontent')   
     <a href="{{ route('posts.display') }}">View All Posts</a>
-
-    <h2>Create a new post</h2>
     
     <form method="POST" action="{{ route('posts.store') }}">
         @csrf

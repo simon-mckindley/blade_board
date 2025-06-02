@@ -2,9 +2,7 @@
 
 @section('title', 'User Profile')
 
-@section('header')
-    <h1>{{ $user->name }}</h1>
-@endsection
+@section('pagetitle',  $user->name)
 
 @section('maincontent')
         

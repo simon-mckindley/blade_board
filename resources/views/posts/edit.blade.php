@@ -2,11 +2,9 @@
 
 @section('title', 'Edit Post')
 
-@section('header')
-    <h1>Edit Post</h1>
-@endsection
+@section('pagetitle', 'Edit Post')
 
-@section('maincontent')   
+@section('maincontent')
     <div class="post">
         @if ($post->user->id === auth()->id())
             <form method="POST" action="{{ route('posts.update', $post->id) }}" style="display:inline;">

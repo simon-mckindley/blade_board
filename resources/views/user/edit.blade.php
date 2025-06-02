@@ -2,9 +2,7 @@
 
 @section('title', 'Edit Profile')
 
-@section('header')
-    <h1>Edit Profile</h1>
-@endsection
+@section('pagetitle', 'Edit Profile')
 
 @section('maincontent')
     @if ($user->id === auth()->id())

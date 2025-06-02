@@ -2,12 +2,7 @@
 
 @section('title', 'Post - ' . ucfirst($post->title))
 
-@section('header')
-    <h1>Post</h1>
-@endsection
-
 @section('maincontent')   
-
     <a href="{{ route('posts.display') }}">All Posts</a>
     <br>
     <a href="{{ route('user.posts') }}">My Posts</a>

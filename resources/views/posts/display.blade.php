@@ -1,10 +1,8 @@
 @extends('layouts.default')
 
-@section('title', 'Posts Page')
+@section('title', 'Posts')
 
-@section('header')
-    <h1>Posts Page</h1>
-@endsection
+@section('pagetitle', 'Posts')
 
 @section('maincontent')
     @if (session('success'))
@@ -12,8 +10,6 @@
             {{ session('success') }}
         </div>
     @endif
-
-    <h2>All Posts</h2>
 
     <a href="{{ route('posts.create') }}">Create a Post</a>
     <br>

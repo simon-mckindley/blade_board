@@ -19,10 +19,12 @@
             @endauth
         </nav>
         
-        @yield('header')
+        <h1>@yield('header', "BLADE_board")</h1>
     </header>
     
     <main>
+        <h2 class="page-title">@yield('pagetitle')</h2>
+        
         @yield('maincontent')
     </main>
 </body>

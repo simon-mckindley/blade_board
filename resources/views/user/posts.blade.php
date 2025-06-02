@@ -2,9 +2,7 @@
 
 @section('title', 'My Posts')
 
-@section('header')
-    <h1>My Posts</h1>
-@endsection
+@section('pagetitle', 'My Posts')
 
 @section('maincontent')
     <a href="{{ route('posts.create') }}">Create a Post</a>

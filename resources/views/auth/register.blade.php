@@ -2,13 +2,9 @@
 
 @section('title', 'Register')
 
-@section('header')
-    <h1>BLADE_board</h1>
-@endsection
+@section('pagetitle', 'Register')
 
-@section('maincontent')   
-    <h3>Register</h3>
-
+@section('maincontent')
     <form method="POST" action="{{ route('register.submit') }}">
         @csrf
 
