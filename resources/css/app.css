@@ -10,6 +10,8 @@ html {
     --text-color: #ebebeb;
     --text-color-secondary: #acacac;
     --bg-color: #073f41;
+
+    --outer-padding: 1em;
 }
 
 body {
@@ -20,18 +22,33 @@ body {
 }
 
 main {
-    margin-inline: 1em;
+    margin-inline: var(--outer-padding);
     animation: move-up 200ms ease-out;
 }
 
 a {
     color: white;
-    text-decoration: none;
+    text-decoration: underline;
     transition: color 300ms ease;
+
+    &:hover {
+        color: var(--text-color-secondary);
+    }
 }
 
-a:hover {
-    color: var(--text-color-secondary);
+
+button {
+    color: inherit;
+    font: inherit;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    transition: color 300ms ease;
+
+    &:hover {
+        color: var(--text-color-secondary);
+    }
 }
 
 img {
@@ -45,21 +62,29 @@ header {
     top: 0;
     text-align: center;
     background-color: var(--bg-color);
+    margin-bottom: var(--outer-padding);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    z-index: 1000;
+    z-index: 100;
 }
 
 nav {
     position: absolute;
+    top: 50%;
+    left: 0;
+    translate: 0 -50%;
     display: flex;
     align-items: center;
-    align-self: anchor-center;
     gap: 0.5rem;
-    padding: 0.5rem;
+    padding-left: var(--outer-padding);
 
     img {
         border-radius: 100px;
         width: 2.5rem;
+        transition: rotate ease-in-out 300ms;
+    }
+
+    img:hover {
+        rotate: 360deg;
     }
 }
 
@@ -68,17 +93,19 @@ h1 {
     font-size: 50px;
     font-style: oblique;
     padding-inline: 1em;
-    margin-top: 0;
+    margin: 0;
 }
 
-.back-button {
-    font-size: 1.5em;
-    font-weight: bold;
-    text-decoration: none
+.add-link {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    translate: 0 -50%;
+    padding-right: var(--outer-padding);
 }
 
 .home-title {
-    width: 11ch;
+    width: 12ch;
     margin-inline: auto;
     text-align: left;
 
@@ -90,6 +117,7 @@ h1 {
     }
 }
 
+/* Bounce effect */
 @keyframes header {
     5% {
         opacity: 1;
@@ -120,14 +148,44 @@ h1 {
 }
 
 .post, .post-card {
+    position: relative;
     background-color: rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
     border-radius: 10px;
     padding: 1em;
     margin-bottom: 1em;
 
-    .post-created {
+    .post-name, .post-date {
         font-size: 0.8em;
         color: var(--text-color-secondary);
+    }
+
+    .post-meta {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post-actions {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        gap: 0.5em;
+        margin: var(--outer-padding);
+        
+        .action {
+            padding: 0.25em;
+            border-radius: 4px;
+            transition: background-color 200ms ease;
+        }
+
+        .action:hover {
+            background-color: var(--bg-color);
+        }
+
+        .action[type="submit"]:hover {
+            background-color: rgb(187, 77, 99)
+        }
     }
 
     .post-main {
@@ -142,19 +200,35 @@ h1 {
         font-weight: bold;
     }
 
-    .post-tags {
-
+    .post-content {
+        padding: 0.25em 0.5em;
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.25);
     }
 
-    .post-name {
-        font-size: 0.9em;
-        color: var(--text-color-secondary);
+    .post-tags {
+        display: flex;
+        gap: 0.5rem;
+
+        span {
+            color: var(--bg-color);
+            font-size: 0.9em;
+            padding: 0.2em 0.5em;
+            border-radius: 10px;
+            background-color: var(--text-color);
+        }
     }
 
     .post-comments {
         display: flex;
         gap: 0.5em;
     }
+}
+
+.post-navigation {
+    display: flex;
+    justify-content:space-evenly;
+    margin-bottom: 1em;
 }
 
 .comment {
@@ -165,16 +239,13 @@ h1 {
 }
 
 .highlighted {
-    background-color: rgb(255, 186, 186, 0.6);
+    border: 5px solid rgb(255, 186, 186, 0.8);
 }
+
 
 @keyframes move-up {
     0% {
         opacity: 0;
         transform: translateY(200px);
     }
-
-    /* 100% {
-        transform: translateX(0);
-    } */
 }

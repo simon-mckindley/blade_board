@@ -2,6 +2,10 @@
 
 @section('title', 'Commented Posts')
 
+@section('add-link')
+    <a href="{{ route('posts.display') }}">All Posts</a>
+@endsection
+
 @section('pagetitle', 'Commented Posts')
 
 @section('maincontent')

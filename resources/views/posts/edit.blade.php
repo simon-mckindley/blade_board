@@ -2,10 +2,14 @@
 
 @section('title', 'Edit Post')
 
+@section('add-link')
+    <a class="post-title" href="{{ route('posts.show', $post->id) }}">Cancel</a>
+@endsection
+
 @section('pagetitle', 'Edit Post')
 
 @section('maincontent')
-    <div class="post">
+    <div class="">
         @if ($post->user->id === auth()->id())
             <form method="POST" action="{{ route('posts.update', $post->id) }}" style="display:inline;">
                 @csrf
@@ -18,7 +22,7 @@
                 
                 <div style="font-size: 0.8em; display: flex; flex-direction: column;">
                     <span>Created: {{ $post->created_at->diffForHumans() }}</span>
-                    <span>Updated: {{ $post->updated_at->format('F j, Y') }}</span>
+                    <span>Updated: {{ $post->updated_at->format('j F Y') }}</span>
                 </div>
 
                 <label for="content">Edit content</label>
@@ -43,6 +47,4 @@
             <p style="color: crimson">Unauthorised access</p>
         @endif
     </div>
-
-    <a href="{{ route('posts.display') }}">Posts</a>
 @endsection

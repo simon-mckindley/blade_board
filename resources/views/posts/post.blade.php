@@ -2,36 +2,46 @@
 
 @section('title', 'Post - ' . ucfirst($post->title))
 
-@section('maincontent')   
-    <a href="{{ route('posts.display') }}">All Posts</a>
-    <br>
-    <a href="{{ route('user.posts') }}">My Posts</a>
-    <br>
+@section('maincontent')  
+    <div class="post-navigation">
+        <a href="{{ route('posts.display') }}">All Posts</a>
+        <a href="{{ route('user.posts') }}">My Posts</a>
+        <a href="{{ route('posts.create') }}">Create a Post</a>
+    </div>
 
     <div class="post">
         @if ($post->user->id === auth()->id())
-            <div class="post-actions" style="background-color: blue; color: white;">
-                <a href="{{ route('posts.edit', $post) }}" style="color: inherit">Edit</a>
-                <form method="POST" action="{{ route('posts.destroy', $post->id) }}" style="display:inline;">
+            <div class="post-actions">
+                <a class="action" href="{{ route('posts.edit', $post) }}">
+                    <img height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
+                </a>
+                <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" style="color: inherit; background-color: transparent;">Delete</button>
+                    <button type="submit" class="action">
+                        <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
+                    </button>
                 </form>
             </div>
         @endif
 
-        <h2 style="margin-block: 0 5px">{{ ucfirst($post->title) }}</h2>
-        <div style="font-size: 0.8em; display: flex; flex-direction: column;">
+        <div class="post-meta">
+            <span class="post-date">Created {{ $post->created_at->diffForHumans() }}</span>
+            <span class="post-date">Updated {{ $post->updated_at->format('j F Y') }}</span>
             <span>{{ ucwords($post->user->name) }}</span>
-            <span>Created: {{ $post->created_at->diffForHumans() }}</span>
-            <span>Updated: {{ $post->updated_at->format('F j, Y') }}</span>
         </div>
-        <p>{{ $post->content }}</p>
-        <p>Tags: 
-            @foreach ($post->tags as $tag)
-                <span>{{ $tag->name }}</span>
-            @endforeach
-        </p>
+
+        <div class="post-main">
+            <div class="post-title">{{ ucwords($post->title) }}</div>
+
+            <div class="post-content">{{ $post->content }}</div>
+
+            <div class="post-tags">
+                @foreach ($post->tags as $tag)
+                    <span>{{ $tag->name }}</span>
+                @endforeach
+            </div>
+        </div>
     </div>
 
     @if (session('success'))

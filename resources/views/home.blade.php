@@ -1,8 +1,14 @@
 @extends('layouts.default')
 
 @section('header')
-        <div class="home-title">BLADE_<span>board</span></div>
+    <div class="home-title">BLADE_<span>board</span></div>
 @endsection
+
+@auth
+    @section('add-link')
+        <a href="{{ route('posts.display') }}">All Posts</a>
+    @endsection
+@endauth
 
 @section('pagetitle', 'Welcome')
 

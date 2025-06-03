@@ -20,6 +20,10 @@
         </nav>
         
         <h1>@yield('header', "BLADE_board")</h1>
+
+        <div class="add-link">
+            @yield('add-link')
+        </div>
     </header>
     
     <main>

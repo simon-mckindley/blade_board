@@ -3,16 +3,16 @@
 @endphp
 
 <div class="post-card {{ $highlightClass }}">
-    <div class="post-created">{{ $post->created_at->format('j F Y') }}</div>
+    <div class="post-date">{{ $post->created_at->format('j F Y') }}</div>
     
     <div class="post-main">
         <a class="post-title" href="{{ route('posts.show', $post->id) }}">
-            {{ $post->title }}
+            {{ ucwords($post->title) }}
         </a>
         
         <div class="post-tags"> 
             @foreach ($post->tags as $tag)
-            <span>{{ $tag->name }}</span>
+                <span>{{ $tag->name }}</span>
             @endforeach
         </div>
         
