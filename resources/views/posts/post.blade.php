@@ -26,8 +26,8 @@
         @endif
 
         <div class="post-meta">
-            <span class="post-date">Created {{ $post->created_at->diffForHumans() }}</span>
-            <span class="post-date">Updated {{ $post->updated_at->format('j F Y') }}</span>
+            <span class="post-date">Created - {{ $post->created_at->format('j F Y') }}</span>
+            <span class="post-date">Updated - {{ $post->updated_at->format('j F Y') }}</span>
             <span>{{ ucwords($post->user->name) }}</span>
         </div>
 
