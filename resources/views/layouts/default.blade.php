@@ -15,7 +15,7 @@
                 <img src="{{ asset('images/bladeboard_icon.png') }}" alt="B" width="32">
             </a>
             @auth
-                <a href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
+                <a class="link" href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
             @endauth
         </nav>
         

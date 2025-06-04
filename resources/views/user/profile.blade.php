@@ -3,7 +3,7 @@
 @section('title', 'User Profile')
 
 @section('add-link')
-    <a href="{{ route('user.edit', $user->id) }}">Edit Profile</a>
+    <a class="link" href="{{ route('user.edit', $user->id) }}">Edit Profile</a>
 @endsection
 
 @section('pagetitle',  $user->name)
@@ -17,7 +17,7 @@
             <dt>Posts</dt>
             <dd>{{ $postCount }}</dd>        
         @else
-            <a href="{{ route('user.posts') }}" >
+            <a class="link" href="{{ route('user.posts') }}" >
                 <dt>Posts</dt>
                 <dd>{{ $postCount }}</dd>
             </a>
@@ -27,7 +27,7 @@
             <dt>Comments</dt>
             <dd>{{ $commentCount }}</dd>
         @else
-            <a href="{{ route('user.commented') }}">
+            <a class="link" href="{{ route('user.commented') }}">
                 <dt>Comments</dt>
                 <dd>{{ $commentCount }}</dd>
             </a>

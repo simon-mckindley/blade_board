@@ -4,9 +4,9 @@
 
 @section('maincontent')  
     <div class="post-navigation">
-        <a href="{{ route('posts.display') }}">All Posts</a>
-        <a href="{{ route('user.posts') }}">My Posts</a>
-        <a href="{{ route('posts.create') }}">Create a Post</a>
+        <a class="link" href="{{ route('posts.display') }}">All Posts</a>
+        <a class="link" href="{{ route('user.posts') }}">My Posts</a>
+        <a class="link" href="{{ route('posts.create') }}">Create a Post</a>
     </div>
 
     <div class="post">

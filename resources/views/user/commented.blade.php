@@ -3,7 +3,7 @@
 @section('title', 'Commented Posts')
 
 @section('add-link')
-    <a href="{{ route('posts.display') }}">All Posts</a>
+    <a class="link" href="{{ route('posts.display') }}">All Posts</a>
 @endsection
 
 @section('pagetitle', 'Commented Posts')
@@ -13,7 +13,7 @@
         <p>No posts found</p>
     @else
         @foreach ($posts as $post)
-            <x-post-card :post="$post" />
+            <x-post-card :post="$post" :highlight-own="true" />
         @endforeach
     @endif
 @endsection

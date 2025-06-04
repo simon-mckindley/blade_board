@@ -10,7 +10,7 @@ html {
     --text-color: #ebebeb;
     --text-color-secondary: #acacac;
     --bg-color: #073f41;
-
+    --secondary-color: #410907;
     --outer-padding: 1em;
 }
 
@@ -27,7 +27,33 @@ main {
     animation: move-up 200ms ease-out;
 }
 
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+input, textarea, select {
+    font: inherit;
+}
+
 a {
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
+}
+
+button {
+    color: inherit;
+    font: inherit;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+
+.link {
     color: white;
     text-decoration: underline;
     transition: color 300ms ease;
@@ -37,8 +63,7 @@ a {
     }
 }
 
-
-button {
+.btn {
     color: inherit;
     font: inherit;
     background-color: transparent;
@@ -50,12 +75,6 @@ button {
     &:hover {
         color: var(--text-color-secondary);
     }
-}
-
-img {
-    display: block;
-    max-width: 100%;
-    height: auto;
 }
 
 header {
@@ -174,7 +193,7 @@ h1 {
         display: flex;
         gap: 0.5em;
         margin: var(--outer-padding);
-        
+
         .action {
             padding: 0.25em;
             border-radius: 4px;
@@ -229,7 +248,7 @@ h1 {
 
 .post-navigation {
     display: flex;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
     margin-bottom: 1em;
 }
 

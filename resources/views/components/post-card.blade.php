@@ -6,7 +6,7 @@
     <div class="post-date">{{ $post->created_at->format('j F Y') }}</div>
     
     <div class="post-main">
-        <a class="post-title" href="{{ route('posts.show', $post->id) }}">
+        <a class="link post-title" href="{{ route('posts.show', $post->id) }}">
             {{ ucwords($post->title) }}
         </a>
         

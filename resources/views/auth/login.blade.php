@@ -25,6 +25,6 @@
 
     <div>
         <span>Don't have an account?</span>
-        <a href="{{ route('register') }}">Register</a>        
+        <a class="link" href="{{ route('register') }}">Register</a>        
     </div>
 @endsection

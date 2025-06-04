@@ -6,7 +6,7 @@
 
 @auth
     @section('add-link')
-        <a href="{{ route('posts.display') }}">All Posts</a>
+        <a class="link" href="{{ route('posts.display') }}">All Posts</a>
     @endsection
 @endauth
 
@@ -31,9 +31,9 @@
     
     @guest
         <div>
-            <a href="{{ route('login') }}">Login</a>
+            <a class="link" href="{{ route('login') }}">Login</a>
             <br>
-            <a href="{{ route('register') }}">Register</a>
+            <a class="link" href="{{ route('register') }}">Register</a>
         </div>
     @endguest
     
