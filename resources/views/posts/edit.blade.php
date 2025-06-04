@@ -3,7 +3,7 @@
 @section('title', 'Edit Post')
 
 @section('add-link')
-    <a class="link" class="post-title" href="{{ route('posts.show', $post->id) }}">Cancel</a>
+    <a class="btn" class="post-title" href="{{ route('posts.show', $post->id) }}">Cancel</a>
 @endsection
 
 @section('pagetitle', 'Edit Post')
@@ -41,7 +41,7 @@
                 @endforeach
                 @error('tags') <span style="color:crimson">{{ $message }}</span> @enderror
 
-                <button type="submit">Update</button>
+                <button class="btn" type="submit">Change it</button>
             </form>                
         @else
             <p style="color: crimson">Unauthorised access</p>

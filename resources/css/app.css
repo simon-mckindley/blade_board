@@ -10,7 +10,8 @@ html {
     --text-color: #ebebeb;
     --text-color-secondary: #acacac;
     --bg-color: #073f41;
-    --secondary-color: #410907;
+    --secondary-color: #400a08;
+    --light-secondary: hsl(2, 78%, 24%);
     --outer-padding: 1em;
 }
 
@@ -35,12 +36,17 @@ img {
 
 input, textarea, select {
     font: inherit;
+    resize: none;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 8px;
 }
 
 a {
     color: inherit;
     font: inherit;
     text-decoration: none;
+    width: fit-content;
 }
 
 button {
@@ -48,13 +54,14 @@ button {
     font: inherit;
     background-color: transparent;
     padding: 0;
+    width: fit-content;
     border: none;
     cursor: pointer;
 }
 
 
 .link {
-    color: white;
+    color: var(--text-color);
     text-decoration: underline;
     transition: color 300ms ease;
 
@@ -64,17 +71,22 @@ button {
 }
 
 .btn {
-    color: inherit;
-    font: inherit;
-    background-color: transparent;
-    padding: 0;
-    border: none;
-    cursor: pointer;
-    transition: color 300ms ease;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    transition: color 300ms ease, background-color 300ms ease;
 
     &:hover {
-        color: var(--text-color-secondary);
+        color: white;
+        background-color: var(--light-secondary);
     }
+}
+
+.input-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
 }
 
 header {
@@ -137,6 +149,13 @@ h1 {
     }
 }
 
+.home-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    margin-top: 2em;
+}
+
 /* Bounce effect */
 @keyframes header {
     5% {
@@ -166,6 +185,19 @@ h1 {
         letter-spacing: normal;
     }
 }
+
+.auth-form, .post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-block: 2em;
+    max-width: fit-content;
+
+    .btn {
+        margin-top: 0.5em;
+    }
+}
+
 
 .post, .post-card {
     position: relative;

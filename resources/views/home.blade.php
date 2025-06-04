@@ -14,26 +14,23 @@
 
 @section('maincontent')
     @auth
-        <p>Hello {{ ucwords(auth()->user()->name) }}</p>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit">Logout</button>
-        </form>
+        <p>Hello <strong style="font-size: 1.1em">{{ ucwords(auth()->user()->name) }}</strong></p>
         
-        <br>
-        
-        <a href="{{ route('posts.create') }}">Create</a>
-        <br>
-        <a href="{{ route('posts.display') }}">All Posts</a>
-        <br>
-        <a href="{{ route('user.show') }}">Profile</a>
+        <div class="home-actions">
+            <a class="btn" href="{{ route('posts.create') }}">Create</a>
+            <a class="btn" href="{{ route('posts.display') }}">All Posts</a>
+            <a class="btn" href="{{ route('user.show') }}">Profile</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class="btn" type="submit">Logout</button>
+            </form>
+        </div>
     @endauth
     
     @guest
-        <div>
-            <a class="link" href="{{ route('login') }}">Login</a>
-            <br>
-            <a class="link" href="{{ route('register') }}">Register</a>
+        <div class="home-actions">
+            <a class="btn" href="{{ route('login') }}">Login</a>
+            <a class="btn" href="{{ route('register') }}">Register</a>
         </div>
     @endguest
     

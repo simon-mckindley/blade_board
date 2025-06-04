@@ -9,16 +9,16 @@
 @section('pagetitle', 'Create a Post')
 
 @section('maincontent')    
-    <form method="POST" action="{{ route('posts.store') }}">
+    <form class="post-form" method="POST" action="{{ route('posts.store') }}">
         @csrf
 
-        <div>
+        <div class="input-cont">
             <label>Title:</label>
             <input type="text" name="title" value="{{ old('title') }}">
             @error('title') <span style="color:crimson">{{ $message }}</span> @enderror
         </div>
 
-        <div>
+        <div class="input-cont">
             <label>Content:</label>
             <textarea name="content">{{ old('content') }}</textarea>
             @error('content') <span style="color:crimson">{{ $message }}</span> @enderror
@@ -36,14 +36,14 @@
             @error('tags') <span style="color:crimson">{{ $message }}</span> @enderror
         </div>        
 
-        <button type="submit">Publish</button>
+        <button class="btn" type="submit">Make it</button>
     </form>
 
     @if (session('success'))
         <div style="color: green; margin-top: 10px;">
             <p>{{ session('success')['message'] }}</p>
             <p>
-                <a href="{{ route('posts.show', session('success')['post_id']) }}">
+                <a class="link" href="{{ route('posts.show', session('success')['post_id']) }}">
                     View Post
                 </a>
             </p>
