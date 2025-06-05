@@ -27,6 +27,7 @@
     </header>
     
     <main>
+        <div class="logo"></div>
         <h2 class="page-title">@yield('pagetitle')</h2>
         
         @yield('maincontent')

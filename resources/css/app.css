@@ -17,16 +17,33 @@ html {
 }
 
 body {
+    display: grid;
+    grid-template-rows: auto 1fr;
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'Sora', serif;
     margin: 0 auto;
     max-width: 1600px;
+    min-height: 100dvh;
 }
 
 main {
     margin-inline: var(--outer-padding);
-    animation: move-up 200ms ease-out;
+    animation: show-in 400ms ease-out;
+}
+
+.logo {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url('/public/images/bladeboard_logo.png');
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: contain;
+    opacity: 0.1;
+    filter: drop-shadow(2px 4px 6px black);
+
+    animation: show-in 5000ms ease-out;
 }
 
 
@@ -395,9 +412,10 @@ input[type="checkbox"]:checked+.tag-input {
 }
 
 
-@keyframes move-up {
+@keyframes show-in {
     0% {
         opacity: 0;
-        transform: translateY(200px);
+        /* scale: 0.95; */
+        /* transform: translateY(200px); */
     }
 }
