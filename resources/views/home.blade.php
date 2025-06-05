@@ -6,7 +6,7 @@
 
 @auth
     @section('add-link')
-        <a class="link" href="{{ route('posts.display') }}">All Posts</a>
+        <button form="logout" class="btn warning" type="submit">Logout</button>
     @endsection
 @endauth
 
@@ -14,17 +14,21 @@
 
 @section('maincontent')
     @auth
-        <p>Hello <strong style="font-size: 1.1em">{{ ucwords(auth()->user()->name) }}</strong></p>
+        <p>
+            Good <span class="time"></span> 
+            <strong style="font-size: 1.1em">{{ ucwords(auth()->user()->name) }}</strong> 
+            <br>
+            What would you like to do today?
+        </p>
         
         <div class="home-actions">
             <a class="btn" href="{{ route('posts.create') }}">Create</a>
             <a class="btn" href="{{ route('posts.display') }}">All Posts</a>
             <a class="btn" href="{{ route('user.show') }}">Profile</a>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class="btn" type="submit">Logout</button>
-            </form>
         </div>
+        <form id="logout" method="POST" action="{{ route('logout') }}">
+            @csrf
+        </form>
     @endauth
     
     @guest
@@ -35,3 +39,21 @@
     @endguest
     
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const timeElement = document.querySelector('.time');
+        if (!timeElement) return; // Ensure the element exists
+
+        // Get the current hour and set the time of day
+        const time = new Date().getHours();
+
+        if (time < 12) {
+            timeElement.textContent = 'morning';
+        } else if (time < 18) {
+            timeElement.textContent = 'afternoon';
+        } else {
+            timeElement.textContent = 'evening';
+        }
+    });
+</script>

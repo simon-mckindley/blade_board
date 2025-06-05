@@ -5,13 +5,14 @@
     font-style: normal;
 }
 
-
 html {
     --text-color: #ebebeb;
     --text-color-secondary: #acacac;
     --bg-color: #073f41;
     --secondary-color: #400a08;
     --light-secondary: hsl(2, 78%, 24%);
+    --warning-color: #be3652;
+
     --outer-padding: 1em;
 }
 
@@ -20,7 +21,7 @@ body {
     color: var(--text-color);
     font-family: 'Sora', serif;
     margin: 0 auto;
-    max-width: 1800px;
+    max-width: 1600px;
 }
 
 main {
@@ -28,6 +29,8 @@ main {
     animation: move-up 200ms ease-out;
 }
 
+
+/* Resets */
 img {
     display: block;
     max-width: 100%;
@@ -45,6 +48,7 @@ input, textarea, select {
 a {
     color: inherit;
     font: inherit;
+    padding: 0;
     text-decoration: none;
     width: fit-content;
 }
@@ -60,6 +64,7 @@ button {
 }
 
 
+/* General Elements */
 .link {
     color: var(--text-color);
     text-decoration: underline;
@@ -72,6 +77,7 @@ button {
 
 .btn {
     color: var(--text-color);
+    box-sizing: border-box;
     background-color: var(--secondary-color);
     padding: 0.5em 1em;
     border-radius: 8px;
@@ -89,6 +95,8 @@ button {
     gap: 0.1em;
 }
 
+
+/* Header & Navigation */
 header {
     position: sticky;
     top: 0;
@@ -149,12 +157,6 @@ h1 {
     }
 }
 
-.home-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
-    margin-top: 2em;
-}
 
 /* Bounce effect */
 @keyframes header {
@@ -186,6 +188,22 @@ h1 {
     }
 }
 
+
+/* Home Page */
+.home-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    margin-top: 2em;
+
+    .btn {
+        min-width: 8em;
+        text-align: center;
+    }
+}
+
+
+/* Forms */
 .auth-form, .post-form {
     display: flex;
     flex-direction: column;
@@ -223,6 +241,7 @@ input[type="checkbox"]:checked+.tag-input {
 }
 
 
+/* Post Cards */
 .post, .post-card {
     position: relative;
     background-color: rgba(255, 255, 255, 0.2);
@@ -261,7 +280,7 @@ input[type="checkbox"]:checked+.tag-input {
         }
 
         .action[type="submit"]:hover {
-            background-color: rgb(187, 77, 99)
+            background-color: var(--warning-color);
         }
     }
 
@@ -302,6 +321,8 @@ input[type="checkbox"]:checked+.tag-input {
     }
 }
 
+
+/* Post Page */
 .post-navigation {
     display: flex;
     justify-content: space-evenly;
@@ -317,8 +338,14 @@ input[type="checkbox"]:checked+.tag-input {
     max-width: 25em;
 }
 
+
+/* Over-writes */
+.warning {
+    background-color: var(--warning-color);
+}
+
 .highlighted {
-    border: 5px solid rgb(255, 186, 186, 0.8);
+    border: 2px solid var(--warning-color);
 }
 
 
