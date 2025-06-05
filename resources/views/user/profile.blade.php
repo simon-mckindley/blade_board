@@ -9,35 +9,49 @@
 @section('pagetitle',  $user->name)
 
 @section('maincontent')
-    <dl>
-        <dt>Email</dt>
-        <dd>{{ $user->email }}</dd>
+    <dl class="profile">
+        <div class="profile-cont">
+            <dt>Email</dt>
+            <dd>{{ $user->email }}</dd>
+        </div>
 
         @if ($postCount === 0)
-            <dt>Posts</dt>
-            <dd>{{ $postCount }}</dd>        
-        @else
-            <a class="link" href="{{ route('user.posts') }}" >
+            <div class="profile-cont">
                 <dt>Posts</dt>
+                <dd>{{ $postCount }}</dd>        
+            </div>
+        @else
+            <div class="profile-cont">
+                <a class="link" href="{{ route('user.posts') }}" >
+                    <dt>Posts</dt>
+                </a>
                 <dd>{{ $postCount }}</dd>
-            </a>
+            </div>
         @endif
 
         @if ($commentCount === 0)
-            <dt>Comments</dt>
-            <dd>{{ $commentCount }}</dd>
-        @else
-            <a class="link" href="{{ route('user.commented') }}">
+            <div class="profile-cont">
                 <dt>Comments</dt>
                 <dd>{{ $commentCount }}</dd>
-            </a>
+            </div>
+        @else
+            <div class="profile-cont">
+                <a class="link" href="{{ route('user.commented') }}">
+                    <dt>Comments</dt>
+                </a>
+                <dd>{{ $commentCount }}</dd>
+            </div>
         @endif
 
-        <dt>Joined</dt>
-        <dd>{{ $user->created_at }}</dd>
+        <div class="profile-cont">
+            <dt>Joined</dt>
+            <dd>{{ $user->created_at->format('j F Y') }}</dd>
+        </div>
 
-        <dt>Last Updated</dt>
-        <dd>{{ $user->updated_at }}</dd>
+        <div class="profile-cont">
+            <dt>Last Updated</dt>
+            <dd>{{ $user->updated_at->format('j F Y') }}</dd>
+        </div>
     </dl>
 
     @if (session('success'))
