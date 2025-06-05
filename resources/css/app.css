@@ -80,19 +80,13 @@ button {
     box-sizing: border-box;
     background-color: var(--secondary-color);
     padding: 0.5em 1em;
-    border-radius: 8px;
+    border-radius: 100px;
     transition: color 300ms ease, background-color 300ms ease;
 
     &:hover {
         color: white;
         background-color: var(--light-secondary);
     }
-}
-
-.input-cont {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1em;
 }
 
 
@@ -197,7 +191,7 @@ h1 {
     margin-top: 2em;
 
     .btn {
-        min-width: 8em;
+        min-width: 12em;
         text-align: center;
     }
 }
@@ -209,11 +203,30 @@ h1 {
     flex-direction: column;
     gap: 1em;
     margin-block: 2em;
-    max-width: fit-content;
+    width: fit-content;
+    max-width: 24em;
 
     .btn {
         margin-top: 0.5em;
     }
+
+    label {
+        transform-origin: left;
+        transition:
+            translate 200ms ease,
+            rotate 200ms ease;
+    }
+
+    input:focus-within+label, textarea:focus-within+label {
+        translate: 0.5em;
+        rotate: -5deg;
+    }
+}
+
+.input-cont {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.1em;
 }
 
 .tags-cont {
@@ -227,8 +240,10 @@ h1 {
     padding: 0.25em 0.5em;
     border-radius: 10px;
     background-color: var(--text-color-secondary);
-    transition: background-color 200ms ease, color 200ms ease;
     cursor: pointer;
+    transition:
+        background-color 200ms ease,
+        color 200ms ease;
 }
 
 input[type="checkbox"] {
@@ -238,6 +253,7 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked+.tag-input {
     background-color: var(--light-secondary);
     color: var(--text-color);
+    rotate: -5deg;
 }
 
 
@@ -340,7 +356,7 @@ input[type="checkbox"]:checked+.tag-input {
 
 
 /* Over-writes */
-.warning {
+.warning-btn {
     background-color: var(--warning-color);
 }
 

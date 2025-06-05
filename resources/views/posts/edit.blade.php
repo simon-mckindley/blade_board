@@ -3,7 +3,7 @@
 @section('title', 'Edit Post')
 
 @section('add-link')
-    <a class="btn warning" href="{{ route('posts.show', $post->id) }}">Cancel</a>
+    <a class="btn warning-btn" href="{{ route('posts.show', $post->id) }}">Cancel</a>
 @endsection
 
 @section('pagetitle', 'Edit Post')
