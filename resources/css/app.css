@@ -45,7 +45,9 @@ input, textarea, select {
     border-radius: 8px;
 }
 
-input:disabled, textarea:disabled, select:disabled {
+input:disabled, textarea:disabled, select:disabled,
+input[readonly], textarea[readonly], select[readonly] {
+    cursor: auto;
     background-color: var(--text-color-secondary);
     color: var(--bg-color);
 }
