@@ -198,6 +198,30 @@ h1 {
     }
 }
 
+.tags-cont {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.tag-input {
+    color: var(--bg-color);
+    padding: 0.25em 0.5em;
+    border-radius: 10px;
+    background-color: var(--text-color-secondary);
+    transition: background-color 200ms ease, color 200ms ease;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"]:checked+.tag-input {
+    background-color: var(--light-secondary);
+    color: var(--text-color);
+}
+
 
 .post, .post-card {
     position: relative;
