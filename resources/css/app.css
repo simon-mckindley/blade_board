@@ -45,6 +45,11 @@ input, textarea, select {
     border-radius: 8px;
 }
 
+input:disabled, textarea:disabled, select:disabled {
+    background-color: var(--text-color-secondary);
+    color: var(--bg-color);
+}
+
 a {
     color: inherit;
     font: inherit;
@@ -61,6 +66,12 @@ button {
     width: fit-content;
     border: none;
     cursor: pointer;
+}
+
+button:disabled {
+    background-color: var(--text-color-secondary);
+    color: var(--bg-color);
+    cursor: not-allowed;
 }
 
 
@@ -83,7 +94,7 @@ button {
     border-radius: 100px;
     transition: color 300ms ease, background-color 300ms ease;
 
-    &:hover {
+    &:hover:not(:disabled) {
         color: white;
         background-color: var(--light-secondary);
     }
@@ -203,6 +214,7 @@ h1 {
     flex-direction: column;
     gap: 1em;
     margin-block: 2em;
+    min-width: 20em;
     width: fit-content;
     max-width: 24em;
 
@@ -254,6 +266,22 @@ input[type="checkbox"]:checked+.tag-input {
     background-color: var(--light-secondary);
     color: var(--text-color);
     rotate: -5deg;
+}
+
+.edit-input {
+    display: grid;
+    gap: 0.5em;
+    grid-template-columns: 1fr auto;
+
+    .edit-btn {
+        padding: 0.25em;
+        border-radius: 8px;
+        transition: background-color 200ms ease;
+    }
+
+    .edit-btn:hover {
+        background-color: var(--light-secondary);
+    }
 }
 
 

@@ -9,16 +9,16 @@
         @csrf
 
         <div class="input-cont">
-            <label>Email</label>
-            <input type="email" name="email" required>
+            <input type="email" name="email" id="email" required>
+            <label for="email">Email</label>
         </div>
 
         <div class="input-cont">    
-            <label>Password</label>
-            <input type="password" name="password" required>
+            <input type="password" name="password" id="password" required>
+            <label for="password">Password</label>
         </div>
 
-        <button class="btn" type="submit">Blade me</button>
+        <button class="btn" type="submit">Blade me in</button>
 
         @error('email')
             <div style="color: crimson">{{ $message }}</div>
