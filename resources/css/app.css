@@ -12,6 +12,7 @@ html {
     --secondary-color: #400a08;
     --light-secondary: hsl(2, 78%, 24%);
     --warning-color: #be3652;
+    --white-overlay: rgba(255, 255, 255, 0.2);
 
     --outer-padding: 1em;
 }
@@ -239,6 +240,12 @@ h1 {
     margin-left: 2vw;
     width: fit-content;
 
+    .profile-cont {
+        padding: 1em;
+        background-color: var(--white-overlay);
+        border-radius: 8px;
+    }
+
     dd {
         font-size: 1.3em;
         margin-inline-start: 0.1em;
@@ -315,23 +322,24 @@ input[type="checkbox"]:checked+.tag-input {
     display: grid;
     gap: 0.5em;
     grid-template-columns: 1fr auto;
+}
 
-    .edit-btn {
-        padding: 0.25em;
-        border-radius: 8px;
-        transition: background-color 200ms ease;
-    }
-
-    .edit-btn:hover {
+.edit-btn {
+    padding: 0.25em;
+    border-radius: 8px;
+    transition: background-color 200ms ease;
+    
+    &:hover {
         background-color: var(--light-secondary);
     }
 }
 
 
+
 /* Post Cards */
 .post, .post-card {
     position: relative;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--white-overlay);
     backdrop-filter: blur(5px);
     box-sizing: border-box;
     border-radius: 10px;
@@ -387,7 +395,7 @@ input[type="checkbox"]:checked+.tag-input {
     .post-content {
         padding: 0.25em 0.5em;
         border-radius: 4px;
-        background-color: rgba(255, 255, 255, 0.25);
+        background-color: var(--white-overlay);
     }
 
     .post-tags {

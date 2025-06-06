@@ -9,6 +9,17 @@
 @section('pagetitle', 'Create a Post')
 
 @section('maincontent')    
+    @if (session('success'))
+    <div style="color: green; margin-top: 10px;">
+        <p>{{ session('success')['message'] }}</p>
+        <p>
+            <a class="link" href="{{ route('posts.show', session('success')['post_id']) }}">
+                View new post
+            </a>
+        </p>
+    </div>
+    @endif
+    
     <form class="post-form" method="POST" action="{{ route('posts.store') }}">
         @csrf
 
@@ -37,17 +48,5 @@
         </div>        
 
         <button class="btn" type="submit">Post it</button>
-    </form>
-
-    @if (session('success'))
-        <div style="color: green; margin-top: 10px;">
-            <p>{{ session('success')['message'] }}</p>
-            <p>
-                <a class="link" href="{{ route('posts.show', session('success')['post_id']) }}">
-                    View Post
-                </a>
-            </p>
-        </div>
-    @endif
-    
+    </form>    
 @endsection
