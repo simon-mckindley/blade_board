@@ -1,14 +1,3 @@
-@php
-    $createdAt = ($post->created_at->diffInDays(now()) < 1) ?
-        $post->created_at->diffForHumans() : 
-        $post->created_at->format('j F Y');
-
-    $updatedAt = ($post->updated_at->diffInDays(now()) < 1) ?
-        $post->updated_at->diffForHumans() :
-        $post->updated_at->format('j F Y');
-@endphp
-
-
 @extends('layouts.default')
 
 @section('title', 'Post - ' . ucfirst($post->title))
@@ -37,8 +26,8 @@
         @endif
 
         <div class="post-meta">
-            <span class="post-date">Created - {{ $createdAt }}</span>
-            <span class="post-date">Updated - {{ $updatedAt }}</span>
+            <span class="post-date">Created -> {{ display_time($post->created_at) }}</span>
+            <span class="post-date">Updated -> {{ display_time($post->updated_at) }}</span>
             <span>{{ ucwords($post->user->name) }}</span>
         </div>
 
@@ -77,8 +66,8 @@
     @else
         @foreach ($post->comments->sortByDesc('created_at') as $comment)
             <div class="comment @if ($comment->user->id === auth()->id()) highlighted @endif">
-                <p><strong>{{ $comment->user->name }}:</strong> {{ $comment->content }}</p>
-                <span style="font-size: 0.8em;">Posted: {{ $comment->created_at->diffForHumans() }}</span>
+                <p><strong>{{ $comment->user->name }}: </strong> {{ $comment->content }}</p>
+                <span style="font-size: 0.8em;">Posted: {{ display_time($comment->created_at) }}</span>
             </div>
         @endforeach
     @endif

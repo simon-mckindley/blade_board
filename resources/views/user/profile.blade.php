@@ -45,7 +45,7 @@
 
         <div class="profile-cont">
             <dt>Joined</dt>
-            <dd>{{ $user->created_at->format('j F Y') }}</dd>
+            <dd>{{ display_time($user->created_at) }}</dd>
         </div>
     </dl>
 

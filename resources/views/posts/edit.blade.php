@@ -1,14 +1,3 @@
-@php
-    $createdAt = ($post->created_at->diffInDays(now()) < 1) ?
-        $post->created_at->diffForHumans() : 
-        $post->created_at->format('j F Y');
-
-    $updatedAt = ($post->updated_at->diffInDays(now()) < 1) ?
-        $post->updated_at->diffForHumans() :
-        $post->updated_at->format('j F Y');
-@endphp
-
-
 @extends('layouts.default')
 
 @section('title', 'Edit Post')
@@ -27,8 +16,8 @@
             
             <div class="post-edit-header">                
                 <div class="edit-meta">
-                    <span>Created: {{ $createdAt }}</span>
-                    <span>Updated: {{ $updatedAt }}</span>
+                    <span>Created -> {{ display_time($post->created_at) }}</span>
+                    <span>Updated -> {{ display_time($post->updated_at) }}</span>
                 </div>
 
                 <button type="submit" class="edit-btn" id="edit-name-btn" data-field="name" title="Edit Post">
@@ -68,6 +57,7 @@
     @endif
 @endsection
 
+@section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const inputs = document.querySelectorAll('.input-cont input[type="text"], .input-cont textarea');
@@ -83,3 +73,4 @@
         });
     });
 </script>
+@endsection

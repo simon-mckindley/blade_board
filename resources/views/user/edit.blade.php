@@ -1,10 +1,3 @@
-@php
-    $updatedAt = ($user->updated_at->diffInDays(now()) < 1) ?
-        $user->updated_at->diffForHumans() : 
-        $user->updated_at->format('j F Y');
-@endphp
-
-
 @extends('layouts.default')
 
 @section('title', 'Edit Profile')
@@ -19,7 +12,7 @@
     @if ($user->id === auth()->id())
         <div style="font-size: 0.8em">
             <dt>Last Updated</dt>
-            <dd>{{ $updatedAt }}</dd>
+            <dd>{{ display_time($user->updated_at) }}</dd>
         </div>
 
         <form class="auth-form" method="POST" action="{{ route('user.update', $user->id) }}">
@@ -72,7 +65,7 @@
     @endif
 @endsection
 
-
+@section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const inputs = document.querySelectorAll('.edit-input input');
@@ -106,3 +99,4 @@
         }
     });
 </script>
+@endsection

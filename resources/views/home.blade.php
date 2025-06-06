@@ -46,11 +46,11 @@
         if (!timeElement) return; // Ensure the element exists
 
         // Get the current hour and set the time of day
-        const time = new Date().getHours();
+        const hour = new Date().getHours();
 
-        if (time < 12) {
+        if (hour < 12) {
             timeElement.textContent = 'morning';
-        } else if (time < 18) {
+        } else if (hour < 18) {
             timeElement.textContent = 'afternoon';
         } else {
             timeElement.textContent = 'evening';
