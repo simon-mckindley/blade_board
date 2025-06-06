@@ -1,12 +1,11 @@
 @php
-    $createdAt = $post->created_at->format('j F Y');
-    $updatedAt = $post->updated_at->format('j F Y');
-    if ($post->created_at->diffInDays(now()) < 1) {
-        $createdAt = $post->created_at->diffForHumans();
-    }
-    if ($post->updated_at->diffInDays(now()) < 1) {
-        $updatedAt = $post->updated_at->diffForHumans();
-    }
+    $createdAt = ($post->created_at->diffInDays(now()) < 1) ?
+        $post->created_at->diffForHumans() : 
+        $post->created_at->format('j F Y');
+
+    $updatedAt = ($post->updated_at->diffInDays(now()) < 1) ?
+        $post->updated_at->diffForHumans() :
+        $post->updated_at->format('j F Y');
 @endphp
 
 

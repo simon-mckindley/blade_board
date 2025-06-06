@@ -1,3 +1,14 @@
+@php
+    $createdAt = ($post->created_at->diffInDays(now()) < 1) ?
+        $post->created_at->diffForHumans() : 
+        $post->created_at->format('j F Y');
+
+    $updatedAt = ($post->updated_at->diffInDays(now()) < 1) ?
+        $post->updated_at->diffForHumans() :
+        $post->updated_at->format('j F Y');
+@endphp
+
+
 @extends('layouts.default')
 
 @section('title', 'Post - ' . ucfirst($post->title))
@@ -26,8 +37,8 @@
         @endif
 
         <div class="post-meta">
-            <span class="post-date">Created - {{ $post->created_at->format('j F Y') }}</span>
-            <span class="post-date">Updated - {{ $post->updated_at->format('j F Y') }}</span>
+            <span class="post-date">Created - {{ $createdAt }}</span>
+            <span class="post-date">Updated - {{ $updatedAt }}</span>
             <span>{{ ucwords($post->user->name) }}</span>
         </div>
 

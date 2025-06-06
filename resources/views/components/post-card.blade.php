@@ -1,9 +1,13 @@
 @php
     $highlightClass = $highlightOwn && $post->user->id === auth()->id() ? 'highlighted' : '';
+
+    $createdAt = ($post->created_at->diffInDays(now()) < 1) ?
+        $post->created_at->diffForHumans() : 
+        $post->created_at->format('j F Y');
 @endphp
 
 <div class="post-card {{ $highlightClass }}">
-    <div class="post-date">{{ $post->created_at->format('j F Y') }}</div>
+    <div class="post-date">{{ $createdAt }}</div>
     
     <div class="post-main">
         <a class="link post-title" href="{{ route('posts.show', $post->id) }}">
