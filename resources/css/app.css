@@ -148,7 +148,7 @@ nav {
     img {
         border-radius: 100px;
         width: 2.5rem;
-        transition: rotate ease-in-out 300ms;
+        transition: rotate 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     img:hover {
@@ -425,9 +425,29 @@ input[type="checkbox"]:checked+.tag-input {
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 1em;
+    width: clamp(20em, 100%, 50vw);
 }
 
-.comment {
+.post-page-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 1em;
+
+    .post-form {
+        grid-area: 2 / 1 / 3 / 2;
+    }
+
+    .comments-section {
+        grid-area: 1 / 2 / 3 / 3;
+        
+        h3 {
+            margin-top: 0;
+        }
+    }
+}
+
+/* Comment Cards */
+.comment-card {
     box-sizing: border-box;
     background-color: rgb(173, 216, 230, 0.5);
     backdrop-filter: blur(5px);
@@ -435,6 +455,21 @@ input[type="checkbox"]:checked+.tag-input {
     padding: 1em;
     margin-bottom: 1em;
     max-width: 25em;
+
+    .comment-meta {
+        display: flex;
+        gap: 1em;
+        justify-content: space-between;
+        font-size: 0.8em;
+    }
+
+    .comment-content {
+        color: var(--bg-color);
+        padding: 0.25em 0.5em;
+        margin-top: 0.5em;
+        border-radius: 4px;
+        background-color: var(--white-overlay);
+    }
 }
 
 

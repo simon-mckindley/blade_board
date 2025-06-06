@@ -9,8 +9,10 @@
         <a class="link" href="{{ route('posts.create') }}">Create a Post</a>
     </div>
 
-    <div class="post">
-        @if ($post->user->id === auth()->id())
+    <div class="post-page-grid">
+
+        <div class="post">
+            @if ($post->user->id === auth()->id())
             <div class="post-actions">
                 <a class="action" href="{{ route('posts.edit', $post) }}">
                     <img height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
@@ -23,52 +25,48 @@
                     </button>
                 </form>
             </div>
-        @endif
-
-        <div class="post-meta">
-            <span class="post-date">Created -> {{ display_time($post->created_at) }}</span>
-            <span class="post-date">Updated -> {{ display_time($post->updated_at) }}</span>
-            <span>{{ ucwords($post->user->name) }}</span>
-        </div>
-
-        <div class="post-main">
-            <div class="post-title">{{ ucwords($post->title) }}</div>
-
-            <div class="post-content">{{ $post->content }}</div>
-
-            <div class="post-tags">
-                @foreach ($post->tags as $tag)
+            @endif
+            
+            <div class="post-meta">
+                <span class="post-date">Created -> {{ display_time($post->created_at) }}</span>
+                <span class="post-date">Updated -> {{ display_time($post->updated_at) }}</span>
+                <span>{{ ucwords($post->user->name) }}</span>
+            </div>
+            
+            <div class="post-main">
+                <div class="post-title">{{ ucwords($post->title) }}</div>
+                
+                <div class="post-content">{{ $post->content }}</div>
+                
+                <div class="post-tags">
+                    @foreach ($post->tags as $tag)
                     <span>{{ $tag->name }}</span>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        
+        <form class="post-form" action="{{ route('comments.store', $post) }}" method="POST">
+            @csrf
+            <div class="input-cont">
+                @error('comment') <span style="color:crimson">{{ $message }}</span> @enderror
+                <textarea name="comment" id="comment" rows="3" required></textarea>
+                <label for="comment">Add a comment</label>
+            </div>
+            
+            <button class="btn" type="submit">Submit Comment</button>
+        </form>
+        
+        <div class="comments-section">
+            <h3>Comments ({{ $post->comments->count() }})</h3>
+            @if ($post->comments->isEmpty())
+                <p>No comments yet</p>
+            @else
+                @foreach ($post->comments->sortByDesc('created_at') as $comment)
+                    <x-comment-card :comment="$comment" :highlightOwn="true" />
                 @endforeach
-            </div>
+            @endif
         </div>
+
     </div>
-
-    @if (session('success'))
-        <div style="color: green; margin-top: 10px;">
-            <p>{{ session('success') }}</p>
-        </div>
-    @endif
-
-    <br>
-    <form action="{{ route('comments.store', $post) }}" method="POST">
-        @csrf
-        <label for="comment">Add a comment:</label>
-        <textarea name="comment" id="comment" rows="3" required></textarea>
-        @error('comment') <span style="color:crimson">{{ $message }}</span> @enderror
-        <br>
-        <button type="submit">Submit Comment</button>
-    </form>
-
-    <h3>Comments ({{ $post->comments->count() }})</h3>
-    @if ($post->comments->isEmpty())
-        <p>No comments yet.</p>
-    @else
-        @foreach ($post->comments->sortByDesc('created_at') as $comment)
-            <div class="comment @if ($comment->user->id === auth()->id()) highlighted @endif">
-                <p><strong>{{ $comment->user->name }}: </strong> {{ $comment->content }}</p>
-                <span style="font-size: 0.8em;">Posted: {{ display_time($comment->created_at) }}</span>
-            </div>
-        @endforeach
-    @endif
 @endsection
