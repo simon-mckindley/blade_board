@@ -47,11 +47,6 @@
             <dt>Joined</dt>
             <dd>{{ $user->created_at->format('j F Y') }}</dd>
         </div>
-
-        <div class="profile-cont">
-            <dt>Last Updated</dt>
-            <dd>{{ $user->updated_at->format('j F Y') }}</dd>
-        </div>
     </dl>
 
     @if (session('success'))

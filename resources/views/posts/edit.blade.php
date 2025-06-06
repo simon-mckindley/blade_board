@@ -1,3 +1,15 @@
+@php
+    $createdAt = $post->created_at->format('j F Y');
+    $updatedAt = $post->updated_at->format('j F Y');
+    if ($post->created_at->diffInDays(now()) < 1) {
+        $createdAt = $post->created_at->diffForHumans();
+    }
+    if ($post->updated_at->diffInDays(now()) < 1) {
+        $updatedAt = $post->updated_at->diffForHumans();
+    }
+@endphp
+
+
 @extends('layouts.default')
 
 @section('title', 'Edit Post')
@@ -14,15 +26,15 @@
             @csrf
             @method('PUT')
             
-            <div>
+            <div class="post-edit-header">                
+                <div class="edit-meta">
+                    <span>Created: {{ $createdAt }}</span>
+                    <span>Updated: {{ $updatedAt }}</span>
+                </div>
+
                 <button type="submit" class="edit-btn" id="edit-name-btn" data-field="name" title="Edit Post">
                     <img height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Post">
                 </button>
-                
-                <div style="font-size: 0.8em; display: flex; flex-direction: column;">
-                    <span>Created: {{ $post->created_at->diffForHumans() }}</span>
-                    <span>Updated: {{ $post->updated_at->format('j F Y') }}</span>
-                </div>
             </div>
 
             <div class="input-cont">
@@ -34,7 +46,7 @@
             <div class="input-cont">
                 @error('content') <span style="color:crimson">{{ $message }}</span> @enderror
                 <textarea name="content" id="content" rows="5" required readonly>{{ $post->content }}</textarea>
-                <label for="content">Edit content</label>
+                <label for="content">Content</label>
             </div>
 
             <div class="input-cont">
@@ -50,7 +62,7 @@
             </div>
             @error('tags') <span style="color:crimson">{{ $message }}</span> @enderror
 
-            <button class="btn" type="submit">Change it</button>
+            <button class="btn" type="submit" id="submit-btn" disabled>Change it</button>
         </form>                
     @else
         <p style="color: crimson">Unauthorised access</p>
@@ -59,33 +71,16 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const inputs = document.querySelectorAll('.input-cont input');
+        const inputs = document.querySelectorAll('.input-cont input[type="text"], .input-cont textarea');
         const editBtn = document.querySelector('.edit-btn');
+        const submitBtn = document.getElementById('submit-btn');
 
         // Toggles the edit state of the input fields
-        editBtns.forEach(btn => {
-            btn.addEventListener('click', function(event) {
-                event.preventDefault();
-                const field = this.getAttribute('data-field');
-                toggleEdit(field);
-            });
+        editBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            inputs.forEach(input => input.toggleAttribute('readonly'));
+            submitBtn.removeAttribute('disabled');
         });
-
-        // Enable the submit button when any input field is modified
-        inputs.forEach(input => {
-            input.addEventListener('input', function() {
-                submitBtn.removeAttribute('disabled');
-            });
-        });
-
-        function toggleEdit(field) {
-            const input = document.getElementById(field);
-            input.toggleAttribute('readonly');
-
-            if (field === 'password') {
-                const confirmInput = document.getElementById('password_confirmation');
-                confirmInput.toggleAttribute('readonly');
-            }
-        }
     });
 </script>

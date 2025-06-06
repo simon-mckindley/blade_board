@@ -238,6 +238,8 @@ h1 {
     gap: 1em;
     margin-top: 2em;
     margin-left: 2vw;
+    min-width: 20em;
+    max-width: 30em;
     width: fit-content;
 
     .profile-cont {
@@ -328,7 +330,7 @@ input[type="checkbox"]:checked+.tag-input {
     padding: 0.25em;
     border-radius: 8px;
     transition: background-color 200ms ease;
-    
+
     &:hover {
         background-color: var(--light-secondary);
     }
@@ -433,6 +435,19 @@ input[type="checkbox"]:checked+.tag-input {
     padding: 1em;
     margin-bottom: 1em;
     max-width: 25em;
+}
+
+
+/* Post Edit */
+.post-edit-header {
+    display: flex;
+    justify-content: space-between;
+
+    .edit-meta {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.8em;
+    }
 }
 
 

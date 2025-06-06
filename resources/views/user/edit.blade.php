@@ -10,6 +10,11 @@
 
 @section('maincontent')
     @if ($user->id === auth()->id())
+        <div style="font-size: 0.8em">
+            <dt>Last Updated</dt>
+            <dd>{{ $user->updated_at->format('j F Y') }}</dd>
+        </div>
+
         <form class="auth-form" method="POST" action="{{ route('user.update', $user->id) }}">
             @csrf
             @method('PUT')
