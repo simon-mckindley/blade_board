@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title', 'Post - ' . ucfirst($post->title))
+@section('title', 'Post -> ' . ucfirst($post->title))
 
 @section('maincontent')  
     <div class="post-navigation">

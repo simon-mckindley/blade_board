@@ -59,11 +59,13 @@ dl, dd, dt {
 }
 
 input, textarea, select {
+    color: var(--bg-color);
     font: inherit;
     resize: none;
     padding: 0.5em 1em;
     border: none;
     border-radius: 8px;
+    background-color: var(--text-color);
 }
 
 input:disabled, textarea:disabled, select:disabled,
