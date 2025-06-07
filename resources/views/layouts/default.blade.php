@@ -7,6 +7,7 @@
     <link rel="icon" href="{{ asset('images/bladeboard_icon.png') }}" type="image/x-icon">
     <title>@yield('title', "BLADE_board")</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @yield('cdns')
 </head>
 
 <body>

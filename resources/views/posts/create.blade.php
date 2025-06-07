@@ -2,13 +2,27 @@
 
 @section('title', 'Create Post')
 
+@section('cdns')
+    <script src="https://cdn.tiny.cloud/1/v3fkqpljj4j2kezzon857vndatqa01pjyxocgfcnx3ejkh84/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#content',
+            menubar: false,
+            plugins: 'link lists',
+            toolbar: 'undo redo | bold italic underline | bullist numlist | link',
+            height: 300
+        });
+    </script>
+@endsection
+
 @section('add-link')
     <a class="link" href="{{ route('posts.display') }}">All Posts</a>
 @endsection
 
 @section('pagetitle', 'Create a Post')
 
-@section('maincontent')    
+@section('maincontent')  
+
     @if (session('success'))
     <div style="color: green; margin-top: 10px;">
         <p>{{ session('success')['message'] }}</p>
@@ -19,7 +33,7 @@
         </p>
     </div>
     @endif
-    
+
     <form class="post-form" method="POST" action="{{ route('posts.store') }}">
         @csrf
 

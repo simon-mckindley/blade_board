@@ -2,13 +2,27 @@
 
 @section('title', 'Edit Post')
 
+@section('cdns')
+    <script src="https://cdn.tiny.cloud/1/v3fkqpljj4j2kezzon857vndatqa01pjyxocgfcnx3ejkh84/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#content',
+            menubar: false,
+            plugins: 'link lists',
+            toolbar: 'undo redo | bold italic underline | bullist numlist | link',
+            height: 300
+        });
+    </script>
+@endsection
+
 @section('add-link')
     <a class="btn warning-btn" href="{{ route('posts.show', $post->id) }}">Cancel</a>
 @endsection
 
-@section('pagetitle', 'Edit -> ' . ucfirst($post->title))
+@section('pagetitle', 'Edit -> ' . ucwords($post->title))
 
 @section('maincontent')
+
     @if ($post->user->id === auth()->id())
         <form class="post-form" method="POST" action="{{ route('posts.update', $post->id) }}">
             @csrf

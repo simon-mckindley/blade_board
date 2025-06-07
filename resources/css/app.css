@@ -13,6 +13,7 @@ html {
     --light-secondary: hsl(2, 78%, 24%);
     --warning-color: #be3652;
     --white-overlay: rgba(255, 255, 255, 0.2);
+    --bg-color-overlay: rgba(7, 63, 65, 0.9);
 
     --outer-padding: 1em;
 }
@@ -101,6 +102,14 @@ button:disabled {
 
 
 /* General Elements */
+.page-title {
+    position: sticky;
+    top: 3.5em;
+    z-index: 50;
+    width: 24em;
+    background-color: var(--bg-color-overlay);
+}
+
 .link {
     color: var(--text-color);
     text-decoration: underline;
@@ -267,10 +276,13 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 1em;
-    margin-block: 2em;
+    margin-block-end: 2em;
+    padding: 1em;
     min-width: 20em;
     width: fit-content;
     max-width: 24em;
+    border-radius: 10px;
+    background-color: var(--white-overlay);
 
     .btn {
         margin-top: 0.5em;
@@ -285,7 +297,7 @@ h1 {
 
     input:focus-within+label, textarea:focus-within+label {
         translate: 0.5em;
-        rotate: -5deg;
+        rotate: -2deg;
     }
 }
 
@@ -441,7 +453,7 @@ input[type="checkbox"]:checked+.tag-input {
 
     .comments-section {
         grid-area: 1 / 2 / 3 / 3;
-        
+
         h3 {
             margin-top: 0;
         }

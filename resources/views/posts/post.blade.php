@@ -36,7 +36,7 @@
             <div class="post-main">
                 <div class="post-title">{{ ucwords($post->title) }}</div>
                 
-                <div class="post-content">{{ $post->content }}</div>
+                <div class="post-content">{!! ($post->content) !!}</div>
                 
                 <div class="post-tags">
                     @foreach ($post->tags as $tag)
