@@ -46,7 +46,7 @@
             </div>
         </div>
         
-        <form class="post-form" action="{{ route('comments.store', $post) }}" method="POST">
+        <form class="post-form comment-form hidden" action="{{ route('comments.store', $post) }}" method="POST">
             @csrf
             <div class="input-cont">
                 @error('comment') <span style="color:crimson">{{ $message }}</span> @enderror
@@ -58,7 +58,12 @@
         </form>
         
         <div class="comments-section">
-            <h3>Comments ({{ $post->comments->count() }})</h3>
+            <div class="comments-head">
+                <h3>Comments ({{ $post->comments->count() }})</h3>
+                <button type="button" class="comment-action" title="Add Comment">
+                    <img height="24" src="{{ asset('images/comment_icon.svg') }}" alt="Add Comment">
+                </button>
+            </div>
             @if ($post->comments->isEmpty())
                 <p>No comments yet</p>
             @else
@@ -69,4 +74,16 @@
         </div>
 
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const commentForm = document.querySelector('.comment-form');
+            
+            document.querySelector('.comment-action').addEventListener('click', function() {
+                commentForm.classList.toggle('hidden');
+            });
+        });
+    </script>
 @endsection
