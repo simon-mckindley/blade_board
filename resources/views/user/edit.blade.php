@@ -10,7 +10,7 @@
 
 @section('maincontent')
     @if ($user->id === auth()->id())
-        <div style="font-size: 0.8em">
+        <div style="font-size: 0.8em; margin-left: 1.5em;">
             <dt>Last Updated</dt>
             <dd>{{ display_time($user->updated_at) }}</dd>
         </div>
