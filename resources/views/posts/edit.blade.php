@@ -10,7 +10,14 @@
             menubar: false,
             plugins: 'link lists',
             toolbar: 'undo redo | bold italic underline | bullist numlist | link',
-            height: 300
+            height: 300,
+            content_style: 'body { background-color: #ebebeb; color: #073f41; }',
+            setup: function (editor) {
+                editor.on('input', function () {
+                console.log('TinyMCE input event triggered');
+                    document.getElementById('submit-btn').removeAttribute('disabled');
+                });
+            }
         });
     </script>
 @endsection
@@ -24,30 +31,24 @@
 @section('maincontent')
 
     @if ($post->user->id === auth()->id())
+        <div class="edit-meta">
+            <span>Created -> {{ display_time($post->created_at) }}</span>
+            <span>Updated -> {{ display_time($post->updated_at) }}</span>
+        </div>
+
         <form class="post-form" method="POST" action="{{ route('posts.update', $post->id) }}">
             @csrf
             @method('PUT')
-            
-            <div class="post-edit-header">                
-                <div class="edit-meta">
-                    <span>Created -> {{ display_time($post->created_at) }}</span>
-                    <span>Updated -> {{ display_time($post->updated_at) }}</span>
-                </div>
-
-                <button type="submit" class="edit-btn" id="edit-name-btn" data-field="name" title="Edit Post">
-                    <img height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Post">
-                </button>
-            </div>
 
             <div class="input-cont">
                 @error('title') <span style="color:crimson">{{ $message }}</span> @enderror
-                <input type="text" name="title" id="title" value="{{ $post->title }}" required readonly>
+                <input type="text" name="title" id="title" value="{{ $post->title }}" required>
                 <label for="title">Title</label>
             </div>
             
             <div class="input-cont">
                 @error('content') <span style="color:crimson">{{ $message }}</span> @enderror
-                <textarea name="content" id="content" rows="5" required readonly>{{ $post->content }}</textarea>
+                <textarea name="content" id="content" rows="5" required>{{ $post->content }}</textarea>
                 <label for="content">Content</label>
             </div>
 
@@ -74,17 +75,19 @@
 @section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const inputs = document.querySelectorAll('.input-cont input[type="text"], .input-cont textarea');
-        const editBtn = document.querySelector('.edit-btn');
         const submitBtn = document.getElementById('submit-btn');
 
-        // Toggles the edit state of the input fields
-        editBtn.addEventListener('click', function(event) {
-            event.preventDefault();
-            
-            inputs.forEach(input => input.toggleAttribute('readonly'));
+        // Enable the submit button if any input is changed
+        document.querySelector('input[type="text"]').addEventListener('input', function() {
             submitBtn.removeAttribute('disabled');
         });
+
+        document.querySelectorAll('[name="tags[]"]').forEach(checkbox => {
+            checkbox.addEventListener('change', (event) => {
+                submitBtn.removeAttribute('disabled');
+            });
+        });
+
     });
 </script>
 @endsection

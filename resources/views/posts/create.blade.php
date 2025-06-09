@@ -10,7 +10,8 @@
             menubar: false,
             plugins: 'link lists',
             toolbar: 'undo redo | bold italic underline | bullist numlist | link',
-            height: 300
+            height: 300,
+            content_style: 'body { background-color: #ebebeb; color: #073f41; }'
         });
     </script>
 @endsection

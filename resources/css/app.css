@@ -13,7 +13,7 @@ html {
     --light-secondary: hsl(2, 78%, 24%);
     --warning-color: #be3652;
     --white-overlay: rgba(255, 255, 255, 0.2);
-    --bg-color-overlay: rgba(7, 63, 65, 0.9);
+    --bg-color-overlay: rgba(7, 63, 65, 0.7);
 
     --outer-padding: 1em;
 }
@@ -26,7 +26,7 @@ body {
     font-family: 'Sora', serif;
     margin: 0 auto;
     max-width: 1600px;
-    min-height: 100dvh;
+    min-height: 101dvh;
 }
 
 main {
@@ -49,6 +49,12 @@ main {
 
 
 /* Resets */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 img {
     display: block;
     max-width: 100%;
@@ -108,6 +114,7 @@ button:disabled {
     z-index: 50;
     width: 24em;
     background-color: var(--bg-color-overlay);
+    box-shadow: 0 0 10px 1px var(--bg-color-overlay);
 }
 
 .link {
@@ -278,9 +285,9 @@ h1 {
     gap: 1em;
     margin-block-end: 2em;
     padding: 1em;
-    min-width: 20em;
+    min-width: 24em;
     width: fit-content;
-    max-width: 24em;
+    max-width: 30em;
     border-radius: 10px;
     background-color: var(--white-overlay);
 
@@ -349,7 +356,6 @@ input[type="checkbox"]:checked+.tag-input {
         background-color: var(--light-secondary);
     }
 }
-
 
 
 /* Post Cards */
@@ -460,6 +466,7 @@ input[type="checkbox"]:checked+.tag-input {
     }
 }
 
+
 /* Comment Cards */
 .comment-card {
     box-sizing: border-box;
@@ -488,15 +495,10 @@ input[type="checkbox"]:checked+.tag-input {
 
 
 /* Post Edit */
-.post-edit-header {
+.edit-meta {
     display: flex;
-    justify-content: space-between;
-
-    .edit-meta {
-        display: flex;
-        flex-direction: column;
-        font-size: 0.8em;
-    }
+    flex-direction: column;
+    font-size: 0.8em;
 }
 
 
