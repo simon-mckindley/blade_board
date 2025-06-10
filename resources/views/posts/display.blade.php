@@ -9,12 +9,6 @@
 @section('pagetitle', 'Posts')
 
 @section('maincontent')
-    @if (session('success'))
-        <div style="color: green">
-            {{ session('success') }}
-        </div>
-    @endif
-
     @if ($posts->isEmpty())
         <p>No posts found</p>
     @else

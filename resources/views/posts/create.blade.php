@@ -24,15 +24,12 @@
 
 @section('maincontent')  
 
-    @if (session('success'))
-    <div style="color: green; margin-top: 10px;">
-        <p>{{ session('success')['message'] }}</p>
+    @if (session('new_post'))
         <p>
-            <a class="link" href="{{ route('posts.show', session('success')['post_id']) }}">
+            <a class="link" href="{{ route('posts.show', session('new_post')['post_id']) }}">
                 View new post
             </a>
         </p>
-    </div>
     @endif
 
     <form class="post-form" method="POST" action="{{ route('posts.store') }}">

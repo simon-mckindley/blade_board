@@ -37,23 +37,25 @@
             <a class="btn" href="{{ route('register') }}">Register</a>
         </div>
     @endguest
-    
+     
 @endsection
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const timeElement = document.querySelector('.time');
-        if (!timeElement) return; // Ensure the element exists
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const timeElement = document.querySelector('.time');
+            if (!timeElement) return; // Ensure the element exists
+            
+            // Get the current hour and set the time of day
+            const hour = new Date().getHours();
 
-        // Get the current hour and set the time of day
-        const hour = new Date().getHours();
-
-        if (hour < 12) {
-            timeElement.textContent = 'morning';
-        } else if (hour < 18) {
-            timeElement.textContent = 'afternoon';
-        } else {
-            timeElement.textContent = 'evening';
-        }
-    });
-</script>
+            if (hour < 12) {
+                timeElement.textContent = 'morning';
+            } else if (hour < 18) {
+                timeElement.textContent = 'afternoon';
+            } else {
+                timeElement.textContent = 'evening';
+            }
+        });
+    </script>
+@endsection

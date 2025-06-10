@@ -66,37 +66,37 @@
 @endsection
 
 @section('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const inputs = document.querySelectorAll('.edit-input input');
-        const editBtns = document.querySelectorAll('.edit-btn');
-        const submitBtn = document.getElementById('submit-btn');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.edit-input input');
+            const editBtns = document.querySelectorAll('.edit-btn');
+            const submitBtn = document.getElementById('submit-btn');
 
-        // Toggles the edit state of the input fields
-        editBtns.forEach(btn => {
-            btn.addEventListener('click', function(event) {
-                event.preventDefault();
-                const field = this.getAttribute('data-field');
-                toggleEdit(field);
+            // Toggles the edit state of the input fields
+            editBtns.forEach(btn => {
+                btn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const field = this.getAttribute('data-field');
+                    toggleEdit(field);
+                });
             });
-        });
 
-        // Enable the submit button when any input field is modified
-        inputs.forEach(input => {
-            input.addEventListener('input', function() {
-                submitBtn.removeAttribute('disabled');
+            // Enable the submit button when any input field is modified
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    submitBtn.removeAttribute('disabled');
+                });
             });
-        });
 
-        function toggleEdit(field) {
-            const input = document.getElementById(field);
-            input.toggleAttribute('readonly');
+            function toggleEdit(field) {
+                const input = document.getElementById(field);
+                input.toggleAttribute('readonly');
 
-            if (field === 'password') {
-                const confirmInput = document.getElementById('password_confirmation');
-                confirmInput.toggleAttribute('readonly');
+                if (field === 'password') {
+                    const confirmInput = document.getElementById('password_confirmation');
+                    confirmInput.toggleAttribute('readonly');
+                }
             }
-        }
-    });
-</script>
+        });
+    </script>
 @endsection

@@ -47,10 +47,5 @@
             <dt>Joined</dt>
             <dd>{{ display_time($user->created_at) }}</dd>
         </div>
-    </dl>
-
-    @if (session('success'))
-        <p style="color: green">{{ session('success') }}</p>
-    @endif
-    
+    </dl>    
 @endsection
