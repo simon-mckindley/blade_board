@@ -11,6 +11,9 @@ html {
     --bg-color: #073f41;
     --secondary-color: #400a08;
     --light-secondary: hsl(2, 78%, 24%);
+    --success-color: #2e7d32;
+    --error-color: #d32f2f;
+    --info-color: #1976d2;
     --warning-color: #be3652;
     --white-overlay: rgba(255, 255, 255, 0.2);
     --bg-color-overlay: rgba(7, 63, 65, 0.7);
@@ -558,19 +561,19 @@ input[type="checkbox"]:checked+.tag-input {
 }
 
 .info {
-    --_border-color: cadetblue;
+    --_border-color: var(--info-color);
 }
 
 .success {
-    --_border-color: green;
+    --_border-color: var(--success-color);
 }
 
 .error {
-    --_border-color: var(--warning-color);
+    --_border-color: var(--error-color);
 }
 
 .warning {
-    --_border-color: orange;
+    --_border-color: var(--warning-color);
 }
 
 
