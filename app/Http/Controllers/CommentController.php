@@ -31,19 +31,32 @@ class CommentController extends Controller
     public function store(Request $request, Post $post)
     {
         $validated = $request->validate([
-            'comment' => 'required|string|max:1000',
+            'comment' => 'required|string|min:3,max:1000',
         ], [
             'comment.required' => 'Please write a comment before submitting.',
         ]);
 
-        $comment = new Comment();
-        $comment->content = $validated['comment'];
-        $comment->user_id = Auth::id();
-        $comment->post_id = $post->id;
-        $comment->save();
+        try {
+            $comment = new Comment();
+            $comment->content = $validated['comment'];
+            $comment->user_id = Auth::id();
+            $comment->post_id = $post->id;
+            $comment->save();
 
-        return redirect()->route('posts.show', $post->id)
-            ->with('success', 'Comment added successfully!');
+            return redirect()->route('posts.show', $post->id)
+                ->with('alert', [
+                    'type' => 'success',
+                    'message' => 'Comment added successfully!'
+                ]);
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'There was a problem creating the comment: ' . $e->getMessage(),
+                ]);
+        }
     }
 
     /**

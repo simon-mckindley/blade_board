@@ -49,7 +49,7 @@
         <form class="post-form comment-form hidden" action="{{ route('comments.store', $post) }}" method="POST">
             @csrf
             <div class="input-cont">
-                @error('comment') <span style="color:crimson">{{ $message }}</span> @enderror
+                @error('comment') <span class="input-error">{{ $message }}</span> @enderror
                 <textarea name="comment" id="comment" rows="3" required></textarea>
                 <label for="comment">Add a comment</label>
             </div>
