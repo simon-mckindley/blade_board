@@ -80,7 +80,8 @@ class PostController extends Controller
 
         return redirect()
             ->route('posts.create')
-            ->with('success', [
+            ->with('alert', [
+                'type' => 'success',
                 'message' => 'Post created!',
                 'post_id' => $post->id,
             ]);
