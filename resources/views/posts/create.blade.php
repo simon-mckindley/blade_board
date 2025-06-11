@@ -24,9 +24,9 @@
 
 @section('maincontent')  
 
-    @if (!empty(session('alert')['post_id']))
+    @if (!empty(session('alert.post_id')))
         <p>
-            <a class="link" href="{{ route('posts.show', session('alert')['post_id']) }}">
+            <a class="link" href="{{ route('posts.show', session('alert.post_id')) }}">
                 View new post
             </a>
         </p>

@@ -37,8 +37,8 @@
 
     @if (session('alert'))
         <x-alert 
-            :type="session('alert')['type']" 
-            :message="session('alert')['message']"/>
+            :type="session('alert.type')" 
+            :message="session('alert.message')"/>
     @endif
 </body>
 

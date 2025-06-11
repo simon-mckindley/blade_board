@@ -55,37 +55,45 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate(
-            [
-                'title' => 'required|string|max:255',
-                'content' => 'required|string',
-                'tags' => 'required|array',
-                'tags.*' => 'exists:tags,id',
-            ],
-            [
-                'title.required' => 'A title is required for the post.',
-                'content.required' => 'The post content is required.',
-                'tags.required' => 'At least one tag is required.',
-                'tags.*.exists' => 'One or more selected tags do not exist.',
-            ]
-        );
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'tags' => 'required|array',
+            'tags.*' => 'exists:tags,id',
+        ], [
+            'title.required' => 'A title is required for the post.',
+            'content.required' => 'The post content is required.',
+            'tags.required' => 'At least one tag is required.',
+            'tags.*.exists' => 'One or more selected tags do not exist.',
+        ]);
 
-        $post = new Post();
-        $post->title = $validated['title'];
-        $post->content = $validated['content'];
-        $post->user_id = Auth::id();
-        $post->save();
+        try {
+            $post = new Post();
+            $post->title = $validated['title'];
+            $post->content = $validated['content'];
+            $post->user_id = Auth::id();
+            $post->save();
 
-        $post->tags()->attach($validated['tags']); // sync tags
+            $post->tags()->attach($validated['tags']);
 
-        return redirect()
-            ->route('posts.create')
-            ->with('alert', [
-                'type' => 'success',
-                'message' => 'Post created!',
-                'post_id' => $post->id,
-            ]);
+            return redirect()
+                ->route('posts.create')
+                ->with('alert', [
+                    'type' => 'success',
+                    'message' => 'Post created!',
+                    'post_id' => $post->id,
+                ]);
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'There was a problem creating the post: ' . $e->getMessage(),
+                ]);
+        }
     }
+
 
     /**
      * Display the specified resource.
@@ -117,13 +125,28 @@ class PostController extends Controller
             'tags' => 'required|array',
             'tags.*' => 'exists:tags,id',
         ]);
-        $post->title = $validated['title'];
-        $post->content = $validated['content'];
-        $post->save();
-        $post->tags()->sync($validated['tags']); // sync tags
-        return redirect()
-            ->route('posts.show', $post->id)
-            ->with('success', 'Post updated successfully!');
+
+        try {
+            $post->title = $validated['title'];
+            $post->content = $validated['content'];
+            $post->save();
+            $post->tags()->sync($validated['tags']); // sync tags
+
+            return redirect()
+                ->route('posts.show', $post->id)
+                ->with('alert', [
+                    'type' => 'success',
+                    'message' => 'Post updated successfully!',
+                ]);
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'There was a problem updating the post: ' . $e->getMessage(),
+                ]);
+        }
     }
 
     /**
@@ -134,6 +157,9 @@ class PostController extends Controller
         $post->delete();
         return redirect()
             ->route('posts.display')
-            ->with('success', 'Post deleted successfully!');
+            ->with('alert', [
+                'type' => 'warning',
+                'message' => 'Post deleted successfully!',
+            ]);
     }
 }
