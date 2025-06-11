@@ -20,7 +20,7 @@
             @method('PUT')
 
             <div class="input-cont">
-                @error('name') <span style="color:crimson">{{ $message }}</span> @enderror
+                @error('name') <span class="input-error">{{ $message }}</span> @enderror
                 <div class="edit-input">
                     <input type="text" name="name" id="name" value="{{ $user->name }}" required readonly>
                     <button type="submit" class="edit-btn" id="edit-name-btn" data-field="name" title="Edit Name">
@@ -31,7 +31,7 @@
             </div>
 
             <div class="input-cont">
-                @error('email') <span style="color:crimson">{{ $message }}</span> @enderror
+                @error('email') <span class="input-error">{{ $message }}</span> @enderror
                 <div class="edit-input">
                     <input type="email" name="email" id="email" value="{{ $user->email }}" required readonly>
                     <button type="submit" class="edit-btn" id="edit-email-btn" data-field="email" title="Edit Email">
@@ -42,7 +42,7 @@
             </div>
 
             <div class="input-cont">
-                @error('password') <span style="color:crimson">{{ $message }}</span> @enderror
+                @error('password') <span class="input-error">{{ $message }}</span> @enderror
                 <div class="edit-input">
                     <input type="password" name="password" id="password" placeholder="Leave blank to keep password" readonly>
                     <button type="submit" class="edit-btn" id="edit-password-btn" data-field="password" title="Edit Password">
@@ -61,7 +61,7 @@
         </form>
 
     @else
-        <p style="color: crimson">Unauthorised access</p>
+        <p class="input-error">Unauthorised access</p>
     @endif
 @endsection
 

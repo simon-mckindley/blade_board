@@ -41,34 +41,34 @@
             @method('PUT')
 
             <div class="input-cont">
-                @error('title') <span style="color:crimson">{{ $message }}</span> @enderror
-                <input type="text" name="title" id="title" value="{{ $post->title }}" required>
+                @error('title') <span class="input-error">{{ $message }}</span> @enderror
+                <input type="text" name="title" id="title" value="{{ $post->title }}">
                 <label for="title">Title</label>
             </div>
             
             <div class="input-cont">
-                @error('content') <span style="color:crimson">{{ $message }}</span> @enderror
-                <textarea name="content" id="content" rows="5" required>{{ $post->content }}</textarea>
+                @error('content') <span class="input-error">{{ $message }}</span> @enderror
+                <textarea name="content" id="content" rows="5">{{ $post->content }}</textarea>
                 <label for="content">Content</label>
             </div>
 
             <div class="input-cont">
+                @error('tags') <span class="input-error">{{ $message }}</span> @enderror
                 <div class="tags-cont">
                     @foreach ($tags as $tag)
                     <input type="checkbox" name="tags[]" id="{{ $tag->name }}" value="{{ $tag->id }}"
-                    {{ $post->tags->contains($tag) ? 'checked' : '' }}
-                    {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                        {{ $post->tags->contains($tag) ? 'checked' : '' }}
+                        {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
                     <label class="tag-input" for="{{ $tag->name }}">{{ $tag->name }}</label>
                     @endforeach
                 </div>
                 <label>Tags</label>
             </div>
-            @error('tags') <span style="color:crimson">{{ $message }}</span> @enderror
 
             <button class="btn" type="submit" id="submit-btn" disabled>Change it</button>
         </form>                
     @else
-        <p style="color: crimson">Unauthorised access</p>
+        <p class="input-error">Unauthorised access</p>
     @endif
 @endsection
 

@@ -190,6 +190,8 @@ h1 {
     padding-right: var(--outer-padding);
 }
 
+
+/* Home Page */
 .home-title {
     width: 12ch;
     margin-inline: auto;
@@ -202,7 +204,6 @@ h1 {
         animation: header 2s 500ms linear forwards;
     }
 }
-
 
 /* Bounce effect */
 @keyframes header {
@@ -234,8 +235,6 @@ h1 {
     }
 }
 
-
-/* Home Page */
 .home-actions {
     display: flex;
     flex-direction: column;
@@ -356,6 +355,13 @@ input[type="checkbox"]:checked+.tag-input {
     &:hover {
         background-color: var(--light-secondary);
     }
+}
+
+.input-error {
+    background-color: var(--warning-color);
+    padding: 0.1em 0.5em;
+    margin-top: 2px;
+    border-radius: 6px;
 }
 
 
@@ -538,6 +544,7 @@ input[type="checkbox"]:checked+.tag-input {
     width: 20ch;
     padding: 1em;
     color: white;
+    font-size: 1.1em;
     text-align: center;
     background-color: var(--white-overlay);
     backdrop-filter: blur(5px);
@@ -547,7 +554,7 @@ input[type="checkbox"]:checked+.tag-input {
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.8);
     animation:
         show-in 600ms ease-out,
-        move-out 600ms 8s ease-out forwards;
+        move-out 600ms 6s ease-out forwards;
 }
 
 .info {

@@ -9,19 +9,21 @@
         @csrf
 
         <div class="input-cont">
+            @error('email') <span class="input-error">{{ $message }}</span> @enderror
             <input type="email" name="email" id="email" required>
             <label for="email">Email</label>
         </div>
 
         <div class="input-cont">    
+            @error('password') <span class="input-error">{{ $message }}</span> @enderror
             <input type="password" name="password" id="password" required>
             <label for="password">Password</label>
         </div>
 
         <button class="btn" type="submit">Blade me in</button>
 
-        @error('email')
-            <div style="color: crimson">{{ $message }}</div>
+        @error('invalid')
+            <div class="input-error">{{ $message }}</div>
         @enderror
     </form>
 

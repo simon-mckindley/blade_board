@@ -26,7 +26,7 @@
 
     @if (!empty(session('alert.post_id')))
         <p>
-            <a class="link" href="{{ route('posts.show', session('alert.post_id')) }}">
+            <a class="btn" href="{{ route('posts.show', session('alert.post_id')) }}">
                 View new post
             </a>
         </p>
@@ -36,19 +36,19 @@
         @csrf
 
         <div class="input-cont">
-            @error('title') <span style="color:crimson">{{ $message }}</span> @enderror
+            @error('title') <span class="input-error">{{ $message }}</span> @enderror
             <input type="text" id="title" name="title" value="{{ old('title') }}">
             <label for="title">Title</label>
         </div>
 
         <div class="input-cont">
-            @error('content') <span style="color:crimson">{{ $message }}</span> @enderror
+            @error('content') <span class="input-error">{{ $message }}</span> @enderror
             <textarea id="content" name="content" rows="6">{{ old('content') }}</textarea>
             <label for="content">Content</label>
         </div>
 
         <div class="input-cont">
-            @error('tags') <span style="color:crimson">{{ $message }}</span> @enderror
+            @error('tags') <span class="input-error">{{ $message }}</span> @enderror
             <div class="tags-cont">
                 @foreach ($tags as $tag)
                 <input type="checkbox" name="tags[]" id="{{ $tag->name }}" value="{{ $tag->id }}"

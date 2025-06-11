@@ -9,19 +9,19 @@
         @csrf
 
         <div class="input-cont">
-            @error('name') <span>{{ $message }}</span> @enderror
+            @error('name') <span class="input-error">{{ $message }}</span> @enderror
             <input type="text" name="name" id="name" value="{{ old('name') }}">
             <label for="name">Name</label>
         </div>
         
         <div class="input-cont">
-            @error('email') <span>{{ $message }}</span> @enderror
+            @error('email') <span class="input-error">{{ $message }}</span> @enderror
             <input type="email" name="email" id="email" value="{{ old('email') }}">
             <label for="email">Email</label>
         </div>
                 
         <div class="input-cont">
-            @error('password') <span>{{ $message }}</span> @enderror
+            @error('password') <span class="input-error">{{ $message }}</span> @enderror
             <input type="password" name="password" id="password">
             <label for="password">Password</label>
         </div>

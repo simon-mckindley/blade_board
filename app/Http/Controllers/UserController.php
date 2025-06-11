@@ -25,11 +25,16 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()
+                ->intended('/')
+                ->with('alert', [
+                    'type' => 'info',
+                    'message' => 'Login successful!',
+                ]);
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'invalid' => 'The login info doesn\'t match our records.',
         ]);
     }
 
@@ -41,7 +46,11 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/')
+            ->with('alert', [
+                'type' => 'info',
+                'message' => 'You have been logged out successfully.',
+            ]);
     }
 
 
@@ -56,31 +65,46 @@ class UserController extends Controller
         // Validate input
         $validated = $request->validate(
             [
-                'name' => 'required|string|max:255',
+                'name' => 'required|string|min:3,max:255',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|confirmed|min:6',
             ],
             [
-                'name.required' => 'The name field is required.',
+                'name.required' => 'The name is required.',
                 'email.email' => 'The email must be a valid email address.',
-                'email.required' => 'The email field is required.',
+                'email.required' => 'The email is required.',
                 'email.unique' => 'This email is already registered.',
+                'password.required' => 'The password is required.',
                 'password.confirmed' => 'The password confirmation does not match.',
             ]
         );
 
         // Create the user
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-        ]);
+        try {
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+            ]);
 
-        // Log the user in
-        Auth::login($user);
+            // Log the user in
+            Auth::login($user);
 
-        // Redirect to home
-        return redirect()->route('home')->with('success', 'Registration successful!');
+            // Redirect to home
+            return redirect()->route('home')
+                ->with('alert', [
+                    'type' => 'success',
+                    'message' => 'Registration successful!',
+                ]);
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'There was a problem creating the account: ' . $e->getMessage(),
+                ]);
+        }
     }
 
 
@@ -92,21 +116,6 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -182,27 +191,41 @@ class UserController extends Controller
         // Validate input
         $validated = $request->validate(
             [
-                'name' => 'required|string|max:255',
+                'name' => 'required|string|min:3,max:255',
                 'email' => 'required|email|unique:users,email,' . $user->id,
                 'password' => 'nullable|confirmed|min:6',
             ],
             [
                 'email.email' => 'The email must be a valid email address.',
-                'email.required' => 'The email field is required.',
+                'email.required' => 'The email is required.',
                 'email.unique' => 'This email is already registered.',
                 'password.confirmed' => 'The password confirmation does not match.',
             ]
         );
 
         // Update the user
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        if ($request->filled('password')) {
-            $user->password = Hash::make($validated['password']);
-        }
-        $user->save();
+        try {
+            $user->name = $validated['name'];
+            $user->email = $validated['email'];
+            if ($request->filled('password')) {
+                $user->password = Hash::make($validated['password']);
+            }
+            $user->save();
 
-        return redirect()->route('user.show')->with('success', 'Profile updated successfully!');
+            return redirect()->route('user.show')
+                ->with('alert', [
+                    'type' => 'success',
+                    'message' => 'Profile updated successfully!',
+                ]);
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'There was a problem creating the account: ' . $e->getMessage(),
+                ]);
+        }
     }
 
     /**

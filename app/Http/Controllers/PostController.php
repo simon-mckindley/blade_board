@@ -56,7 +56,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|min:3,max:255',
             'content' => 'required|string',
             'tags' => 'required|array',
             'tags.*' => 'exists:tags,id',
@@ -120,10 +120,15 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|min:3,max:255',
             'content' => 'required|string',
             'tags' => 'required|array',
             'tags.*' => 'exists:tags,id',
+        ], [
+            'title.required' => 'A title is required for the post.',
+            'content.required' => 'The post content is required.',
+            'tags.required' => 'At least one tag is required.',
+            'tags.*.exists' => 'One or more selected tags do not exist.',
         ]);
 
         try {
