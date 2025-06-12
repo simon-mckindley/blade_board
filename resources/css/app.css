@@ -458,19 +458,31 @@ input[type="checkbox"]:checked+.tag-input {
 }
 
 .post-page-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
     column-gap: 1em;
 
-    .comment-form {
-        grid-area: 2 / 1 / 3 / 2;
+    .post {
+        flex-grow: 1;
+    }
 
-        animation: show-in 200ms ease-in;
+    .comment-form-container {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 500ms;
+
+        div {
+            overflow: hidden;
+        }
+
+        .comment-form {
+            width: auto;
+        }
     }
 
     .comments-section {
         max-width: 25em;
-        grid-area: 1 / 2 / 4 / 3;
 
         h3 {
             margin: 0 0 0 0.25em;
@@ -503,6 +515,10 @@ input[type="checkbox"]:checked+.tag-input {
 
 /* Comment Cards */
 .comment-card {
+    opacity: 0;
+    transform: translateY(100%);
+    --_delay: 1100ms;
+
     box-sizing: border-box;
     background-color: rgb(173, 216, 230, 0.5);
     backdrop-filter: blur(5px);
@@ -510,6 +526,23 @@ input[type="checkbox"]:checked+.tag-input {
     padding: 1em;
     margin-bottom: 1em;
     max-width: 25em;
+    animation: move-in 300ms ease-in var(--_delay) forwards;
+
+    &:nth-child(1) {
+        --_delay: 300ms;
+    }
+
+    &:nth-child(2) {
+        --_delay: 500ms;
+    }
+
+    &:nth-child(3) {
+        --_delay: 700ms;
+    }
+
+    &:nth-child(4) {
+        --_delay: 900ms;
+    }
 
     .comment-meta {
         display: flex;
@@ -590,10 +623,21 @@ input[type="checkbox"]:checked+.tag-input {
     display: none;
 }
 
+#container.open {
+    grid-template-rows: 1fr;
+}
+
 
 @keyframes show-in {
     0% {
         opacity: 0;
+    }
+}
+
+@keyframes move-in {
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

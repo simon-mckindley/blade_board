@@ -46,31 +46,51 @@
             </div>
         </div>
         
-        <form class="post-form comment-form hidden" action="{{ route('comments.store', $post) }}" method="POST">
-            @csrf
-            <div class="input-cont">
-                @error('comment') <span class="input-error">{{ $message }}</span> @enderror
-                <textarea name="comment" id="comment" rows="3" required></textarea>
-                <label for="comment">Add a comment</label>
-            </div>
+        <div class="comments-grid">
+            {{-- <div class="comment-form-container">
+                <form class="post-form comment-form" action="{{ route('comments.store', $post) }}" method="POST">
+                    @csrf
+                    <div class="input-cont">
+                        @error('comment') <span class="input-error">{{ $message }}</span> @enderror
+                        <textarea name="comment" id="comment" rows="3" required></textarea>
+                        <label for="comment">Add a comment</label>
+                    </div>
+                    
+                    <button class="btn" type="submit">Submit Comment</button>
+                </form>
+            </div> --}}
             
-            <button class="btn" type="submit">Submit Comment</button>
-        </form>
-        
-        <div class="comments-section">
-            <div class="comments-head">
-                <h3>Comments ({{ $post->comments->count() }})</h3>
-                <button type="button" class="comment-action" title="Add Comment">
-                    <img height="24" src="{{ asset('images/comment_icon.svg') }}" alt="Add Comment">
-                </button>
-            </div>
-            @if ($post->comments->isEmpty())
+            <div class="comments-section">
+                <div class="comments-head">
+                    <h3>Comments ({{ $post->comments->count() }})</h3>
+                    <button type="button" class="comment-action" title="Add Comment">
+                        <img height="24" src="{{ asset('images/comment_icon.svg') }}" alt="Add Comment">
+                    </button>
+                </div>
+
+                <div id="container" class="comment-form-container">
+                    <div>
+                        <form class="post-form comment-form" action="{{ route('comments.store', $post) }}" method="POST">
+                            @csrf
+                            <div class="input-cont">
+                                @error('comment') <span class="input-error">{{ $message }}</span> @enderror
+                                <textarea name="comment" id="comment" rows="3" required></textarea>
+                                <label for="comment">Add a comment</label>
+                            </div>
+                            
+                            <button class="btn" type="submit">Submit Comment</button>
+                        </form>
+                    </div>
+                </div>
+
+                @if ($post->comments->isEmpty())
                 <p>No comments yet</p>
-            @else
-                @foreach ($post->comments->sortByDesc('created_at') as $comment)
-                    <x-comment-card :comment="$comment" :highlightOwn="true" />
-                @endforeach
-            @endif
+                @else
+                    @foreach ($post->comments->sortByDesc('created_at') as $comment)
+                        <x-comment-card :comment="$comment" :highlightOwn="true" />
+                    @endforeach
+                @endif
+            </div>
         </div>
 
     </div>
@@ -79,10 +99,10 @@
 @section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const commentForm = document.querySelector('.comment-form');
+            const commentForm = document.querySelector('.comment-form-container');
             
             document.querySelector('.comment-action').addEventListener('click', function() {
-                commentForm.classList.toggle('hidden');
+                commentForm.classList.toggle('open');
             });
         });
     </script>
