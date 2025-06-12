@@ -99,7 +99,7 @@
 @section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const commentForm = document.querySelector('.comment-form-container');
+            const commentForm = document.getElementById('container');
             
             document.querySelector('.comment-action').addEventListener('click', function() {
                 commentForm.classList.toggle('open');
