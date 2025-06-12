@@ -13,18 +13,14 @@
 
         <div class="post">
             @if ($post->user->id === auth()->id())
-            <div class="post-actions">
-                <a class="action" href="{{ route('posts.edit', $post) }}">
-                    <img height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
-                </a>
-                <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="action">
+                <div class="post-actions">
+                    <a class="action" href="{{ route('posts.edit', $post) }}" title="Edit Post">
+                        <img height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
+                    </a>
+                    <button type="button" class="action" onclick="document.getElementById('delete-confirm-dialog').showModal()" title="Delete Post">
                         <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
                     </button>
-                </form>
-            </div>
+                </div>
             @endif
             
             <div class="post-meta">
@@ -46,20 +42,7 @@
             </div>
         </div>
         
-        <div class="comments-grid">
-            {{-- <div class="comment-form-container">
-                <form class="post-form comment-form" action="{{ route('comments.store', $post) }}" method="POST">
-                    @csrf
-                    <div class="input-cont">
-                        @error('comment') <span class="input-error">{{ $message }}</span> @enderror
-                        <textarea name="comment" id="comment" rows="3" required></textarea>
-                        <label for="comment">Add a comment</label>
-                    </div>
-                    
-                    <button class="btn" type="submit">Submit Comment</button>
-                </form>
-            </div> --}}
-            
+        <div class="comments-grid">            
             <div class="comments-section">
                 <div class="comments-head">
                     <h3>Comments ({{ $post->comments->count() }})</h3>
@@ -94,6 +77,19 @@
         </div>
 
     </div>
+
+    <dialog id="delete-confirm-dialog">
+        <h3>Are you sure you want to delete this post?</h3>
+        <p>This action cannot be undone.</p>
+        <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
+            @csrf
+            @method('DELETE')
+            <div class="dialog-actions">
+                <button type="button" class="btn" onclick="this.closest('dialog').close()">Cancel</button>
+                <button type="submit" class="btn delete-btn">Delete</button>
+            </div>
+        </form>
+    </dialog>
 @endsection
 
 @section('scripts')

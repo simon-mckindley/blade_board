@@ -33,6 +33,8 @@
     
     @guest
         <div class="home-actions">
+            <p>Welcome to <i style="font-family: system-ui; font-size: 1.1em; font-weight: 600;">BLADE_board</i><br>
+            Sign in or sign up to get started</p>
             <a class="btn" href="{{ route('login') }}">Login</a>
             <a class="btn" href="{{ route('register') }}">Register</a>
         </div>
