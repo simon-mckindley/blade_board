@@ -28,4 +28,11 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    // Each post can be liked by multiple users
+    // and a user can like multiple posts
+    public function likedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
 }

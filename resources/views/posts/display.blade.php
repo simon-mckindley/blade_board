@@ -16,4 +16,18 @@
             <x-post-card :post="$post" :highlight-own="true" />
         @endforeach
     @endif
+
+    {{-- <aside style="
+        color: black;
+        position: fixed;
+        top: 5rem;
+        right: 2rem;
+        width: 200px;
+        background-color: #f8f9fa;">
+        <div>One</div>
+        <div>Two</div>
+        <div>Three</div>
+        <div>Four</div>
+        <div>Five</div>
+    </aside> --}}
 @endsection

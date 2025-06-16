@@ -33,6 +33,15 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     * Get the likes for the user.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'likes')->withTimestamps();
+    }
+
 
     /**
      * The attributes that are mass assignable.
