@@ -18,9 +18,16 @@
         </div>
         
         <div class="post-name">{{ $post->user->name }}</div>
-        <div class="post-comments">
-            <img src="{{ asset('images/comment_icon.svg') }}" alt=""> 
-            {{ $post->comments_count }}
+
+        <div class="post-stats">
+            <div class="stats-inner" title="Comments">
+                <img src="{{ asset('images/comment_icon.svg') }}" alt=""> 
+                {{ $post->comments_count }}
+            </div>
+            <div class="stats-inner" title="Likes">
+                <img src="{{ asset('images/mood_icon.svg') }}" alt=""> 
+                {{ $post->likedByUsers()->count() }}
+            </div>
         </div>
     </div>
 </div>

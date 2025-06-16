@@ -403,21 +403,33 @@ input[type="checkbox"]:checked+.tag-input {
         top: 0;
         right: 0;
         display: flex;
+        align-items: center;
         gap: 0.5em;
         margin: var(--outer-padding);
 
         .action {
             padding: 0.25em;
             border-radius: 4px;
-            transition: background-color 200ms ease;
+            outline-color: transparent;
+            transition: background-color 300ms ease, outline-color 300ms ease;
+        }
+
+        .action.unlike {
+            background-color: var(--success-color);
+            outline: 1px solid var(--text-color);
         }
 
         .action:hover {
             background-color: var(--bg-color);
         }
 
-        .action[type="button"]:hover {
+        .action.delete:hover {
             background-color: var(--warning-color);
+        }
+
+        .action.like:hover {
+            background-color: var(--success-color);
+            outline: 1px solid var(--text-color);
         }
     }
 
@@ -452,9 +464,15 @@ input[type="checkbox"]:checked+.tag-input {
         }
     }
 
-    .post-comments {
+    .post-stats {
         display: flex;
-        gap: 0.5em;
+        gap: 3rem;
+
+        .stats-inner {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
     }
 }
 
@@ -509,7 +527,7 @@ input[type="checkbox"]:checked+.tag-input {
         .comment-action {
             padding: 0.25em;
             border-radius: 4px;
-            transition: background-color 200ms ease;
+            transition: background-color 300ms ease;
         }
 
         .comment-action:hover {

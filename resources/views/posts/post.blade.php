@@ -1,3 +1,9 @@
+@php
+    $likeClass = $post->likedByUsers->contains(auth()->id()) ? 
+        'unlike' : 'like';
+@endphp
+
+
 @extends('layouts.default')
 
 @section('title', 'Post -> ' . ucfirst($post->title))
@@ -12,16 +18,23 @@
     <div class="post-page-grid">
 
         <div class="post">
-            @if ($post->user->id === auth()->id())
-                <div class="post-actions">
+            <div class="post-actions">
+                @if ($post->user->id === auth()->id())
                     <a class="action" href="{{ route('posts.edit', $post) }}" title="Edit Post">
                         <img height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
                     </a>
-                    <button type="button" class="action" onclick="document.getElementById('delete-confirm-dialog').showModal()" title="Delete Post">
+                    <button type="button" class="action delete" onclick="document.getElementById('delete-confirm-dialog').showModal()" title="Delete Post">
                         <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
                     </button>
-                </div>
-            @endif
+                @else
+                    <button type="button" class="action {{ $likeClass }}" title="{{ ucfirst($likeClass) }} this Post">
+                        <img height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Liked Post">
+                    </button>
+                    <div>
+                       &lbrack;{{ $post->likedByUsers()->count() }}&rbrack;
+                    </div>
+                @endif
+            </div>
             
             <div class="post-meta">
                 <span class="post-date">Created -> {{ display_time($post->created_at) }}</span>
