@@ -27,11 +27,14 @@
                         <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
                     </button>
                 @else
-                    <button type="button" class="action {{ $likeClass }}" title="{{ ucfirst($likeClass) }} this Post">
-                        <img height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Liked Post">
-                    </button>
+                    <form method="POST" action="{{ route('posts.like', $post->id) }}">
+                        @csrf
+                        <button type="submit" class="action {{ $likeClass }}" title="{{ ucfirst($likeClass) }} this Post">
+                            <img height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Liked Post">
+                        </button>
+                    </form>
                     <div>
-                       &lbrack;{{ $post->likedByUsers()->count() }}&rbrack;
+                       &lpar;{{ $post->likes()->count() }}&rpar;
                     </div>
                 @endif
             </div>
@@ -58,7 +61,7 @@
         <div class="comments-grid">            
             <div class="comments-section">
                 <div class="comments-head">
-                    <h3>Comments ({{ $post->comments->count() }})</h3>
+                    <h3>Comments &lpar;{{ $post->comments->count() }}&rpar;</h3>
                     <button type="button" class="comment-action" title="Add Comment">
                         <img height="24" src="{{ asset('images/comment_icon.svg') }}" alt="Add Comment">
                     </button>

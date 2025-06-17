@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 
 Route::get('/', function () {
     return view('home');
@@ -39,3 +40,4 @@ Route::middleware(['auth'])->group(function () {
 Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
 Route::get('/user/{user}/comments', [CommentController::class, 'index'])->name('comments.index')->middleware('auth');
 
+Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.like');
