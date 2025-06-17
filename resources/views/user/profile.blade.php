@@ -15,33 +15,38 @@
             <dd>{{ $user->email }}</dd>
         </div>
 
-        @if ($postCount === 0)
-            <div class="profile-cont">
+        <div class="profile-cont">
+            @if ($postCount === 0)
                 <dt>Posts</dt>
-                <dd>{{ $postCount }}</dd>        
-            </div>
-        @else
-            <div class="profile-cont">
+            @else
                 <a class="link" href="{{ route('user.posts') }}" >
                     <dt>Posts</dt>
                 </a>
-                <dd>{{ $postCount }}</dd>
-            </div>
-        @endif
+            @endif
+            <dd>{{ $postCount }}</dd>
+        </div>
 
-        @if ($commentCount === 0)
-            <div class="profile-cont">
+        <div class="profile-cont">
+            @if ($commentCount === 0)
                 <dt>Comments</dt>
-                <dd>{{ $commentCount }}</dd>
-            </div>
-        @else
-            <div class="profile-cont">
+            @else
                 <a class="link" href="{{ route('user.commented') }}">
                     <dt>Comments</dt>
                 </a>
-                <dd>{{ $commentCount }}</dd>
-            </div>
-        @endif
+            @endif
+            <dd>{{ $commentCount }}</dd>
+        </div>
+
+        <div class="profile-cont">
+            @if ($likeCount === 0)
+                <dt>Likes</dt>
+            @else
+                <a class="link" href="{{ route('user.liked') }}">
+                    <dt>Likes</dt>
+                </a>
+            @endif
+            <dd>{{ $likeCount }}</dd>
+        </div>
 
         <div class="profile-cont">
             <dt>Joined</dt>

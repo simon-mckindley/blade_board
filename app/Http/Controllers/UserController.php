@@ -131,8 +131,9 @@ class UserController extends Controller
         // Count posts and comments for the authenticated user
         $postCount = $user->posts()->count();
         $commentCount = $user->comments()->count();
+        $likeCount = $user->likedPosts()->count();
 
-        return view('user.profile', compact('user', 'postCount', 'commentCount'));
+        return view('user.profile', compact('user', 'postCount', 'commentCount', 'likeCount'));
     }
 
     /**
@@ -163,6 +164,17 @@ class UserController extends Controller
             ->get();
 
         return view('user.commented', compact('posts'));
+    }
+
+    /**
+     * Display the posts that the user has liked.
+     */
+    public function likedPosts()
+    {
+        $user = Auth::user();
+        $posts = $user->likedPosts()->orderBy('created_at', 'desc')->with('tags')->withCount("comments", "likes")->get();
+
+        return view('user.liked', compact('posts', 'user'));
     }
 
     /**
