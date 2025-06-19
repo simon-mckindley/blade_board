@@ -538,7 +538,7 @@ input[type="checkbox"]:checked+.tag-input {
 
 
 /* Dialog element */
-#delete-confirm-dialog {
+.delete-confirm-dialog {
     color: inherit;
     background-color: var(--bg-color-overlay);
     backdrop-filter: blur(10px);
@@ -571,7 +571,7 @@ input[type="checkbox"]:checked+.tag-input {
     }
 }
 
-#delete-confirm-dialog::backdrop {
+.delete-confirm-dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(2px);
 }

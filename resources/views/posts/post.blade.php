@@ -23,7 +23,7 @@
                     <a class="action" href="{{ route('posts.edit', $post) }}" title="Edit Post">
                         <img height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
                     </a>
-                    <button type="button" class="action delete" onclick="document.getElementById('delete-confirm-dialog').showModal()" title="Delete Post">
+                    <button type="button" class="action delete" onclick="document.getElementById('delete-post-dialog').showModal()" title="Delete Post">
                         <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
                     </button>
                 @else
@@ -94,9 +94,9 @@
 
     </div>
 
-    <dialog id="delete-confirm-dialog">
+    <dialog id="delete-post-dialog" class="delete-confirm-dialog">
         <h3>Are you sure you want to delete this post?</h3>
-        <p>This action cannot be undone.</p>
+        <p>This action cannot be undone!</p>
         <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
             @csrf
             @method('DELETE')
