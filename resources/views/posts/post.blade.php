@@ -102,23 +102,25 @@
             @method('DELETE')
             <div class="dialog-actions">
                 <button type="button" class="btn" onclick="this.closest('dialog').close()">No, don't</button>
-                <button type="submit" class="btn delete-btn">Definately</button>
+                <button type="submit" class="btn delete-btn">Definitely</button>
             </div>
         </form>
     </dialog>
 
-    <dialog id="delete-comment-dialog" class="delete-confirm-dialog">
-        <h3>Are you sure you want to delete this comment?</h3>
-        <p>This action cannot be undone!</p>
-        <form method="POST" action="{{ route('comments.destroy', $comment->id) }}">
-            @csrf
-            @method('DELETE')
-            <div class="dialog-actions">
-                <button type="button" class="btn" onclick="this.closest('dialog').close()">Oops, No</button>
-                <button type="submit" class="btn delete-btn">For Sure</button>
-            </div>
-        </form>
-    </dialog>
+    @if (!$post->comments->isEmpty())
+        <dialog id="delete-comment-dialog" class="delete-confirm-dialog">
+            <h3>Are you sure you want to delete this comment?</h3>
+            <p>This action cannot be undone!</p>
+            <form id="delete-comment-form" method="POST" action="">
+                @csrf
+                @method('DELETE')
+                <div class="dialog-actions">
+                    <button type="button" class="btn" onclick="this.closest('dialog').close()">Oops, No</button>
+                    <button type="submit" class="btn delete-btn">For Sure</button>
+                </div>
+            </form>
+        </dialog>
+    @endif
 @endsection
 
 @section('scripts')
@@ -128,6 +130,16 @@
             
             document.querySelector('.comment-action').addEventListener('click', function() {
                 commentForm.classList.toggle('open');
+            });
+            
+            document.querySelectorAll('.comment-delete').forEach(button => {
+                button.addEventListener('click', () => {
+                    const commentId = button.getAttribute('data-comment-id');
+                    const form = document.getElementById('delete-comment-form');
+                
+                    form.action = `comments/${commentId}`;
+                    document.getElementById('delete-comment-dialog').showModal();
+                });
             });
         });
     </script>

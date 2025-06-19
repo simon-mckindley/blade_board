@@ -604,6 +604,7 @@ input[type="checkbox"]:checked+.tag-input {
     border-radius: 10px;
     padding: 1em;
     margin-bottom: 1em;
+    margin-right: 2px;
     max-width: 25em;
     animation: move-in 300ms ease-in var(--_delay) forwards;
 
