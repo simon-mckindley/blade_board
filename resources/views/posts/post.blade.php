@@ -57,39 +57,39 @@
                 </div>
             </div>
         </div>
-        
-        <div class="comments-grid">            
-            <div class="comments-section">
-                <div class="comments-head">
-                    <h3>Comments &lpar;{{ $post->comments->count() }}&rpar;</h3>
-                    <button type="button" class="comment-action" title="Add Comment">
-                        <img height="24" src="{{ asset('images/comment_icon.svg') }}" alt="Add Comment">
-                    </button>
-                </div>
-
-                <div id="container" class="comment-form-container">
-                    <div>
-                        <form class="post-form comment-form" action="{{ route('comments.store', $post) }}" method="POST">
-                            @csrf
-                            <div class="input-cont">
-                                @error('comment') <span class="input-error">{{ $message }}</span> @enderror
-                                <textarea name="comment" id="comment" rows="3" required></textarea>
-                                <label for="comment">Add a comment</label>
-                            </div>
-                            
-                            <button class="btn" type="submit">Submit Comment</button>
-                        </form>
-                    </div>
-                </div>
-
-                @if ($post->comments->isEmpty())
-                <p>No comments yet</p>
-                @else
-                    @foreach ($post->comments->sortByDesc('created_at') as $comment)
-                        <x-comment-card :comment="$comment" :highlightOwn="true" />
-                    @endforeach
-                @endif
+                   
+        <div class="comments-section">
+            <div class="comments-head">
+                <h3>Comments &lpar;{{ $post->comments->count() }}&rpar;</h3>
+                <button type="button" class="comment-action" title="Add Comment">
+                    <img height="24" src="{{ asset('images/comment_icon.svg') }}" alt="Add Comment">
+                </button>
             </div>
+
+            <div id="container" class="comment-form-container">
+                <div>
+                    <form class="post-form comment-form" action="{{ route('comments.store', $post) }}" method="POST">
+                        @csrf
+                        <div class="input-cont">
+                            @error('comment') <span class="input-error">{{ $message }}</span> @enderror
+                            <textarea name="comment" id="comment" rows="3" required></textarea>
+                            <label for="comment">Add a comment</label>
+                        </div>
+                        
+                        <button class="btn" type="submit">Submit Comment</button>
+                    </form>
+                </div>
+            </div>
+
+            @if ($post->comments->isEmpty())
+                <p>No comments yet</p>
+            @else
+                <div class="comments-cont">
+                    @foreach ($post->comments->sortByDesc('created_at') as $comment)
+                    <x-comment-card :comment="$comment" :highlightOwn="true" />
+                    @endforeach
+                </div>
+            @endif
         </div>
 
     </div>
@@ -101,8 +101,21 @@
             @csrf
             @method('DELETE')
             <div class="dialog-actions">
-                <button type="button" class="btn" onclick="this.closest('dialog').close()">Cancel</button>
-                <button type="submit" class="btn delete-btn">Delete</button>
+                <button type="button" class="btn" onclick="this.closest('dialog').close()">No, don't</button>
+                <button type="submit" class="btn delete-btn">Definately</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="delete-comment-dialog" class="delete-confirm-dialog">
+        <h3>Are you sure you want to delete this comment?</h3>
+        <p>This action cannot be undone!</p>
+        <form method="POST" action="{{ route('comments.destroy', $comment->id) }}">
+            @csrf
+            @method('DELETE')
+            <div class="dialog-actions">
+                <button type="button" class="btn" onclick="this.closest('dialog').close()">Oops, No</button>
+                <button type="submit" class="btn delete-btn">For Sure</button>
             </div>
         </form>
     </dialog>
