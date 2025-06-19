@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use Illuminate\Routing\Route as RoutingRoute;
 
 Route::get('/', function () {
     return view('home');
@@ -38,7 +39,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
 });
 
-Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
-Route::get('/user/{user}/comments', [CommentController::class, 'index'])->name('comments.index')->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/user/{user}/comments', [CommentController::class, 'index'])->name('comments.index');
+    Route::delete('/posts/{comment}/comments', [CommentController::class, 'destroy'])->name('comments.destroy');
+});
 
 Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.like');

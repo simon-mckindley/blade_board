@@ -52,7 +52,7 @@ main {
     background-size: contain;
     opacity: 0.1;
     filter: drop-shadow(2px 4px 6px black);
-    animation: show-in 5000ms ease-out;
+    animation: show-in 5000ms linear;
 }
 
 
@@ -583,6 +583,7 @@ input[type="checkbox"]:checked+.tag-input {
     transform: translateY(100%);
     --_delay: 1100ms;
 
+    position: relative;
     box-sizing: border-box;
     background-color: rgb(173, 216, 230, 0.5);
     backdrop-filter: blur(5px);
@@ -613,6 +614,19 @@ input[type="checkbox"]:checked+.tag-input {
         gap: 1em;
         justify-content: space-between;
         font-size: 0.8em;
+        margin-right: 1em;
+    }
+
+    .comment-delete {
+        position: absolute;
+        top: 0.25em;
+        right: 0.25em;
+        border-radius: 10px;
+        transition: background-color 300ms ease;
+
+        &:hover {
+            background-color: var(--text-color);
+        }
     }
 
     .comment-content {
