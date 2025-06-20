@@ -558,7 +558,7 @@ input[type="checkbox"]:checked+.tag-input {
     backdrop-filter: blur(10px);
     border: 2px solid var(--bg-color);
     border-radius: 10px;
-    animation: show-in 300ms ease;
+    animation: show-in 500ms ease;
 
     .dialog-actions {
         display: flex;
@@ -700,6 +700,56 @@ input[type="checkbox"]:checked+.tag-input {
 
 .warning {
     --_border-color: var(--warning-color);
+}
+
+
+/* Drawer */
+.drawer {
+    position: fixed;
+    top: 15dvh;
+    right: 0.5rem;
+    color: #111;
+    height: 70dvh;
+    width: 20em;
+    padding: 1rem;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    z-index: 1000;
+    transition: translate 500ms ease-in-out;
+
+    &.closed {
+        translate: 100%;
+
+        .drawer-tab>img {
+            rotate: 180deg;
+        }
+    }
+
+    .drawer-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .drawer-tab {
+        position: absolute;
+        top: 2em;
+        left: -2em;
+        width: 2em;
+        background-color: var(--white-overlay);
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
+
+        >img {
+            transition: rotate 300ms ease-in 500ms;
+        }
+    }
+
+    h3 {
+        margin-block: 0 0.25em;
+    }
 }
 
 
