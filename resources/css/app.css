@@ -755,6 +755,33 @@ input[type="checkbox"]:checked+.tag-input {
         display: flex;
         flex-direction: column;
         gap: 0.5em;
+
+        .filter-inputs>* {
+            margin-bottom: 2px;
+        }
+    }
+
+    .radio-inputs {
+        display: flex;
+        gap: 0.25em;
+
+        input[type="radio"] {
+            display: none;
+        }
+        
+        label {
+            border-radius: 4px;
+            cursor: pointer;
+            transition: color 200ms ease, background-color 200ms ease;
+            padding: 0.25em 0.5em;
+        }
+
+        input[type="radio"]:checked+label {
+            background-color: var(--light-secondary);
+            color: var(--text-color);
+            transform: translateY(-2px);
+        }
+
     }
 
     .filter-btn {

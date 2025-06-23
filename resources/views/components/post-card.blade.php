@@ -3,7 +3,11 @@
         'highlighted' : '';
 @endphp
 
-<div class="post-card {{ $highlightClass }}">
+<div class="post-card {{ $highlightClass }}"
+    data-user="{{ $post->user->name }}"
+    data-title="{{ $post->title }}"
+    data-tags="{{ $post->tags->pluck('id')->implode(',') }}"
+    >
     <div class="post-date">{{ display_time($post->created_at) }}</div>
     
     <div class="post-main">

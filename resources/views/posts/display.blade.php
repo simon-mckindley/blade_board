@@ -19,7 +19,7 @@
 
     <aside class="drawer">
         <div class="drawer-content">
-            <form class="filters">
+            <form id="filters-form" class="filters">
                 <h3>Filters</h3>
                 <div class="radio-inputs">
                     <input type="radio" name="filter" id="title" value="title" checked>
@@ -30,13 +30,13 @@
 
                 <input type="text" name="query" placeholder="Filter posts..." value="{{ request('query') }}">
                 
-                <div class="date-inputs">
-                    <div>Dates</div>
+                <div class="filter-inputs date-inputs">
+                    <div>Date Range</div>
                     <input type="date" name="start_date" value="{{ request('start_date') }}">
                     <input type="date" name="end_date" value="{{ request('end_date') }}">
                 </div>
 
-                <div>
+                <div class="filter-inputs">
                     <div>Tags</div>
                     <select name="tag" multiple>
                         @foreach ($tags as $tag)
@@ -46,8 +46,8 @@
                         @endforeach
                     </select>
                 </div>
-                
-                <button class="btn filter-btn" type="button">Go</button>
+
+                <button class="btn filter-btn" type="submit">Go</button>
             </form>
 
             <div class="stats">
@@ -70,6 +70,19 @@
             
             document.querySelector('.drawer-tab').addEventListener('click', function() {
                 drawer.classList.toggle('closed');
+            });
+
+            document.getElementById('filters-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+
+                const filter = formData.get('filter');
+                const query = formData.get('query'); 
+                const startDate = formData.get('start_date');
+                const endDate = formData.get('end_date');
+                const tags = formData.getAll('tag');
+
+                console.log({ filter, query, startDate, endDate, tags });
             });
         });
     </script>
