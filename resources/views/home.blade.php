@@ -22,10 +22,15 @@
         </p>
         
         <div class="home-actions">
+        @if (auth()->user()->isAdmin())
+            <a class="btn" href="">Admin Dashboard</a>
+        @else
             <a class="btn" href="{{ route('posts.create') }}">Create</a>
             <a class="btn" href="{{ route('posts.display') }}">All Posts</a>
             <a class="btn" href="{{ route('user.show') }}">Profile</a>
+        @endif
         </div>
+
         <form id="logout" method="POST" action="{{ route('logout') }}">
             @csrf
         </form>
