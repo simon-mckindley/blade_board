@@ -23,7 +23,7 @@
         
         <div class="home-actions">
         @if (auth()->user()->isAdmin())
-            <a class="btn" href="">Admin Dashboard</a>
+            <a class="btn" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
         @else
             <a class="btn" href="{{ route('posts.create') }}">Create</a>
             <a class="btn" href="{{ route('posts.display') }}">All Posts</a>

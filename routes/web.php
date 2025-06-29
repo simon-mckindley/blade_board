@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Middleware\AdminOnly;
 use Illuminate\Routing\Route as RoutingRoute;
 
 Route::get('/', function () {
@@ -46,3 +48,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.like');
+
+Route::middleware(AdminOnly::class)->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+});

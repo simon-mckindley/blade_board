@@ -42,7 +42,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Post::class, 'likes')->withTimestamps();
     }
 
-
     /**
      * The attributes that are mass assignable.
      *
@@ -77,7 +76,6 @@ class User extends Authenticatable
         ];
     }
 
-    
     /**
      * Check if the user is an admin.
      *
