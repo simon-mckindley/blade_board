@@ -12,7 +12,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::all();
+        return view('admin.tags', compact('tags'));
     }
 
     /**
@@ -28,7 +29,30 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255|unique:tags,name',
+        ]);
+
+        try {
+            $tag = Tag::create([
+                'name' => $request->input('name'),
+            ]);
+
+            return redirect()
+                ->route('tags.index')
+                ->with('alert', [
+                    'type' => 'success',
+                    'message' => 'Tag created!'
+                ]);
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'There was a problem creating the tag: ' . $e->getMessage(),
+                ]);
+        }
     }
 
     /**

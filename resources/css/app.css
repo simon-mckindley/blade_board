@@ -344,11 +344,13 @@ h1 {
         color 200ms ease;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"],
+input[type="radio"] {
     display: none;
 }
 
-input[type="checkbox"]:checked+.tag-input {
+input[type="checkbox"]:checked+.tag-input,
+input[type="radio"]:checked+.tag-input {
     background-color: var(--light-secondary);
     color: var(--text-color);
     rotate: -5deg;
@@ -768,7 +770,7 @@ input[type="checkbox"]:checked+.tag-input {
         input[type="radio"] {
             display: none;
         }
-        
+
         label {
             border-radius: 4px;
             cursor: pointer;

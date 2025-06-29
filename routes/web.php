@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TagController;
 use App\Http\Middleware\AdminOnly;
 use Illuminate\Routing\Route as RoutingRoute;
 
@@ -51,4 +52,8 @@ Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('post
 
 Route::middleware(AdminOnly::class)->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    // Tags management
+    Route::get('/admin/tags', [TagController::class, 'index'])->name('tags.index');
+    Route::post('/admin/tags', [TagController::class, 'store'])->name('tags.store');
+    Route::put('/admin/tags/{tag}', [TagController::class, 'update'])->name('tags.update');
 });
