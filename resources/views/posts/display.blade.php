@@ -117,11 +117,16 @@
             });
             
         });
+        
         function resetFilters() {
             let postCount = 0;
             document.querySelectorAll('.post-card').forEach(post => {
-                post.style.display = '';
+                post.style.display = 'none';
                 postCount++;
+
+                setTimeout(() => {
+                    post.style.display = '';
+                }, timeout = 300);
             });
             document.querySelector('.post-count').textContent = postCount;
         }
