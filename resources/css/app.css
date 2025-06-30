@@ -670,7 +670,8 @@ input[type="radio"]:checked+.tag-input {
     margin-bottom: 0.5em;
 }
 
-.tag-form-container {
+.tag-form-container,
+.tag-edit-container {
     display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows 500ms;

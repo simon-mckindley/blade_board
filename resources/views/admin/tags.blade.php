@@ -11,26 +11,30 @@
 @section('maincontent')
     <form class="post-form" method="POST" action="">
         @csrf
+        @method('PUT')
 
         <div class="input-cont">
             @error('tags') <span class="input-error">{{ $message }}</span> @enderror
             <div class="tags-cont">
                 @foreach ($tags as $tag)
-                <input type="radio" name="tags[]" id="{{ $tag->name }}" value="{{ $tag->id }}"
-                    {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                <input type="radio" name="tag" id="{{ $tag->name }}" value="{{ $tag->id }}"
+                    {{ old('tag') == $tag->id ? 'checked' : '' }}>
                 <label class="tag-input" for="{{ $tag->name }}">{{ $tag->name }}</label>
                 @endforeach
             </div>
-            {{-- <label>Tags</label> --}}
         </div>        
 
-        <div class="input-cont">
-            @error('name') <span class="input-error">{{ $message }}</span> @enderror
-            <input type="text" id="name-edit" name="name" value="{{ old('name') }}">
-            <label for="name-edit">Name</label>
-        </div>
+        <div id="edit-container" class="container tag-edit-container">
+            <div>
+                <div class="input-cont">
+                    @error('name-edit') <span class="input-error">{{ $message }}</span> @enderror
+                    <input type="text" id="name-edit" name="name-edit" value="{{ old('name-edit') }}">
+                    <label for="name-edit">Update Name</label>
+                </div>
 
-        <button class="btn" type="submit">Update tag</button>
+                <button class="btn" type="submit">Update tag</button>
+            </div>
+        </div>
     </form>
 
     <button class="btn add-tag-btn" type="button" title="Add a Tag">
@@ -58,6 +62,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const addTagForm = document.getElementById('add-container');
+            const editTagForm = document.getElementById('edit-container');
             const addBtn = document.querySelector('.add-tag-btn');
             const addBtnImg = addBtn.querySelector('img');
  
@@ -67,6 +72,20 @@
                     '{{ asset('images/chevron_up_icon.svg') }}' : 
                     '{{ asset('images/add_icon.svg') }}';
             });
+
+            document.querySelectorAll('.tag-input').forEach((tagInput) => {
+                tagInput.addEventListener('click', function() {
+                    editTagForm.classList.add('open');
+                });
+            });
+
+            if (editTagForm.querySelector('.input-error')) {
+                editTagForm.classList.add('open');  
+            }
+
+            if (addTagForm.querySelector('.input-error')) {
+                addTagForm.classList.add('open');  
+            }
         });
     </script>
 @endsection

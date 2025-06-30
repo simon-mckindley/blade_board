@@ -55,5 +55,5 @@ Route::middleware(['auth'], AdminOnly::class)->group(function () {
     // Tags management
     Route::get('/admin/tags', [TagController::class, 'index'])->name('tags.index');
     Route::post('/admin/tags', [TagController::class, 'store'])->name('tags.store');
-    Route::put('/admin/tags/{tag}', [TagController::class, 'update'])->name('tags.update');
+    Route::put('/admin/tags', [TagController::class, 'update'])->name('tags.update');
 });
