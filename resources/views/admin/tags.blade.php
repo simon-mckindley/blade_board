@@ -32,7 +32,12 @@
                     <label for="name-edit">Update Name</label>
                 </div>
 
-                <button class="btn" type="submit">Update tag</button>
+                <div class="edit-btn-cont">
+                    <button type="submit" class="btn">Update tag</button>
+                    <button type="button" class="delete-btn" onclick="document.getElementById('delete-tag-dialog').showModal()" title="Delete Tag">
+                        <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Tag">
+                    </button>
+                </div>
             </div>
         </div>
     </form>
@@ -56,6 +61,20 @@
             </form>
         </div>
     </div>
+
+    <dialog id="delete-tag-dialog" class="delete-confirm-dialog">
+        <h3 id="delete-tag-name"></h3>
+        <h3>Are you sure you want to delete this tag?</h3>
+        <p>This action cannot be undone!</p>
+        <form method="POST" action="">
+            @csrf
+            @method('DELETE')
+            <div class="dialog-actions">
+                <button type="button" class="btn" onclick="this.closest('dialog').close()">No, don't</button>
+                <button type="submit" class="btn delete-btn">Definitely</button>
+            </div>
+        </form>
+    </dialog>
 @endsection
 
 @section('scripts')
@@ -63,6 +82,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const addTagForm = document.getElementById('add-container');
             const editTagForm = document.getElementById('edit-container');
+            const deleteTagForm = document.querySelector('#delete-tag-dialog form');
             const addBtn = document.querySelector('.add-tag-btn');
             const addBtnImg = addBtn.querySelector('img');
  
@@ -74,8 +94,13 @@
             });
 
             document.querySelectorAll('.tag-input').forEach((tagInput) => {
-                tagInput.addEventListener('click', function() {
+                tagInput.addEventListener('click', function(input) {
                     editTagForm.classList.add('open');
+                    setTimeout(() => {
+                        const tagId = document.querySelector('input[name="tag"]:checked').value;
+                        console.log(tagId);
+                        deleteTagForm.action = `tags/${tagId}`;
+                    }, timeout = 100);
                 });
             });
 

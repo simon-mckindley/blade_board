@@ -32,7 +32,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 });
 
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/user', [UserController::class, 'show'])->name('user.show');
     Route::get('/user/posts', [UserController::class, 'userPosts'])->name('user.posts');
@@ -56,4 +55,5 @@ Route::middleware(['auth'], AdminOnly::class)->group(function () {
     Route::get('/admin/tags', [TagController::class, 'index'])->name('tags.index');
     Route::post('/admin/tags', [TagController::class, 'store'])->name('tags.store');
     Route::put('/admin/tags', [TagController::class, 'update'])->name('tags.update');
+    Route::delete('/admin/tags/{tag}', [TagController::class, 'destroy'])->name('tags.destroy');
 });
