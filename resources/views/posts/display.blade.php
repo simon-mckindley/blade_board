@@ -48,12 +48,15 @@
                         </div>
                     </div>
 
-                    <button class="btn filter-btn" type="submit">Go</button>
+                    <div class="filter-btns">
+                        <button class="btn" type="reset" onclick="resetFilters()">Clear</button>
+                        <button class="btn" type="submit">Go</button>
+                    </div>
                 </form>
 
                 <div class="stats">
                     <h3>Stats</h3>
-                    <div>Total Posts &lpar;{{ $posts->count() }}&rpar;</div>
+                    <div>Filtered Posts &lpar;<span class="post-count">{{ $posts->count() }}</span>&rpar;</div>
                     <div>Last Post -> {{ $posts->max('updated_at')->diffForHumans() }}</div>
                 </div>
             </div>
@@ -76,17 +79,52 @@
 
             document.getElementById('filters-form').addEventListener('submit', function(e) {
                 e.preventDefault();
-                const formData = new FormData(this);
 
-                const filter = formData.get('filter');
-                const query = formData.get('query'); 
-                const startDate = formData.get('start_date');
-                const endDate = formData.get('end_date');
+                const formData = new FormData(this);
+                const filter = formData.get('filter'); // 'title' or 'user'
+                const query = formData.get('query')?.toLowerCase() || '';
                 const tags = formData.getAll('tags[]');
 
-                console.log({ filter, query, startDate, endDate, tags });
+                const posts = document.querySelectorAll('.post-card');
+                let postCount = 0;
+
+                posts.forEach(post => {
+                    const title = post.dataset.title.toLowerCase();
+                    const user = post.dataset.user.toLowerCase();
+                    const postTags = post.dataset.tags.split(','); // ['6', '7']
+
+                    // Check if query matches title or user
+                    const queryMatch =
+                        (filter === 'title' && title.includes(query)) ||
+                        (filter === 'user' && user.includes(query));
+
+                    // Check if post has at least one of the selected tags
+                    const tagMatch =
+                        tags.length === 0 || tags.every(tag => postTags.includes(tag));
+
+                    post.style.display = 'none';
+
+                    // Show/hide based on matches
+                    if (queryMatch && tagMatch) {
+                        postCount++;
+                        setTimeout(() => {
+                            post.style.display = '';
+                        }, timeout = 300);
+                    }
+                });
+
+                document.querySelector('.post-count').textContent = postCount;
             });
+            
         });
+        function resetFilters() {
+            let postCount = 0;
+            document.querySelectorAll('.post-card').forEach(post => {
+                post.style.display = '';
+                postCount++;
+            });
+            document.querySelector('.post-count').textContent = postCount;
+        }
     </script>
 @endsection
 

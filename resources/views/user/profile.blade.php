@@ -15,12 +15,14 @@
             <dd>{{ $user->email }}</dd>
         </div>
 
+        @if (!auth()->user()->isAdmin())
+            
         <div class="profile-cont">
             @if ($postCount === 0)
-                <dt>Posts</dt>
+            <dt>Posts</dt>
             @else
-                <a class="link" href="{{ route('user.posts') }}" >
-                    <dt>Posts</dt>
+            <a class="link" href="{{ route('user.posts') }}" >
+                <dt>Posts</dt>
                 </a>
             @endif
             <dd>{{ $postCount }}</dd>
@@ -44,9 +46,11 @@
                 <a class="link" href="{{ route('user.liked') }}">
                     <dt>Likes</dt>
                 </a>
-            @endif
-            <dd>{{ $likeCount }}</dd>
+                @endif
+                <dd>{{ $likeCount }}</dd>
         </div>
+        
+        @endif
 
         <div class="profile-cont">
             <dt>Joined</dt>
