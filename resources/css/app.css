@@ -665,6 +665,22 @@ input[type="radio"]:checked+.tag-input {
 }
 
 
+/* Tags Page */
+.add-tag-btn {
+    margin-bottom: 0.5em;
+}
+
+.tag-form-container {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 500ms;
+
+    div {
+        overflow: hidden;
+    }
+}
+
+
 /* Alert */
 .alert {
     --_border-color: transparent;
@@ -807,10 +823,12 @@ input[type="radio"]:checked+.tag-input {
     display: none;
 }
 
-#container.open {
+.container.open {
     grid-template-rows: 1fr;
 }
 
+
+/* Media Queries */
 @media (max-width: 768px) {
     .user-link {
         display: none;
@@ -824,6 +842,7 @@ input[type="radio"]:checked+.tag-input {
 }
 
 
+/* Animations */
 @keyframes show-in {
     0% {
         opacity: 0;

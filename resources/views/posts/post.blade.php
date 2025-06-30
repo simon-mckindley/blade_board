@@ -66,7 +66,7 @@
                 </button>
             </div>
 
-            <div id="container" class="comment-form-container">
+            <div id="container" class="container comment-form-container">
                 <div>
                     <form class="post-form comment-form" action="{{ route('comments.store', $post) }}" method="POST">
                         @csrf

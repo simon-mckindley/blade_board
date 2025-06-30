@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.like');
 
-Route::middleware(AdminOnly::class)->group(function () {
+Route::middleware(['auth'], AdminOnly::class)->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     // Tags management
     Route::get('/admin/tags', [TagController::class, 'index'])->name('tags.index');
