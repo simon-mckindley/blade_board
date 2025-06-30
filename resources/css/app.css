@@ -827,6 +827,21 @@ input[type="radio"]:checked+.tag-input {
 
     }
 
+    .date-inputs .date-label {
+        display: inline-block;
+        color: var(--bg-color);
+        text-align: center;
+        background-color: var(--text-color-secondary);
+        border-radius: 8px;
+        min-width: 5ch;
+        padding: 0.25em 0.5em;
+    }
+
+    .has-input .date-label {
+        background-color: var(--light-secondary);
+        color: var(--text-color);
+    }
+
     .filter-btns {
         position: absolute;
         top: 1em;

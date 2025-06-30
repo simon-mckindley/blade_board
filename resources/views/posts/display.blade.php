@@ -28,14 +28,20 @@
                             <input type="radio" name="filter" value="user" id="user">
                             <label for="user">User</label>
                         </div>
-                        <input type="text" name="query" placeholder="Filter posts..." value="{{ request('query') }}">
+                        <input type="text" name="query" placeholder="Filter posts...">
                     </div>
 
                     
                     <div class="filter-inputs date-inputs">
                         <div>Date Range</div>
-                        <input type="date" name="start_date" value="{{ request('start_date') }}">
-                        <input type="date" name="end_date" value="{{ request('end_date') }}">
+                        <div>
+                            <label class="date-label" for="start-date">From</label>
+                            <input id="start-date" type="date" name="start-date">
+                        </div>
+                        <div>
+                            <label class="date-label" for="end-date">To</label>
+                            <input id="end-date" type="date" name="end-date">
+                        </div>
                     </div>
 
                     <div class="filter-inputs">
@@ -76,6 +82,21 @@
             document.querySelector('.drawer-tab').addEventListener('click', function() {
                 drawer.classList.toggle('closed');
             });
+            
+            // Close drawer on small screens
+            if (window.innerWidth < 768) {
+                drawer.classList.add('closed'); 
+            }
+
+            // Set date labels
+            document.querySelectorAll('input[type="date"]').forEach(input => {
+                const update = () => {
+                    input.parentElement.classList.toggle('has-input', input.value !== '');
+                };
+
+                input.addEventListener('input', update);
+                update(); // run once on page load
+            });
 
             document.getElementById('filters-form').addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -83,6 +104,8 @@
                 const formData = new FormData(this);
                 const filter = formData.get('filter'); // 'title' or 'user'
                 const query = formData.get('query')?.toLowerCase() || '';
+                const startDate = formData.get('start-date');
+                const endDate = formData.get('end-date');
                 const tags = formData.getAll('tags[]');
 
                 const posts = document.querySelectorAll('.post-card');
@@ -92,6 +115,7 @@
                     const title = post.dataset.title.toLowerCase();
                     const user = post.dataset.user.toLowerCase();
                     const postTags = post.dataset.tags.split(','); // ['6', '7']
+                    const postDate = post.dataset.created;
 
                     // Check if query matches title or user
                     const queryMatch =
@@ -102,10 +126,21 @@
                     const tagMatch =
                         tags.length === 0 || tags.every(tag => postTags.includes(tag));
 
+                    // Date match
+                    let dateMatch = true;
+                    if (startDate && endDate) {
+                        dateMatch = postDate >= startDate && postDate <= endDate;
+                    } else if (startDate) {
+                        dateMatch = postDate >= startDate;
+                    } else if (endDate) {
+                        dateMatch = postDate <= endDate;
+                    }
+
+                    // Hide all posts initially
                     post.style.display = 'none';
 
-                    // Show/hide based on matches
-                    if (queryMatch && tagMatch) {
+                    // Show based on matches
+                    if (queryMatch && tagMatch && dateMatch) {
                         postCount++;
                         setTimeout(() => {
                             post.style.display = '';
@@ -117,9 +152,16 @@
             });
             
         });
-        
+
         function resetFilters() {
             let postCount = 0;
+
+            // Reset to date labels
+            document.querySelectorAll('input[type="date"]').forEach(input => {
+                input.parentElement.classList.remove('has-input');
+            });
+
+            // Show All Posts
             document.querySelectorAll('.post-card').forEach(post => {
                 post.style.display = 'none';
                 postCount++;
