@@ -291,6 +291,30 @@ h1 {
     margin-inline-start: 0.5em;
 }
 
+/* Profile Edit Page */
+.edit-head {
+    display: flex;
+    justify-content: space-between;
+    width: clamp(14em, 30em, 100%);
+    padding-inline: 0.5em;
+    margin-bottom: 0.1em;
+
+    .user-date {
+        font-size: 0.8em;
+    }
+
+    .delete-btn {
+        padding: 0.25em;
+        border-radius: 4px;
+        background-color: var(--white-overlay);
+        transition: background-color 300ms ease;
+    }
+
+    .delete-btn:hover {
+        background-color: var(--warning-color);
+    }
+}
+
 
 /* Forms */
 .auth-form, .post-form {

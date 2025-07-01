@@ -203,7 +203,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // Ensure the authenticated user can only edit their own profile
+        // Ensure the authenticated user or admim can only edit their own profile
         if (Auth::user()->id !== $user->id && !Auth::user()->isAdmin()) {
             return redirect()->route('user.show')
                 ->with('alert', [
@@ -220,7 +220,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        // Ensure the authenticated user can only update their own profile
+        // Ensure the authenticated user or admin can only update their own profile
         if (Auth::user()->id !== $user->id && !Auth::user()->isAdmin()) {
             return redirect()->route('user.show')
                 ->with('alert', [
@@ -275,6 +275,24 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        // Ensure the authenticated user or admin can only update their profile
+        if (Auth::user()->id !== $user->id && !Auth::user()->isAdmin()) {
+            return redirect()->route('user.show')
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'You do not have permission for this profile.',
+                ]);
+        }
+
+        $route = Auth::user()->isAdmin() ? 'users.index' : 'home';
+        
+        $user->delete();
+
+        return redirect()
+            ->route($route)
+            ->with('alert', [
+                'type' => 'warning',
+                'message' => 'User account deleted successfully!',
+            ]);
     }
 }

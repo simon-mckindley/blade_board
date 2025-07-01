@@ -39,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/liked', [UserController::class, 'likedPosts'])->name('user.liked');
     Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -49,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.like');
 
-// Admin Routes
+// Admin Only Routes
 Route::middleware(['auth'], AdminOnly::class)->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     // Tags management

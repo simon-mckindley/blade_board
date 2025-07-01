@@ -14,9 +14,14 @@
 
 @section('maincontent')
     @if ($user->id === auth()->id() || auth()->user()->isAdmin())
-        <div style="font-size: 0.8em; margin-left: 1.5em;">
-            <dt>Last Updated</dt>
-            <dd>{{ display_time($user->updated_at) }}</dd>
+        <div class="edit-head">
+            <div class="user-date">
+                <dt>Last Updated</dt>
+                <dd>{{ display_time($user->updated_at) }}</dd>
+            </div>
+            <button type="button" class="delete-btn" onclick="document.getElementById('delete-user-dialog').showModal()" title="Delete User">
+                <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="">
+            </button>
         </div>
 
         <form class="auth-form" method="POST" action="{{ route('user.update', $user->id) }}">
@@ -67,6 +72,19 @@
     @else
         <p class="input-error">Unauthorised access</p>
     @endif
+
+    <dialog id="delete-user-dialog" class="delete-confirm-dialog">
+        <h3>Are you sure you want to delete this user account?</h3>
+        <p>This action cannot be undone!</p>
+        <form method="POST" action="{{ route('user.destroy', $user->id) }}">
+            @csrf
+            @method('DELETE')
+            <div class="dialog-actions">
+                <button type="button" class="btn" onclick="this.closest('dialog').close()">No, don't</button>
+                <button type="submit" class="btn delete-btn">Definitely</button>
+            </div>
+        </form>
+    </dialog>
 @endsection
 
 @section('scripts')
