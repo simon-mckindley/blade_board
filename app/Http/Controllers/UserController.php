@@ -65,7 +65,7 @@ class UserController extends Controller
         // Validate input
         $validated = $request->validate(
             [
-                'name' => 'required|string|min:3,max:255',
+                'name' => 'required|string|min:3,max:25',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|confirmed|min:6',
             ],
@@ -113,7 +113,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        //Ensure only Admins can view this
+        if (Auth::user() && Auth::user()->isAdmin()) {
+            $users = User::orderBy('created_at', 'desc')->withCount('posts', 'comments')->get();
+            return view('admin.users', compact('users'));
+        }
+
+        return redirect()->route('home')
+            ->with('alert', [
+                'type' => 'error',
+                'message' => 'You do not have permission to view this page.',
+            ]);
     }
 
 
@@ -125,7 +135,11 @@ class UserController extends Controller
         // Return the user profile view with the user data
         $user = Auth::user();
         if (!$user) {
-            return redirect()->route('login')->withErrors(['You must be logged in to view this page.']);
+            return redirect()->route('login')
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'You must be logged in to view this page.',
+                ]);
         }
 
         // Count posts and comments for the authenticated user
@@ -142,7 +156,10 @@ class UserController extends Controller
     public function userPosts()
     {
         $user = Auth::user();
-        $posts = $user->posts()->orderBy('created_at', 'desc')->with('tags')->withCount("comments")->get();
+        $posts = $user->posts()
+            ->orderBy('created_at', 'desc')
+            ->with('tags')
+            ->withCount('comments', 'likes')->get();
 
         return view('user.posts', compact('posts', 'user'));
     }
@@ -160,7 +177,7 @@ class UserController extends Controller
         $posts = Post::with(['user', 'tags'])
             ->whereIn('id', $postIds)
             ->orderBy('created_at', 'desc')
-            ->withCount("comments")
+            ->withCount('comments', 'likes')
             ->get();
 
         return view('user.commented', compact('posts'));
@@ -172,7 +189,11 @@ class UserController extends Controller
     public function likedPosts()
     {
         $user = Auth::user();
-        $posts = $user->likedPosts()->orderBy('created_at', 'desc')->with('tags')->withCount("comments", "likes")->get();
+        $posts = $user->likedPosts()
+            ->orderBy('created_at', 'desc')
+            ->with('tags')
+            ->withCount('comments', 'likes')
+            ->get();
 
         return view('user.liked', compact('posts', 'user'));
     }
@@ -183,8 +204,12 @@ class UserController extends Controller
     public function edit(User $user)
     {
         // Ensure the authenticated user can only edit their own profile
-        if (Auth::user()->id !== $user->id) {
-            return redirect()->route('user.show')->withErrors(['You do not have permission to edit this profile.']);
+        if (Auth::user()->id !== $user->id && !Auth::user()->isAdmin()) {
+            return redirect()->route('user.show')
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'You do not have permission to edit this profile.',
+                ]);
         }
 
         return view('user.edit', compact('user'));
@@ -196,14 +221,18 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         // Ensure the authenticated user can only update their own profile
-        if (Auth::user()->id !== $user->id) {
-            return redirect()->route('user.show')->withErrors(['You do not have permission to update this profile.']);
+        if (Auth::user()->id !== $user->id && !Auth::user()->isAdmin()) {
+            return redirect()->route('user.show')
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'You do not have permission to update this profile.',
+                ]);
         }
 
         // Validate input
         $validated = $request->validate(
             [
-                'name' => 'required|string|min:3,max:255',
+                'name' => 'required|string|min:3,max:25',
                 'email' => 'required|email|unique:users,email,' . $user->id,
                 'password' => 'nullable|confirmed|min:6',
             ],
@@ -224,7 +253,8 @@ class UserController extends Controller
             }
             $user->save();
 
-            return redirect()->route('user.show')
+            return redirect()
+                ->back()
                 ->with('alert', [
                     'type' => 'success',
                     'message' => 'Profile updated successfully!',

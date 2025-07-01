@@ -3,13 +3,17 @@
 @section('title', 'Edit Profile')
 
 @section('add-link')
+    @if (auth()->user()->isAdmin())
+    <a class="btn warning-btn" href="{{ route('users.index') }}">Cancel</a>
+    @else
     <a class="btn warning-btn" href="{{ route('user.show') }}">Cancel</a>
+    @endif
 @endsection
 
 @section('pagetitle', 'Edit Profile')
 
 @section('maincontent')
-    @if ($user->id === auth()->id())
+    @if ($user->id === auth()->id() || auth()->user()->isAdmin())
         <div style="font-size: 0.8em; margin-left: 1.5em;">
             <dt>Last Updated</dt>
             <dd>{{ display_time($user->updated_at) }}</dd>

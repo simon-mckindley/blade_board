@@ -82,9 +82,9 @@
             document.querySelector('.drawer-tab').addEventListener('click', function() {
                 drawer.classList.toggle('closed');
             });
-            
+
             // Close drawer on small screens
-            if (window.innerWidth < 768) {
+            if (window.innerWidth <= 1024) {
                 drawer.classList.add('closed'); 
             }
 

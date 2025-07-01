@@ -31,7 +31,7 @@
             </div>
             <div class="stats-inner" title="Likes">
                 <img src="{{ asset('images/mood_icon.svg') }}" alt=""> 
-                {{ $post->likes()->count() }}
+                {{ $post->likes_count }}
             </div>
         </div>
     </div>

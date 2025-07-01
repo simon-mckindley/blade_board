@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.like');
 
+// Admin Routes
 Route::middleware(['auth'], AdminOnly::class)->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     // Tags management
@@ -56,4 +57,6 @@ Route::middleware(['auth'], AdminOnly::class)->group(function () {
     Route::post('/admin/tags', [TagController::class, 'store'])->name('tags.store');
     Route::put('/admin/tags', [TagController::class, 'update'])->name('tags.update');
     Route::delete('/admin/tags/{tag}', [TagController::class, 'destroy'])->name('tags.destroy');
+    // User management
+    Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
 });

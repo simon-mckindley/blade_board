@@ -15,7 +15,9 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Post::with('tags')->orderBy('created_at', 'desc')->withCount("comments");
+        $query = Post::with('tags')
+            ->orderBy('created_at', 'desc')
+            ->withCount('comments', 'likes');
 
         if ($request->has('search')) {
             $search = $request->input('search');
