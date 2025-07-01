@@ -95,6 +95,7 @@ a {
     font: inherit;
     padding: 0;
     text-decoration: none;
+    outline-color: transparent;
     width: fit-content;
 }
 
@@ -102,6 +103,7 @@ button {
     color: inherit;
     font: inherit;
     background-color: transparent;
+    outline-color: transparent;
     padding: 0;
     width: fit-content;
     border: none;
@@ -129,7 +131,8 @@ button:disabled {
     text-decoration: underline;
     transition: color 300ms ease;
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         color: var(--text-color-secondary);
     }
 }
@@ -142,7 +145,8 @@ button:disabled {
     border-radius: 100px;
     transition: color 300ms ease, background-color 300ms ease;
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled),
+    &:focus-visible:not(:disabled) {
         color: white;
         background-color: var(--light-secondary);
     }
@@ -292,25 +296,25 @@ h1 {
 }
 
 /* Profile Edit Page */
-.edit-head {
-    display: flex;
-    justify-content: space-between;
-    width: clamp(14em, 30em, 100%);
-    padding-inline: 0.5em;
+.user-date {
+    font-size: 0.8em;
+    padding-inline-start: 0.5em;
     margin-bottom: 0.1em;
+}
 
-    .user-date {
-        font-size: 0.8em;
-    }
+.edit-actions {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
 
     .delete-btn {
         padding: 0.25em;
         border-radius: 4px;
-        background-color: var(--white-overlay);
         transition: background-color 300ms ease;
     }
 
-    .delete-btn:hover {
+    .delete-btn:hover,
+    .delete-btn:focus-visible {
         background-color: var(--warning-color);
     }
 }
@@ -391,7 +395,8 @@ input[type="radio"]:checked+.tag-input {
     border-radius: 8px;
     transition: background-color 200ms ease;
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         background-color: var(--light-secondary);
     }
 }
@@ -451,15 +456,18 @@ input[type="radio"]:checked+.tag-input {
             outline: 1px solid var(--text-color);
         }
 
-        .action:hover {
+        .action:hover,
+        .action:focus-visible {
             background-color: var(--bg-color);
         }
 
-        .action.delete:hover {
+        .action.delete:hover,
+        .action.delete:focus-visible {
             background-color: var(--warning-color);
         }
 
-        .action.like:hover {
+        .action.like:hover,
+        .action.like:focus-visible {
             background-color: var(--success-color);
             outline: 1px solid var(--text-color);
         }
@@ -564,7 +572,8 @@ input[type="radio"]:checked+.tag-input {
             transition: background-color 300ms ease;
         }
 
-        .comment-action:hover {
+        .comment-action:hover,
+        .comment-action:focus-visible {
             background-color: var(--secondary-color);
         }
 
@@ -603,7 +612,8 @@ input[type="radio"]:checked+.tag-input {
             border: 2px solid var(--warning-color);
         }
 
-        .btn:hover {
+        .btn:hover,
+        .btn:focus-visible {
             background-color: var(--warning-color);
         }
 
@@ -611,7 +621,8 @@ input[type="radio"]:checked+.tag-input {
             background-color: var(--warning-color);
         }
 
-        .delete-btn:hover {
+        .delete-btn:hover,
+        .delete-btn:focus-visible {
             background-color: var(--error-color);
         }
     }
@@ -671,7 +682,8 @@ input[type="radio"]:checked+.tag-input {
         border-radius: 10px;
         transition: background-color 300ms ease;
 
-        &:hover {
+        &:hover,
+        &:focus-visible {
             background-color: var(--text-color);
         }
     }
@@ -753,6 +765,7 @@ input[type="radio"]:checked+.tag-input {
         align-items: end;
         justify-content: space-between;
         margin-top: 1em;
+        padding: 0 2px 2px;
 
         .delete-btn {
             padding: 0.25em;
@@ -760,7 +773,8 @@ input[type="radio"]:checked+.tag-input {
             transition: background-color 300ms ease;
         }
 
-        .delete-btn:hover {
+        .delete-btn:hover,
+        .delete-btn:focus-visible {
             background-color: var(--warning-color);
         }
     }
@@ -912,7 +926,8 @@ input[type="radio"]:checked+.tag-input {
         button[type='reset'] {
             background-color: var(--white-overlay);
 
-            &:hover {
+            &:hover,
+            &:focus-visible {
                 background-color: var(--warning-color);
             }
         }

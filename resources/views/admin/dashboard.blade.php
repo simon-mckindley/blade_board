@@ -15,8 +15,8 @@
     
     <div class="home-actions">
         <a class="btn" href="{{ route('users.index') }}">Users</a>
-        <a class="btn" href="">Posts</a>
-        <a class="btn" href="">Comments</a>
+        <a class="btn" href="{{ route('posts.display') }}">Posts & Comments</a>
+        {{-- <a class="btn" href="">Comments</a> --}}
         <a class="btn" href="{{ route('tags.index') }}">Tags</a>
     </div>
     

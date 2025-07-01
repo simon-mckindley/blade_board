@@ -1,5 +1,6 @@
 @php
-    $highlightClass = $highlightOwn && $comment->user->id === auth()->id() ? 
+    $highlightClass = $highlightOwn && 
+        ($comment->user->id === auth()->id() || auth()->user()->isAdmin()) ? 
         'highlighted' : '';
 @endphp
 

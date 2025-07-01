@@ -31,7 +31,7 @@ class CommentController extends Controller
     public function store(Request $request, Post $post)
     {
         $validated = $request->validate([
-            'comment' => 'required|string|min:3,max:1000',
+            'comment' => 'required|string|min:3|max:1000',
         ], [
             'comment.required' => 'Please write a comment before submitting.',
         ]);
@@ -88,7 +88,20 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        // Ensure the authenticated user or admin can only delete their comment
+        if (Auth::id() !== $comment->user_id && !Auth::user()->isAdmin()) {
+            return back()
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'You do not have permission for this comment.',
+                ]);
+        }
+
         $comment->delete();
-        return back()->with('alert', ['type' => 'info', 'message' => 'Your comment has been deleted']);
+        return back()
+            ->with('alert', [
+                'type' => 'info',
+                'message' => 'The comment has been deleted.'
+            ]);
     }
 }

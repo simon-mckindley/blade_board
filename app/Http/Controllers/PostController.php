@@ -58,7 +58,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|min:3,max:255',
+            'title' => 'required|string|min:3|max:255',
             'content' => 'required|string',
             'tags' => 'required|array',
             'tags.*' => 'exists:tags,id',
@@ -122,7 +122,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $validated = $request->validate([
-            'title' => 'required|string|min:3,max:255',
+            'title' => 'required|string|min:3|max:255',
             'content' => 'required|string',
             'tags' => 'required|array',
             'tags.*' => 'exists:tags,id',
@@ -161,7 +161,17 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // Ensure the authenticated user or admin can only delete their post
+        if (Auth::id() !== $post->user_id && !Auth::user()->isAdmin()) {
+            return back()
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'You do not have permission for this post.',
+                ]);
+        }
+
         $post->delete();
+
         return redirect()
             ->route('posts.display')
             ->with('alert', [

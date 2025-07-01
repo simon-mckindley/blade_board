@@ -53,7 +53,7 @@
                 @foreach ($tags as $tag)
                 <input type="checkbox" name="tags[]" id="{{ $tag->name }}" value="{{ $tag->id }}"
                     {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
-                <label class="tag-input" for="{{ $tag->name }}">{{ $tag->name }}</label>
+                <label class="tag-input" for="{{ $tag->name }}" tabindex="0">{{ $tag->name }}</label>
                 @endforeach
             </div>
             <label>Tags</label>

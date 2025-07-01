@@ -12,7 +12,6 @@ class AdminController extends Controller
     public function index()
     {
         // This method should return the admin dashboard view
-        // You can pass any necessary data to the view here
         return view('admin.dashboard');
     }
 

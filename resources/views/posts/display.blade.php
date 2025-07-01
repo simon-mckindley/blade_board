@@ -3,7 +3,11 @@
 @section('title', 'Posts')
 
 @section('add-link')
+    @if (auth()->user()->isAdmin())
+    <a class="link" href="{{ route('admin.dashboard') }}">Admin</a>
+    @else
     <a class="link" href="{{ route('posts.create') }}">Create a Post</a>
+    @endif
 @endsection
 
 @section('pagetitle', 'Posts')
@@ -24,9 +28,9 @@
                     <div class="filter-inputs">
                         <div class="radio-inputs">
                             <input type="radio" name="filter" id="title" value="title" checked>
-                            <label for="title">Title</label>
+                            <label for="title" tabindex="0">Title</label>
                             <input type="radio" name="filter" value="user" id="user">
-                            <label for="user">User</label>
+                            <label for="user" tabindex="0">User</label>
                         </div>
                         <input type="text" name="query" placeholder="Filter posts...">
                     </div>
@@ -62,7 +66,7 @@
 
                 <div class="stats">
                     <h3>Stats</h3>
-                    <div>Filtered Posts &lpar;<span class="post-count">{{ $posts->count() }}</span>&rpar;</div>
+                    <div>Displayed Posts &lpar;<span class="post-count">{{ $posts->count() }}</span>&rpar;</div>
                     <div>Last Post -> {{ $posts->max('updated_at')->diffForHumans() }}</div>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 @section('title', 'Tags Admin')
 
 @section('add-link')
-    <a class="btn" href="{{ route('admin.dashboard') }}">Admin</a>
+    <a class="link" href="{{ route('admin.dashboard') }}">Admin</a>
 @endsection
 
 @section('pagetitle', 'Tags Admin')
@@ -19,7 +19,7 @@
                 @foreach ($tags as $tag)
                 <input type="radio" name="tag" id="{{ $tag->name }}" value="{{ $tag->id }}"
                     {{ old('tag') == $tag->id ? 'checked' : '' }}>
-                <label class="tag-input" for="{{ $tag->name }}">{{ $tag->name }}</label>
+                <label class="tag-input" for="{{ $tag->name }}" tabindex="0">{{ $tag->name }}</label>
                 @endforeach
             </div>
         </div>        

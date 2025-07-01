@@ -3,7 +3,7 @@
 @section('title', 'Users Admin')
 
 @section('add-link')
-    <a class="btn" href="{{ route('admin.dashboard') }}">Admin</a>
+    <a class="link" href="{{ route('admin.dashboard') }}">Admin</a>
 @endsection
 
 @section('pagetitle', 'Users Admin')
@@ -25,8 +25,8 @@
                     @if ($user->isAdmin())
                         <strong>Admin User</strong>
                     @else
-                        <div>Posts -> &lpar;{{ $user->posts_count }}&rpar;</div>
-                        <div>Comments -> &lpar;{{ $user->comments_count }}&rpar;</div>
+                        <div>Posts &lpar;{{ $user->posts_count }}&rpar;</div>
+                        <div>Comments &lpar;{{ $user->comments_count }}&rpar;</div>
                     @endif               
                     </div>
                 </div>

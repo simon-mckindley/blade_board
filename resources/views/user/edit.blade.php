@@ -4,9 +4,9 @@
 
 @section('add-link')
     @if (auth()->user()->isAdmin())
-    <a class="btn warning-btn" href="{{ route('users.index') }}">Cancel</a>
+    <a class="btn warning-btn" href="{{ route('users.index') }}">Back</a>
     @else
-    <a class="btn warning-btn" href="{{ route('user.show') }}">Cancel</a>
+    <a class="btn warning-btn" href="{{ route('user.show') }}">Back</a>
     @endif
 @endsection
 
@@ -14,14 +14,9 @@
 
 @section('maincontent')
     @if ($user->id === auth()->id() || auth()->user()->isAdmin())
-        <div class="edit-head">
-            <div class="user-date">
-                <dt>Last Updated</dt>
-                <dd>{{ display_time($user->updated_at) }}</dd>
-            </div>
-            <button type="button" class="delete-btn" onclick="document.getElementById('delete-user-dialog').showModal()" title="Delete User">
-                <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="">
-            </button>
+        <div class="user-date">
+            <dt>Last Updated</dt>
+            <dd>{{ display_time($user->updated_at) }}</dd>
         </div>
 
         <form class="auth-form" method="POST" action="{{ route('user.update', $user->id) }}">
@@ -66,7 +61,12 @@
                 <label for="password_confirmation">Confirm Password</label>
             </div>
 
-            <button class="btn" type="submit" id="submit-btn" disabled>Change me</button>
+            <div class="edit-actions">
+                <button class="btn" type="submit" id="submit-btn" disabled>Change me</button>
+                <button type="button" class="delete-btn" onclick="document.getElementById('delete-user-dialog').showModal()" title="Delete User">
+                    <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="">
+                </button>
+            </div>
         </form>
 
     @else

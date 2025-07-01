@@ -1,6 +1,8 @@
 @php
     $likeClass = $post->likedByUsers->contains(auth()->id()) ? 
         'unlike' : 'like';
+
+    $commentActionVisibility = auth()->user()->isAdmin() ? 'hidden' : 'visible';
 @endphp
 
 
@@ -8,21 +10,33 @@
 
 @section('title', 'Post -> ' . ucfirst($post->title))
 
+@if (auth()->user()->isAdmin())
+@section('add-link')
+    <a class="link" href="{{ route('posts.display') }}">All Posts</a>
+@endsection
+@endif
+
 @section('maincontent')  
     <div class="post-navigation">
+        @if (!auth()->user()->isAdmin())
         <a class="link" href="{{ route('posts.display') }}">All Posts</a>
         <a class="link" href="{{ route('user.posts') }}">My Posts</a>
         <a class="link" href="{{ route('posts.create') }}">Create a Post</a>
+        @endif
     </div>
 
     <div class="post-page-grid">
 
         <div class="post">
             <div class="post-actions">
-                @if ($post->user->id === auth()->id())
+                @if ($post->user->id === auth()->id() || auth()->user()->isAdmin())
+                    {{-- Display if is users own post --}}
+                    @if (!auth()->user()->isAdmin())
                     <a class="action" href="{{ route('posts.edit', $post) }}" title="Edit Post">
                         <img height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
                     </a>
+                    @endif
+                    {{-- Display if admin or users own post --}}
                     <button type="button" class="action delete" onclick="document.getElementById('delete-post-dialog').showModal()" title="Delete Post">
                         <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
                     </button>
@@ -61,7 +75,8 @@
         <div class="comments-section">
             <div class="comments-head">
                 <h3>Comments &lpar;{{ $post->comments->count() }}&rpar;</h3>
-                <button type="button" class="comment-action" title="Add Comment">
+                <button type="button" class="comment-action" 
+                    style="visibility: {{ $commentActionVisibility }}" title="Add Comment">
                     <img height="24" src="{{ asset('images/comment_icon.svg') }}" alt="Add Comment">
                 </button>
             </div>

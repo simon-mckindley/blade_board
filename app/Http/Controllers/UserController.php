@@ -221,7 +221,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         // Ensure the authenticated user or admin can only update their own profile
-        if (Auth::user()->id !== $user->id && !Auth::user()->isAdmin()) {
+        if (Auth::id() !== $user->id && !Auth::user()->isAdmin()) {
             return redirect()->route('user.show')
                 ->with('alert', [
                     'type' => 'error',
@@ -276,8 +276,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         // Ensure the authenticated user or admin can only update their profile
-        if (Auth::user()->id !== $user->id && !Auth::user()->isAdmin()) {
-            return redirect()->route('user.show')
+        if (Auth::id() !== $user->id && !Auth::user()->isAdmin()) {
+            return back()
                 ->with('alert', [
                     'type' => 'error',
                     'message' => 'You do not have permission for this profile.',
