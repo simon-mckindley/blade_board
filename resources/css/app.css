@@ -536,6 +536,7 @@ input[type="radio"]:checked+.tag-input {
     flex-wrap: wrap;
     gap: 1em;
     align-items: start;
+    max-width: 92vw;
 
     .post {
         flex-grow: 1;

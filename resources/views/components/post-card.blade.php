@@ -8,6 +8,9 @@
     data-title="{{ $post->title }}"
     data-tags="{{ $post->tags->pluck('id')->implode(',') }}"
     data-created="{{ $post->created_at->toDateString() }}"
+    data-comments="{{ $post->comments_count }}"
+    data-likes="{{ $post->likes_count }}"
+    data-views="{{ $post->viewers()->count() }}"
     >
     <div class="post-date">{{ display_time($post->created_at) }}</div>
     

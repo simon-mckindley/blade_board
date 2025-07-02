@@ -10,16 +10,33 @@
     @endif
 @endsection
 
-@section('pagetitle', 'Posts')
+@section('pagetitle')
+<div style="display: flex">
+    Posts
+    <div style="font-size: 0.8rem; font-weight: normal; margin-left: 25vw;">
+        <div class="sort-controls">
+            <label for="sort-by">Sort by -> </label>
+            <select id="sort-by" class="sort-select">
+                <option value="created">Newest</option>
+                <option value="likes">Most Liked</option>
+                <option value="comments">Most Commented</option>
+                <option value="views">Most Viewed</option>
+            </select>
+        </div>
+    </div>
+</div>
+@endsection
 
 @section('maincontent')
     @if ($posts->isEmpty())
         <p>No posts found!</p>
         <p>Why not create one -> <a class="link" href="{{ route('posts.create') }}">HERE</a> ?</p>
     @else
-        @foreach ($posts as $post)
-            <x-post-card :post="$post" :highlight-own="true" />
-        @endforeach
+        <div class="posts-container">
+            @foreach ($posts as $post)
+                <x-post-card :post="$post" :highlight-own="true" />
+            @endforeach
+        </div>
 
         <aside class="drawer closed">
             <div class="drawer-content">
@@ -81,6 +98,7 @@
 @section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Drawer Filtering
             const drawer = document.querySelector('.drawer');
             
             document.querySelector('.drawer-tab').addEventListener('click', function() {
@@ -153,6 +171,32 @@
                 });
 
                 document.querySelector('.post-count').textContent = postCount;
+            });
+
+            // Sorting
+            const select = document.getElementById('sort-by');
+            const container = document.querySelector('.posts-container'); // Update this if your container has a different class
+
+            select.addEventListener('change', () => {
+                const key = select.value;
+                const posts = Array.from(container.querySelectorAll('.post-card'));
+
+                posts.sort((a, b) => {
+                    let aVal = a.dataset[key];
+                    let bVal = b.dataset[key];
+
+                    if (key === 'created') {
+                        aVal = new Date(aVal);
+                        bVal = new Date(bVal);
+                    } else {
+                        aVal = parseInt(aVal);
+                        bVal = parseInt(bVal);
+                    }
+
+                    return bVal - aVal; // always descending
+                });
+
+                posts.forEach(post => container.appendChild(post));
             });
             
         });
