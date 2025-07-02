@@ -708,6 +708,11 @@ input[type="radio"]:checked+.tag-input {
 
 /*** Admin Pages ***/
 /* Users Page */
+.new-admin-btn {
+    display: block;
+    margin-bottom: 1em;
+}
+
 .user-card {
     background-color: var(--white-overlay);
     backdrop-filter: blur(5px);
@@ -742,6 +747,30 @@ input[type="radio"]:checked+.tag-input {
             padding: 0.1em 0.5em;
             border-radius: 8px;
         }
+    }
+}
+
+/* Admin Register page */
+.admin-radio-inputs {
+    display: flex;
+    gap: 0.25em;
+    margin-top: 0.25em;
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    label {
+        border-radius: 4px;
+        cursor: pointer;
+        transition: color 200ms ease, background-color 200ms ease;
+        padding: 0.25em 0.5em;
+    }
+
+    input[type="radio"]:checked+label {
+        background-color: var(--light-secondary);
+        color: var(--text-color);
+        transform: translateY(-2px);
     }
 }
 
@@ -900,7 +929,6 @@ input[type="radio"]:checked+.tag-input {
             color: var(--text-color);
             transform: translateY(-2px);
         }
-
     }
 
     .date-inputs .date-label {

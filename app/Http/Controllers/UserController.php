@@ -59,15 +59,32 @@ class UserController extends Controller
         return view('auth.register');
     }
 
-    // Handle the registration form submission
+
     public function register(Request $request)
     {
+        // Always default to 'user'
+        $role = 'user';
+
+        // Only allow admins or super users to assign a custom role
+        if (Auth::check() && Auth::user()->isSuper()) {
+            $allowedRoles = ['user', 'admin', 'super'];
+            $incomingRole = $request->input('role');
+
+            if (in_array($incomingRole, $allowedRoles)) {
+                $role = $incomingRole;
+            }
+        }
+
+        // Merge final role into request
+        $request->merge(['role' => $role]);
+
         // Validate input
         $validated = $request->validate(
             [
-                'name' => 'required|string|min:3,max:25',
+                'name' => 'required|string|min:3|max:25',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|confirmed|min:6',
+                'role' => 'in:user,admin,super', // Validate only allowed roles
             ],
             [
                 'name.required' => 'The name is required.',
@@ -76,34 +93,37 @@ class UserController extends Controller
                 'email.unique' => 'This email is already registered.',
                 'password.required' => 'The password is required.',
                 'password.confirmed' => 'The password confirmation does not match.',
+                'role.in' => 'The selected role is invalid.',
             ]
         );
 
-        // Create the user
         try {
             $user = User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
+                'role' => $validated['role'], // This will be 'user' if not set
             ]);
 
-            // Log the user in
+            if (Auth::check() && Auth::user()->isAdmin()) {
+                return redirect()->route('users.index')
+                    ->with('alert', [
+                        'type' => 'success',
+                        'message' => 'Registration successful!',
+                ]);
+            }
+
             Auth::login($user);
 
-            // Redirect to home
-            return redirect()->route('home')
-                ->with('alert', [
-                    'type' => 'success',
-                    'message' => 'Registration successful!',
-                ]);
+            return redirect()->route('home')->with('alert', [
+                'type' => 'success',
+                'message' => 'Registration successful!',
+            ]);
         } catch (\Exception $e) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with('alert', [
-                    'type' => 'error',
-                    'message' => 'There was a problem creating the account: ' . $e->getMessage(),
-                ]);
+            return redirect()->back()->withInput()->with('alert', [
+                'type' => 'error',
+                'message' => 'There was a problem creating the account: ' . $e->getMessage(),
+            ]);
         }
     }
 

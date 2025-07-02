@@ -2,11 +2,9 @@
 
 @section('title', 'Dashboard')
 
-@auth
-    @section('add-link')
-        <button form="logout" class="btn warning-btn" type="submit">Logout</button>
-    @endsection
-@endauth
+@section('add-link')
+    <button form="logout" class="btn warning-btn" type="submit">Logout</button>
+@endsection
 
 @section('pagetitle', 'Admin Dashboard')
 
@@ -16,7 +14,6 @@
     <div class="home-actions">
         <a class="btn" href="{{ route('users.index') }}">Users</a>
         <a class="btn" href="{{ route('posts.display') }}">Posts & Comments</a>
-        {{-- <a class="btn" href="">Comments</a> --}}
         <a class="btn" href="{{ route('tags.index') }}">Tags</a>
     </div>
     

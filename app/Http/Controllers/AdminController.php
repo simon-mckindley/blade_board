@@ -15,6 +15,11 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
+    public function showRegistrationForm()
+    {
+        return view('admin.register');
+    }
+
     /**
      * Store a newly created resource in storage.
      */

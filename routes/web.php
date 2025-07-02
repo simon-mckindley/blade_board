@@ -9,6 +9,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TagController;
 use App\Http\Middleware\AdminOnly;
+use App\Http\Middleware\SuperOnly;
 use Illuminate\Routing\Route as RoutingRoute;
 
 Route::get('/', function () {
@@ -60,4 +61,8 @@ Route::middleware(['auth'], AdminOnly::class)->group(function () {
     Route::delete('/admin/tags/{tag}', [TagController::class, 'destroy'])->name('tags.destroy');
     // User management
     Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
+});
+
+Route::middleware(['auth'], SuperOnly::class)->group(function () {
+    Route::get('super/register', [AdminController::class, 'showRegistrationForm'])->name('super.register');
 });

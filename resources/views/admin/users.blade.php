@@ -9,10 +9,18 @@
 @section('pagetitle', 'Users Admin')
 
 @section('maincontent')
+    @if (auth()->user()->isSuper())
+        <a class="btn new-admin-btn" href="{{ route('super.register') }}">Create New Admin User</a>
+    @endif
+
     @if ($users->isEmpty())
         <p>No users found!</p>
     @else
         @foreach ($users as $user)
+            @if ($user->isAdmin() && !auth()->user()->isSuper())
+                @continue
+            @endif
+
             <div class="user-card">
                 <div class="user-header">
                     <h3>{{ $user->name }}</h3>
