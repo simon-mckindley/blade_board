@@ -40,4 +40,11 @@ class Post extends Model
     {
         return $this->hasMany(Like::class);
     }
+
+    public function viewers()
+    {
+        return $this->belongsToMany(User::class, 'post_user_views')
+            ->withPivot('viewed_at')
+            ->withTimestamps();
+    }
 }

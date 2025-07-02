@@ -50,6 +50,17 @@
                 <dd>{{ $likeCount }}</dd>
         </div>
         
+        <div class="profile-cont">
+            @if ($viewCount === 0)
+                <dt>Viewed</dt>
+            @else
+                <a class="link" href="{{ route('user.viewed') }}">
+                    <dt>Viewed</dt>
+                </a>
+                @endif
+                <dd>{{ $viewCount }}</dd>
+        </div>
+        
         @endif
 
         <div class="profile-cont">

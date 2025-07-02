@@ -504,6 +504,12 @@ input[type="radio"]:checked+.tag-input {
         }
     }
 
+    .post-views {
+        display: flex;
+        gap: 0.25em;
+        margin-left: auto;
+    }
+
     .post-stats {
         display: flex;
         gap: 3rem;

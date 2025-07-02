@@ -43,6 +43,18 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the viewed posts for the user.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function viewedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'post_user_views')
+            ->withPivot('viewed_at')
+            ->withTimestamps();
+    }
+
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>

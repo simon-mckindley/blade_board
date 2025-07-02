@@ -69,6 +69,11 @@
                     <span>{{ $tag->name }}</span>
                     @endforeach
                 </div>
+
+                <div class="post-views" title="Views">
+                    <img src="{{ asset('images/view_icon.svg') }}" alt=""> 
+                    &lpar;{{ $post->viewers()->count() }}&rpar;
+                </div>
             </div>
         </div>
                    
@@ -156,6 +161,18 @@
                     document.getElementById('delete-comment-dialog').showModal();
                 });
             });
+
+            fetch('{{ route('posts.logView', $post->id) }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }
+            ).then(res => res.json())
+             .then(data => console.log(data))
+             .catch(err => console.error(err));
         });
     </script>
 @endsection

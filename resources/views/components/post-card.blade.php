@@ -33,6 +33,10 @@
                 <img src="{{ asset('images/mood_icon.svg') }}" alt=""> 
                 {{ $post->likes_count }}
             </div>
+            <div class="stats-inner" title="Views">
+                <img src="{{ asset('images/view_icon.svg') }}" alt=""> 
+                {{ $post->viewers()->count() }}
+            </div>
         </div>
     </div>
 </div>

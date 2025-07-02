@@ -179,4 +179,24 @@ class PostController extends Controller
                 'message' => 'Post deleted successfully!',
             ]);
     }
+
+
+    /**
+     * Adds a user view to the post_view table
+     */
+    public function logView(Request $request, Post $post)
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthenticated'], 401);
+        }
+
+        $user = Auth::user();
+
+        // Only add if not already viewed
+        if (!$user->viewedPosts()->where('post_id', $post->id)->exists()) {
+            $user->viewedPosts()->attach($post->id);
+        }
+
+        return response()->json(['message' => 'View logged']);
+    }
 }

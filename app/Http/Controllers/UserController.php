@@ -166,8 +166,9 @@ class UserController extends Controller
         $postCount = $user->posts()->count();
         $commentCount = $user->comments()->count();
         $likeCount = $user->likedPosts()->count();
+        $viewCount = $user->viewedPosts()->count();
 
-        return view('user.profile', compact('user', 'postCount', 'commentCount', 'likeCount'));
+        return view('user.profile', compact('user', 'postCount', 'commentCount', 'likeCount', 'viewCount'));
     }
 
     /**
@@ -216,6 +217,21 @@ class UserController extends Controller
             ->get();
 
         return view('user.liked', compact('posts', 'user'));
+    }
+
+    /**
+     * Display the posts that the user has viewed.
+     */
+    public function viewedPosts()
+    {
+        $user = Auth::user();
+        $posts = $user->viewedPosts()
+            ->orderBy('viewed_at', 'desc')
+            ->with('tags')
+            ->withCount('comments', 'likes')
+            ->get();
+
+        return view('user.viewed', compact('posts', 'user'));
     }
 
     /**

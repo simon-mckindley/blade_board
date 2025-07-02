@@ -21,7 +21,7 @@
             <x-post-card :post="$post" :highlight-own="true" />
         @endforeach
 
-        <aside class="drawer">
+        <aside class="drawer closed">
             <div class="drawer-content">
                 <form id="filters-form" class="filters">
                     <h3>Filters</h3>
@@ -88,8 +88,8 @@
             });
 
             // Close drawer on small screens
-            if (window.innerWidth <= 1024) {
-                drawer.classList.add('closed'); 
+            if (window.innerWidth >= 1024) {
+                drawer.classList.remove('closed'); 
             }
 
             // Set date labels

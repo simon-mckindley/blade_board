@@ -31,6 +31,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+    Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.like');
+
+    Route::post('/posts/{post}/view', [PostController::class, 'logView'])->name('posts.logView');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -38,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/posts', [UserController::class, 'userPosts'])->name('user.posts');
     Route::get('/user/commented', [UserController::class, 'commentedPosts'])->name('user.commented');
     Route::get('/user/liked', [UserController::class, 'likedPosts'])->name('user.liked');
+    Route::get('/user/viewed', [UserController::class, 'viewedPosts'])->name('user.viewed');
     Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
@@ -49,7 +54,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('posts/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 });
 
-Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.like');
 
 // Admin Only Routes
 Route::middleware(['auth'], AdminOnly::class)->group(function () {
