@@ -2,18 +2,26 @@
 
 @section('title', 'Posts')
 
-@section('add-link')
-    @if (auth()->user()->isAdmin())
-    <a class="link" href="{{ route('admin.dashboard') }}">Admin</a>
-    @else
-    <a class="link" href="{{ route('posts.create') }}">Create a Post</a>
-    @endif
-@endsection
+@auth
+    @section('add-link')
+        @if (auth()->user()->isAdmin())
+        <a class="link" href="{{ route('admin.dashboard') }}">Admin</a>
+        @else
+        <a class="link" href="{{ route('posts.create') }}">Create a Post</a>
+        @endif
+    @endsection
+@endauth
+
+@guest
+    @section('add-link')
+        <a class="btn" href="{{ route('login') }}">Sign in</a>
+    @endsection
+@endguest
 
 @section('pagetitle')
 <div style="display: flex">
     Posts
-    <div style="font-size: 0.8rem; font-weight: normal; margin-left: 25vw;">
+    <div style="font-size: 0.8rem; font-weight: normal; margin-left: 25vw; margin-block: 0.2em;">
         <div class="sort-controls">
             <label for="sort-by">Sort by -> </label>
             <select id="sort-by" class="sort-select">

@@ -1,8 +1,11 @@
 @php
-    $likeClass = $post->likedByUsers->contains(auth()->id()) ? 
+    if (auth()->check()) {
+        $likeClass = $post->likedByUsers->contains(auth()->id()) ? 
         'unlike' : 'like';
+    }
 
-    $commentActionVisibility = auth()->user()->isAdmin() ? 'hidden' : 'visible';
+    $commentActionVisibility = !auth()->check() || auth()->user()->isAdmin() ? 
+        'hidden' : 'visible';
 @endphp
 
 
@@ -10,47 +13,57 @@
 
 @section('title', 'Post -> ' . ucfirst($post->title))
 
-@if (auth()->user()->isAdmin())
-@section('add-link')
-    <a class="link" href="{{ route('posts.display') }}">All Posts</a>
-@endsection
+ @if (!auth()->check() || auth()->user()->isAdmin())
+    @section('add-link')
+        <a class="link" href="{{ route('posts.display') }}">All Posts</a>
+    @endsection
 @endif
 
 @section('maincontent')  
-    <div class="post-navigation">
+    @auth
         @if (!auth()->user()->isAdmin())
-        <a class="link" href="{{ route('posts.display') }}">All Posts</a>
-        <a class="link" href="{{ route('user.posts') }}">My Posts</a>
-        <a class="link" href="{{ route('posts.create') }}">Create a Post</a>
+            <div class="post-navigation">
+                <a class="link" href="{{ route('posts.display') }}">All Posts</a>
+                <a class="link" href="{{ route('user.posts') }}">My Posts</a>
+                <a class="link" href="{{ route('posts.create') }}">Create a Post</a>
+            </div>
         @endif
-    </div>
+    @endauth
 
     <div class="post-page-grid">
 
         <div class="post">
             <div class="post-actions">
-                @if ($post->user->id === auth()->id() || auth()->user()->isAdmin())
-                    {{-- Display if is users own post --}}
-                    @if (!auth()->user()->isAdmin())
-                    <a class="action" href="{{ route('posts.edit', $post) }}" title="Edit Post">
-                        <img height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
-                    </a>
-                    @endif
-                    {{-- Display if admin or users own post --}}
-                    <button type="button" class="action delete" onclick="document.getElementById('delete-post-dialog').showModal()" title="Delete Post">
-                        <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
-                    </button>
-                @else
-                    <form method="POST" action="{{ route('posts.like', $post->id) }}">
-                        @csrf
-                        <button type="submit" class="action {{ $likeClass }}" title="{{ ucfirst($likeClass) }} this Post">
-                            <img height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Liked Post">
+                @auth
+                    @if ($post->user->id === auth()->id() || auth()->user()->isAdmin())
+                        {{-- Display if is users own post --}}
+                        @if (!auth()->user()->isAdmin())
+                        <a class="action" href="{{ route('posts.edit', $post) }}" title="Edit Post">
+                            <img height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
+                        </a>
+                        @endif
+                        {{-- Display if admin or users own post --}}
+                        <button type="button" class="action delete" onclick="document.getElementById('delete-post-dialog').showModal()" title="Delete Post">
+                            <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
                         </button>
-                    </form>
+                    @else
+                        <form method="POST" action="{{ route('posts.like', $post->id) }}">
+                            @csrf
+                            <button type="submit" class="action {{ $likeClass }}" title="{{ ucfirst($likeClass) }} this Post">
+                                <img height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Like Post">
+                            </button>
+                        </form>
+                        <div>
+                            &lpar;{{ $post->likes()->count() }}&rpar;
+                        </div>
+                    @endif
+                @endauth
+                @guest
+                    <img height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Likes">
                     <div>
-                       &lpar;{{ $post->likes()->count() }}&rpar;
+                        &lpar;{{ $post->likes()->count() }}&rpar;
                     </div>
-                @endif
+                @endguest
             </div>
             
             <div class="post-meta">

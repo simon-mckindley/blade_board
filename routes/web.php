@@ -16,18 +16,23 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+// User login / logout
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
+// User registration
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [UserController::class, 'register'])->name('register.submit');
 
+// Post routes
+// Post guest routes
+Route::get('/posts', [PostController::class, 'index'])->name('posts.display');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+// Post auth routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/posts', [PostController::class, 'index'])->name('posts.display');
-    Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
     Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
@@ -37,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/posts/{post}/view', [PostController::class, 'logView'])->name('posts.logView');
 });
 
+// User routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/user', [UserController::class, 'show'])->name('user.show');
     Route::get('/user/posts', [UserController::class, 'userPosts'])->name('user.posts');
@@ -48,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });
 
+// Comments routes
 Route::middleware(['auth'])->group(function () {
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::get('/user/{user}/comments', [CommentController::class, 'index'])->name('comments.index');
@@ -67,6 +74,7 @@ Route::middleware(['auth'], AdminOnly::class)->group(function () {
     Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
 });
 
+// Super admin only routes
 Route::middleware(['auth'], SuperOnly::class)->group(function () {
     Route::get('super/register', [AdminController::class, 'showRegistrationForm'])->name('super.register');
 });

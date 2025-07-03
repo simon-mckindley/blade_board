@@ -40,9 +40,10 @@
         <div class="home-actions">
             <p>Welcome to <i>BLADE_board</i><br>
             A place to share your thoughts and ideas with the world<br>
-            Sign in or sign up to get started</p>
-            <a class="btn" href="{{ route('login') }}">Login</a>
-            <a class="btn" href="{{ route('register') }}">Register</a>
+            Sign in or sign up to start sharing</p>
+            <a class="btn" href="{{ route('login') }}">Sign in</a>
+            <a class="btn" href="{{ route('register') }}">Sign up</a>
+            <a class="btn guest-btn" href="{{ route('posts.display') }}">Continue as Guest</a>
         </div>
     @endguest
      

@@ -264,6 +264,10 @@ h1 {
         min-width: 12em;
         text-align: center;
     }
+
+    .guest-btn {
+        background-color: var(--white-overlay);
+    }
 }
 
 

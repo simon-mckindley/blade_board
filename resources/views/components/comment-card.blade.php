@@ -1,7 +1,8 @@
 @php
     $highlightClass = $highlightOwn && 
-        ($comment->user->id === auth()->id() || auth()->user()->isAdmin()) ? 
-        'highlighted' : '';
+        (auth()->check() && 
+            ($comment->user->id === auth()->id() || auth()->user()->isAdmin())
+        ) ? 'highlighted' : '';
 @endphp
 
 <div class="comment-card {{ $highlightClass }}">
