@@ -192,9 +192,17 @@ class PostController extends Controller
 
         $user = Auth::user();
 
-        // Only add if not already viewed
-        if (!$user->viewedPosts()->where('post_id', $post->id)->exists()) {
-            $user->viewedPosts()->attach($post->id);
+        // Check if the user has already viewed the post
+        if ($user->viewedPosts()->where('post_id', $post->id)->exists()) {
+            // Update the viewed_at timestamp
+            $user->viewedPosts()->updateExistingPivot($post->id, [
+                'viewed_at' => now(),
+            ]);
+        } else {
+            // First view — attach with viewed_at set
+            $user->viewedPosts()->attach($post->id, [
+                'viewed_at' => now(),
+            ]);
         }
 
         return response()->json(['message' => 'View logged']);
