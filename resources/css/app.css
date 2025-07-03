@@ -363,6 +363,8 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5em;
+    /* max-height: 20vh;
+    overflow-y: auto; */
 }
 
 .tag-input {
@@ -410,6 +412,17 @@ input[type="radio"]:checked+.tag-input {
     padding: 0.1em 0.5em;
     margin-top: 2px;
     border-radius: 6px;
+}
+
+.sort-header {
+    display: flex;
+
+    .sort-controls {
+        font-size: 0.8rem;
+        font-weight: normal;
+        margin-left: 20vw;
+        margin-block: 0.2em;
+    }
 }
 
 

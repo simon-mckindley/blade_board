@@ -19,18 +19,16 @@
 @endguest
 
 @section('pagetitle')
-<div style="display: flex">
+<div class="sort-header">
     Posts
-    <div style="font-size: 0.8rem; font-weight: normal; margin-left: 25vw; margin-block: 0.2em;">
-        <div class="sort-controls">
-            <label for="sort-by">Sort by -> </label>
-            <select id="sort-by" class="sort-select">
-                <option value="created">Newest</option>
-                <option value="likes">Most Liked</option>
-                <option value="comments">Most Commented</option>
-                <option value="views">Most Viewed</option>
-            </select>
-        </div>
+    <div class="sort-controls">
+        <label for="sort-by">Sort by -> </label>
+        <select id="sort-by" class="sort-select">
+            <option value="created">Newest</option>
+            <option value="likes">Most Liked</option>
+            <option value="comments">Most Commented</option>
+            <option value="views">Most Viewed</option>
+        </select>
     </div>
 </div>
 @endsection
@@ -113,7 +111,7 @@
                 drawer.classList.toggle('closed');
             });
 
-            // Close drawer on small screens
+            // Open drawer on large screens
             if (window.innerWidth >= 1024) {
                 drawer.classList.remove('closed'); 
             }
