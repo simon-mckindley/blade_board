@@ -48,7 +48,7 @@
     
     <div id="add-container" class="container tag-form-container">
         <div>
-            <form class="post-form" method="POST" action="{{ route('tags.store') }}">
+            <form class="post-form" method="POST" action="{{ route('admin.tags.store') }}">
                 @csrf        
 
                 <div class="input-cont">

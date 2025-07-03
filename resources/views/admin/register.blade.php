@@ -3,7 +3,7 @@
 @section('title', 'Register Admin')
 
 @section('add-link')
-    <a class="link" href="{{ route('users.index') }}">Users</a>
+    <a class="link" href="{{ route('admin.users.index') }}">Users</a>
 @endsection
 
 @section('pagetitle', 'Register New Admin')

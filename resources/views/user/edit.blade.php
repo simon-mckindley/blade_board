@@ -4,7 +4,7 @@
 
 @section('add-link')
     @if (auth()->user()->isAdmin())
-    <a class="btn warning-btn" href="{{ route('users.index') }}">Back</a>
+    <a class="btn warning-btn" href="{{ route('admin.users.index') }}">Back</a>
     @else
     <a class="btn warning-btn" href="{{ route('user.show') }}">Back</a>
     @endif

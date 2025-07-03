@@ -39,7 +39,7 @@ class TagController extends Controller
             ]);
 
             return redirect()
-                ->route('tags.index')
+                ->route('admin.tags.index')
                 ->with('alert', [
                     'type' => 'success',
                     'message' => 'Tag created!'
@@ -92,7 +92,7 @@ class TagController extends Controller
             ]);
 
             return redirect()
-                ->route('tags.index')
+                ->route('admin.tags.index')
                 ->with('alert', [
                     'type' => 'success',
                     'message' => 'Tag updated!'
@@ -115,7 +115,7 @@ class TagController extends Controller
     {
         $tag->delete();
         return redirect()
-            ->route('tags.index')
+            ->route('admin.tags.index')
             ->with('alert', [
                 'type' => 'warning',
                 'message' => 'Tag deleted successfully!',
