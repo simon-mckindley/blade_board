@@ -59,7 +59,9 @@ class UserController extends Controller
         return view('auth.register');
     }
 
-
+    /**
+     * Creates a new user 
+     */
     public function register(Request $request)
     {
         // Always default to 'user'
@@ -127,7 +129,6 @@ class UserController extends Controller
         }
     }
 
-
     /**
      * Display a listing of the resource.
      */
@@ -145,7 +146,6 @@ class UserController extends Controller
                 'message' => 'You do not have permission to view this page.',
             ]);
     }
-
 
     /**
      * Display the specified resource.

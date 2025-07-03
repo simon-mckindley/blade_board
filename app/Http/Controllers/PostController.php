@@ -96,7 +96,6 @@ class PostController extends Controller
         }
     }
 
-
     /**
      * Display the specified resource.
      */
@@ -179,7 +178,6 @@ class PostController extends Controller
                 'message' => 'Post deleted successfully!',
             ]);
     }
-
 
     /**
      * Adds a user view to the post_view table
