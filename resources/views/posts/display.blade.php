@@ -179,31 +179,31 @@
                 document.querySelector('.post-count').textContent = postCount;
             });
 
-            // Sorting
-            const select = document.getElementById('sort-by');
-            const container = document.querySelector('.posts-container'); // Update this if your container has a different class
+            // // Sorting
+            // const select = document.getElementById('sort-by');
+            // const container = document.querySelector('.posts-container'); // Update this if your container has a different class
 
-            select.addEventListener('change', () => {
-                const key = select.value;
-                const posts = Array.from(container.querySelectorAll('.post-card'));
+            // select.addEventListener('change', () => {
+            //     const key = select.value;
+            //     const posts = Array.from(container.querySelectorAll('.post-card'));
 
-                posts.sort((a, b) => {
-                    let aVal = a.dataset[key];
-                    let bVal = b.dataset[key];
+            //     posts.sort((a, b) => {
+            //         let aVal = a.dataset[key];
+            //         let bVal = b.dataset[key];
 
-                    if (key === 'created') {
-                        aVal = new Date(aVal);
-                        bVal = new Date(bVal);
-                    } else {
-                        aVal = parseInt(aVal);
-                        bVal = parseInt(bVal);
-                    }
+            //         if (key === 'created') {
+            //             aVal = new Date(aVal);
+            //             bVal = new Date(bVal);
+            //         } else {
+            //             aVal = parseInt(aVal);
+            //             bVal = parseInt(bVal);
+            //         }
 
-                    return bVal - aVal; // always descending
-                });
+            //         return bVal - aVal; // always descending
+            //     });
 
-                posts.forEach(post => container.appendChild(post));
-            });
+            //     posts.forEach(post => container.appendChild(post));
+            // });
             
         });
 
