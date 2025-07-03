@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="edit-btn-cont">
-                    <button type="submit" class="btn">Update tag</button>
+                    <button type="submit" class="btn submit-btn">Update tag</button>
                     <button type="button" class="delete-btn" onclick="document.getElementById('delete-tag-dialog').showModal()" title="Delete Tag">
                         <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Tag">
                     </button>
@@ -57,7 +57,7 @@
                     <label for="name">Name</label>
                 </div>
 
-                <button class="btn" type="submit">Create tag</button>
+                <button class="btn submit-btn" type="submit">Create tag</button>
             </form>
         </div>
     </div>
@@ -71,7 +71,7 @@
             @method('DELETE')
             <div class="dialog-actions">
                 <button type="button" class="btn" onclick="this.closest('dialog').close()">No, don't</button>
-                <button type="submit" class="btn delete-btn">Definitely</button>
+                <button type="submit" class="btn delete-btn submit-btn">Definitely</button>
             </div>
         </form>
     </dialog>

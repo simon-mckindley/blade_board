@@ -6,7 +6,7 @@
 
 @auth
     @section('add-link')
-        <button form="logout" class="btn warning-btn" type="submit">Logout</button>
+        <button form="logout" class="btn warning-btn submit-btn" type="submit">Logout</button>
     @endsection
 @endauth
 
@@ -46,7 +46,7 @@
             <a class="btn guest-btn" href="{{ route('posts.display') }}">Continue as Guest</a>
         </div>
     @endguest
-     
+
 @endsection
 
 @section('scripts')

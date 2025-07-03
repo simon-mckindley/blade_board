@@ -106,7 +106,7 @@ class UserController extends Controller
             ]);
 
             if (Auth::check() && Auth::user()->isAdmin()) {
-                return redirect()->route('users.index')
+                return redirect()->route('admin.users.index')
                     ->with('alert', [
                         'type' => 'success',
                         'message' => 'Registration successful!',
@@ -320,7 +320,7 @@ class UserController extends Controller
                 ]);
         }
 
-        $route = Auth::user()->isAdmin() ? 'users.index' : 'home';
+        $route = Auth::user()->isAdmin() ? 'admin.users.index' : 'home';
         
         $user->delete();
 

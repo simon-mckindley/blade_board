@@ -109,7 +109,7 @@
                             <label for="comment">Add a comment</label>
                         </div>
                         
-                        <button class="btn" type="submit">Submit Comment</button>
+                        <button class="btn submit-btn" type="submit">Submit Comment</button>
                     </form>
                 </div>
             </div>
@@ -135,7 +135,7 @@
             @method('DELETE')
             <div class="dialog-actions">
                 <button type="button" class="btn" onclick="this.closest('dialog').close()">No, don't</button>
-                <button type="submit" class="btn delete-btn">Definitely</button>
+                <button type="submit" class="btn delete-btn submit-btn">Definitely</button>
             </div>
         </form>
     </dialog>
@@ -149,7 +149,7 @@
                 @method('DELETE')
                 <div class="dialog-actions">
                     <button type="button" class="btn" onclick="this.closest('dialog').close()">Oops, No</button>
-                    <button type="submit" class="btn delete-btn">For Sure</button>
+                    <button type="submit" class="btn delete-btn submit-btn">For Sure</button>
                 </div>
             </form>
         </dialog>

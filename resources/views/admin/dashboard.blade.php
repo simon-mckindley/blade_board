@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('add-link')
-    <button form="logout" class="btn warning-btn" type="submit">Logout</button>
+    <button form="logout" class="btn warning-btn submit-btn" type="submit">Logout</button>
 @endsection
 
 @section('pagetitle', 'Admin Dashboard')

@@ -59,6 +59,6 @@
             <label>Tags</label>
         </div>        
 
-        <button class="btn" type="submit">Post it</button>
+        <button class="btn submit-btn" type="submit">Post it</button>
     </form>    
 @endsection

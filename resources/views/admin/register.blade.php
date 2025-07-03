@@ -45,6 +45,6 @@
             <label for="password_confirmation">Confirm Password</label>
         </div>
 
-        <button class="btn" type="submit">Create New Admin</button>
+        <button class="btn submit-btn" type="submit">Create New Admin</button>
     </form>
 @endsection

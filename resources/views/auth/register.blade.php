@@ -31,7 +31,7 @@
             <label for="password_confirmation">Confirm Password</label>
         </div>
 
-        <button class="btn" type="submit">Set me up</button>
+        <button class="btn submit-btn" type="submit">Set me up</button>
     </form>
 
     <div class="auth-link">

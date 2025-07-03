@@ -19,18 +19,7 @@
 @endguest
 
 @section('pagetitle')
-<div class="sort-header">
-    Posts
-    <div class="sort-controls">
-        <label for="sort-by">Sort by -> </label>
-        <select id="sort-by" class="sort-select">
-            <option value="created">Newest</option>
-            <option value="likes">Most Liked</option>
-            <option value="comments">Most Commented</option>
-            <option value="views">Most Viewed</option>
-        </select>
-    </div>
-</div>
+    <x-sort-header />
 @endsection
 
 @section('maincontent')
@@ -178,32 +167,6 @@
 
                 document.querySelector('.post-count').textContent = postCount;
             });
-
-            // // Sorting
-            // const select = document.getElementById('sort-by');
-            // const container = document.querySelector('.posts-container'); // Update this if your container has a different class
-
-            // select.addEventListener('change', () => {
-            //     const key = select.value;
-            //     const posts = Array.from(container.querySelectorAll('.post-card'));
-
-            //     posts.sort((a, b) => {
-            //         let aVal = a.dataset[key];
-            //         let bVal = b.dataset[key];
-
-            //         if (key === 'created') {
-            //             aVal = new Date(aVal);
-            //             bVal = new Date(bVal);
-            //         } else {
-            //             aVal = parseInt(aVal);
-            //             bVal = parseInt(bVal);
-            //         }
-
-            //         return bVal - aVal; // always descending
-            //     });
-
-            //     posts.forEach(post => container.appendChild(post));
-            // });
             
         });
 

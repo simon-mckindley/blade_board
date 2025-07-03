@@ -1,5 +1,25 @@
 import './bootstrap';
 
+const spinnerEl =
+    `
+    <div style="
+        width: 1em;
+        aspect-ratio: 1;
+        margin: 0.155em auto;
+        border-radius: 1000px;
+        border: dashed 3px var(--secondary-color);
+        border-bottom-color: transparent;
+        animation: spinner 1200ms ease-in-out alternate infinite;
+        ">
+    </div>
+
+    <style>
+        @keyframes spinner {
+            100% {rotate: 450deg;}
+        }
+    </style>
+    `;
+
 document.addEventListener('DOMContentLoaded', function () {
     // Post Sorting
     const select = document.getElementById('sort-by');
@@ -29,4 +49,28 @@ document.addEventListener('DOMContentLoaded', function () {
             posts.forEach(post => container.appendChild(post));
         });
     }
-})
+
+    // Button Spinner
+    const submitButtons = document.querySelectorAll('button.submit-btn');
+
+    if (submitButtons) {
+        submitButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const label = btn.textContent;
+                const width = btn.getBoundingClientRect().width;
+
+                setTimeout(() => {
+                    btn.style.width = width + 'px';
+                    btn.innerHTML = spinnerEl;
+                    btn.disabled = 'true';
+                }, 300);
+
+                setTimeout(() => {
+                    btn.removeAttribute('style');
+                    btn.innerHTML = label;
+                    btn.removeAttribute('disabled');
+                }, 10000);
+            });
+        });
+    }
+});

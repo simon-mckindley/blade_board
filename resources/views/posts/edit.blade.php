@@ -65,7 +65,7 @@
                 <label>Tags</label>
             </div>
 
-            <button class="btn" type="submit" id="submit-btn" disabled>Change it</button>
+            <button class="btn submit-btn" type="submit" id="submit-btn" disabled>Change it</button>
         </form>                
     @else
         <p class="input-error">Unauthorised access</p>

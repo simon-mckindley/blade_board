@@ -20,7 +20,7 @@
             <label for="password">Password</label>
         </div>
 
-        <button class="btn" type="submit">Blade me in</button>
+        <button class="btn submit-btn" type="submit">Blade me in</button>
 
         @error('invalid')
             <div class="input-error">{{ $message }}</div>
