@@ -23,6 +23,7 @@ html {
     --white-overlay: rgba(255, 255, 255, 0.2);
     --bg-color-overlay: rgba(7, 63, 65, 0.7);
 
+    --max-width: 1600px;
     --outer-padding: 1em;
 }
 
@@ -33,13 +34,18 @@ body {
     color: var(--text-color);
     font-family: 'Sora', sans-serif;
     margin: 0 auto;
-    max-width: 1600px;
     min-height: 101dvh;
 }
 
 main {
-    margin-inline: var(--outer-padding);
+    width: 100%;
+    max-width: var(--max-width);
+    margin-inline: auto;
     animation: show-in 400ms ease-out;
+
+    .padding-box {
+        margin-inline: var(--outer-padding);
+    }
 }
 
 .logo {
@@ -170,6 +176,12 @@ header {
     margin-bottom: var(--outer-padding);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     z-index: 100;
+
+    .header-inner {
+        position: relative;
+        max-width: var(--max-width);
+        margin-inline: auto;
+    }
 }
 
 nav {

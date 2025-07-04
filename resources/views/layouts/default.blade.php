@@ -12,27 +12,33 @@
 
 <body>
     <header>
-        <nav>
-            <a href="{{ route('home') }}" class="back-button">
-                <img src="{{ asset('images/bladeboard_icon.png') }}" alt="B" width="32">
-            </a>
-            @auth
+        <div class="header-inner">
+            <nav>
+                <a href="{{ route('home') }}" class="back-button">
+                    <img src="{{ asset('images/bladeboard_icon.png') }}" alt="B" width="32">
+                </a>
+                @auth
                 <a class="link user-link" href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
-            @endauth
-        </nav>
-        
-        <h1>@yield('header', "BLADE_board")</h1>
-
-        <div class="add-link">
-            @yield('add-link')
+                @endauth
+            </nav>
+            
+            <h1>@yield('header', "BLADE_board")</h1>
+            
+            <div class="add-link">
+                @yield('add-link')
+            </div>
         </div>
     </header>
     
     <main>
-        <div class="logo"></div>
-        <h2 class="page-title">@yield('pagetitle')</h2>
-        
-        @yield('maincontent')
+        <div class="padding-box">
+
+            <div class="logo"></div>
+            <h2 class="page-title">@yield('pagetitle')</h2>
+            
+            @yield('maincontent')
+
+        </div>
     </main>
 
     @if (session('alert'))
