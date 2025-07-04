@@ -1,6 +1,6 @@
 import './bootstrap';
 
-const spinnerEl =
+const btnSpinner =
     `
     <div style="
         width: 1em;
@@ -14,8 +14,71 @@ const spinnerEl =
     </div>
 
     <style>
-        @keyframes spinner {
-            100% {rotate: 450deg;}
+        @keyframes spinner {100% {rotate: 450deg;}}
+    </style>
+    `;
+
+const pageSpinner =
+    `
+    <div style="
+        margin: 30vh auto 0; width: fit-content; text-align: center;
+        animation: show-in 2000ms linear;">
+        <p>Loading...</p>
+        <div class="page-spinner">
+            <div class="line top"></div>
+            <div class="line right"></div>
+            <div class="line bottom"></div>
+            <div class="line left"></div>
+        </div>
+    </div>
+
+    <style>
+        .page-spinner {
+            --_page-spinner-width: 2em;
+            position: relative;
+            width: var(--_page-spinner-width);
+            aspect-ratio: 1/1;
+            margin-inline: auto;
+        }
+
+        .page-spinner .line {
+            position: absolute;
+            background-color: var(--text-color);
+            border-radius: 100px;
+            animation: page-spinner-move 1800ms linear infinite;
+        }
+
+        .page-spinner .top {
+            width: 100%;
+            height: calc(var(--_page-spinner-width) / 10);
+            transform-origin: 95%;
+        }
+
+        .page-spinner .right {
+            right: 0;
+            height: 100%;
+            width: calc(var(--_page-spinner-width) / 10);
+            transform-origin: 50% 95%;
+        }
+
+        .page-spinner .bottom {
+            bottom: 0;
+            width: 100%;
+            height: calc(var(--_page-spinner-width) / 10);
+            transform-origin: 5%;
+        }
+
+        .page-spinner .left {
+            left: 0;
+            height: 100%;
+            width: calc(var(--_page-spinner-width) / 10);
+            transform-origin: 50% 5%;
+        }
+
+        @keyframes page-spinner-move {
+            100% {
+                rotate: -90deg;
+            }
         }
     </style>
     `;
@@ -61,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 setTimeout(() => {
                     btn.style.width = width + 'px';
-                    btn.innerHTML = spinnerEl;
+                    btn.innerHTML = btnSpinner;
                     btn.disabled = 'true';
                 }, 300);
 
@@ -73,4 +136,18 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
+
+
+    // Page Spinner
+    const links = document.querySelectorAll('a');
+
+    if (links) {
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                const main = document.querySelector('.padding-box');
+                main.innerHTML = pageSpinner;
+            })
+        })
+    }
+
 });
