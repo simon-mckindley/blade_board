@@ -468,7 +468,7 @@ input[type="radio"]:checked+.tag-input {
             transition: background-color 300ms ease, outline-color 300ms ease;
         }
 
-        .action.unlike {
+        .action.like-btn.liked {
             background-color: var(--success-color);
             outline: 1px solid var(--text-color);
         }
@@ -483,8 +483,8 @@ input[type="radio"]:checked+.tag-input {
             background-color: var(--warning-color);
         }
 
-        .action.like:hover,
-        .action.like:focus-visible {
+        .action.like-btn:not(.liked):hover,
+        .action.like-btn:not(.liked):focus-visible {
             background-color: var(--success-color);
             outline: 1px solid var(--text-color);
         }
@@ -536,6 +536,13 @@ input[type="radio"]:checked+.tag-input {
             align-items: center;
             gap: 0.5em;
         }
+    }
+
+    #like-conf {
+        position: absolute;
+        inset: 0.25em;
+        display: none;
+        animation: move-out-high 2000ms linear forwards;
     }
 }
 
@@ -631,21 +638,21 @@ input[type="radio"]:checked+.tag-input {
         justify-content: end;
         margin-top: 3em;
 
-        .btn {
+        .btn:not(:disabled) {
             background-color: var(--bg-color);
             border: 2px solid var(--warning-color);
         }
 
-        .btn:hover,
+        .btn:hover:not(:disabled),
         .btn:focus-visible {
             background-color: var(--warning-color);
         }
 
-        .delete-btn {
+        .delete-btn:not(:disabled) {
             background-color: var(--warning-color);
         }
 
-        .delete-btn:hover,
+        .delete-btn:hover:not(:disabled),
         .delete-btn:focus-visible {
             background-color: var(--error-color);
         }
@@ -1020,6 +1027,12 @@ input[type="radio"]:checked+.tag-input {
 
 
 /* Animations */
+@keyframes rotate {
+    100% {
+        rotate: 360deg;
+    }
+}
+
 @keyframes show-in {
     0% {
         opacity: 0;
@@ -1038,5 +1051,15 @@ input[type="radio"]:checked+.tag-input {
         opacity: 0;
         transform: translateY(-150%);
     }
+}
 
+@keyframes move-out-high {
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-200%);
+    }
 }

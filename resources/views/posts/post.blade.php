@@ -1,7 +1,7 @@
 @php
     if (auth()->check()) {
         $likeClass = $post->likedByUsers->contains(auth()->id()) ? 
-        'unlike' : 'like';
+        'liked' : '';
     }
 
     $commentActionVisibility = !auth()->check() || auth()->user()->isAdmin() ? 
@@ -47,14 +47,18 @@
                             <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
                         </button>
                     @else
-                        <form method="POST" action="{{ route('posts.like', $post->id) }}">
-                            @csrf
-                            <button type="submit" class="action {{ $likeClass }}" title="{{ ucfirst($likeClass) }} this Post">
+                        <div style="position: relative">
+                            <button 
+                                type="button"
+                                class="action {{ $likeClass }} like-btn" 
+                                data-post-id="{{ $post->id }}"
+                            >
                                 <img height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Like Post">
                             </button>
-                        </form>
+                            <img id="like-conf" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="">
+                        </div>
                         <div>
-                            &lpar;{{ $post->likes()->count() }}&rpar;
+                            &lpar;<span class="likes-count" style="text-align: center; display: inline-block; min-width: 1ch;">{{ $post->likes()->count() }}</span>&rpar;
                         </div>
                     @endif
                 @endauth
@@ -175,6 +179,7 @@
                 });
             });
 
+            // Log-View Ajax call
             fetch('{{ route('posts.logView', $post->id) }}', {
                 method: 'POST',
                 headers: {
@@ -186,6 +191,58 @@
             ).then(res => res.json())
              .then(data => console.log(data))
              .catch(err => console.error(err));
+
+            // Like toggle Ajax call
+            const likeButton = document.querySelector('.like-btn');
+
+            if (likeButton) {
+                const likeConf = document.getElementById('like-conf');
+                likeConf.addEventListener('animationend', () => likeConf.removeAttribute('style'));
+                
+                likeButton.title = likeButton.classList.contains('liked') ?
+                     'Unlike this post' : 'Like this post';
+
+                likeButton.addEventListener('click', async () => {
+                    console.log('Liked button clicked');
+                    likeButton.querySelector('img').style = 'animation: rotate 1000ms linear infinite;';
+                    const likesCount = document.querySelector('.likes-count');
+                    let likesNum = parseInt(likesCount.innerText);
+                    const postId = likeButton.dataset.postId;
+                    
+                    try {
+                        const response = await fetch(`{{ route('posts.like', $post->id) }}`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json'
+                            },
+                        });
+                        
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        
+                        const result = await response.json();
+                        
+                        likeButton.classList.toggle('liked');
+                        likeButton.blur();
+                        likeButton.querySelector('img').removeAttribute('style');
+
+                        if (likeButton.classList.contains('liked')) {
+                            likeConf.style.display = 'block';
+                            likeButton.title = 'Unlike this post';
+                            likesNum++;
+                        } else {
+                            likeButton.title = 'Like this post';
+                            likesNum--;
+                        }
+
+                        likesCount.innerText = likesNum;
+                        console.log(result);
+                    } catch (error) {
+                        console.error('Error toggling like:', error);
+                    }
+                });
+            }
+
         });
     </script>
 @endsection

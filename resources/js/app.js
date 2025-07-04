@@ -7,7 +7,7 @@ const spinnerEl =
         aspect-ratio: 1;
         margin: 0.155em auto;
         border-radius: 1000px;
-        border: dashed 3px var(--secondary-color);
+        border: dashed 3px var(--bg-color);
         border-bottom-color: transparent;
         animation: spinner 1200ms ease-in-out alternate infinite;
         ">

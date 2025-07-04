@@ -12,14 +12,11 @@ class LikeController extends Controller
         $user = Auth::user();
 
         if ($post->likes()->where('user_id', $user->id)->exists()) {
-            // Unlike
             $post->likes()->where('user_id', $user->id)->delete();
-            return back()->with('alert', ['type' => 'info', 'message' => 'Like removed']);
+            return response()->json(['liked' => false, 'message' => 'Like removed']);
         }
 
-        // Like
         $post->likes()->create(['user_id' => $user->id]);
-        return back()->with('alert', ['type' => 'success', 'message' => 'Post liked!']);
+        return response()->json(['liked' => true, 'message' => 'Post liked!']);
     }
-
 }
