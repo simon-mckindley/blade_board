@@ -137,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-
     // Page Spinner
     const links = document.querySelectorAll('a');
 
