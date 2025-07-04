@@ -1,0 +1,25 @@
+{
+  "public/fonts/Roboto-BoldItalic.ttf": {
+    "file": "assets/Roboto-BoldItalic-DT6Xhz2f.ttf",
+    "src": "public/fonts/Roboto-BoldItalic.ttf"
+  },
+  "public/fonts/Sora/Sora-VariableFont_wght.ttf": {
+    "file": "assets/Sora-VariableFont_wght-BdGHk4M9.ttf",
+    "src": "public/fonts/Sora/Sora-VariableFont_wght.ttf"
+  },
+  "public/images/bladeboard_logo.png": {
+    "file": "assets/bladeboard_logo-oTVDV4Lc.png",
+    "src": "public/images/bladeboard_logo.png"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-CVcCIcBd.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-BnShyuvH.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}
