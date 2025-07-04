@@ -39,12 +39,12 @@
                         {{-- Display if is users own post --}}
                         @if (!auth()->user()->isAdmin())
                         <a class="action" href="{{ route('posts.edit', $post) }}" title="Edit Post">
-                            <img height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
+                            <img class="icon" height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
                         </a>
                         @endif
                         {{-- Display if admin or users own post --}}
                         <button type="button" class="action delete" onclick="document.getElementById('delete-post-dialog').showModal()" title="Delete Post">
-                            <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
+                            <img class="icon" height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
                         </button>
                     @else
                         <div style="position: relative">
@@ -53,9 +53,9 @@
                                 class="action {{ $likeClass }} like-btn" 
                                 data-post-id="{{ $post->id }}"
                             >
-                                <img height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Like Post">
+                                <img class="icon" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Like Post">
                             </button>
-                            <img id="like-conf" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="">
+                            <img class="icon" id="like-conf" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="">
                         </div>
                         <div>
                             &lpar;<span class="likes-count" style="text-align: center; display: inline-block; min-width: 1ch;">{{ $post->likes()->count() }}</span>&rpar;
@@ -63,7 +63,7 @@
                     @endif
                 @endauth
                 @guest
-                    <img height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Likes">
+                    <img class="icon" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Likes">
                     <div>
                         &lpar;{{ $post->likes()->count() }}&rpar;
                     </div>
@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="post-views" title="Views">
-                    <img src="{{ asset('images/view_icon.svg') }}" alt=""> 
+                    <img class="icon" height="24" src="{{ asset('images/view_icon.svg') }}" alt=""> 
                     &lpar;{{ $post->viewers()->count() }}&rpar;
                 </div>
             </div>
@@ -99,7 +99,7 @@
                 <h3>Comments &lpar;{{ $post->comments->count() }}&rpar;</h3>
                 <button type="button" class="comment-action" 
                     style="visibility: {{ $commentActionVisibility }}" title="Add Comment">
-                    <img height="24" src="{{ asset('images/comment_icon.svg') }}" alt="Add Comment">
+                    <img class="icon" height="24" src="{{ asset('images/comment_icon.svg') }}" alt="Add Comment">
                 </button>
             </div>
 
@@ -239,6 +239,7 @@
                         console.log(result);
                     } catch (error) {
                         console.error('Error toggling like:', error);
+                        likeButton.querySelector('img').removeAttribute('style');
                     }
                 });
             }

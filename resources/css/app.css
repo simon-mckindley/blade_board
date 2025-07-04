@@ -165,6 +165,9 @@ i {
     letter-spacing: 1px;
 }
 
+.icon {
+    width: 1.5em;
+}
 
 /* Header & Navigation */
 header {
@@ -180,6 +183,7 @@ header {
     .header-inner {
         position: relative;
         max-width: var(--max-width);
+        height: 100%;
         margin-inline: auto;
     }
 }
@@ -434,6 +438,10 @@ input[type="radio"]:checked+.tag-input {
         font-weight: normal;
         margin-left: 20vw;
         margin-block: 0.2em;
+    }
+
+    select {
+        padding: 0.25em 0.5em;
     }
 }
 
@@ -729,6 +737,10 @@ input[type="radio"]:checked+.tag-input {
         &:focus-visible {
             background-color: var(--text-color);
         }
+
+        img {
+            width: 1.25em;
+        }
     }
 
     .comment-content {
@@ -934,6 +946,7 @@ input[type="radio"]:checked+.tag-input {
         border-bottom-left-radius: 50px;
 
         >img {
+            width: 2em;
             transition: rotate 300ms ease-in 500ms;
         }
     }

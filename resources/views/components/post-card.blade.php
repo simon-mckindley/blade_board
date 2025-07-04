@@ -29,15 +29,15 @@
 
         <div class="post-stats">
             <div class="stats-inner" title="Comments">
-                <img src="{{ asset('images/comment_icon.svg') }}" alt=""> 
+                <img class="icon" src="{{ asset('images/comment_icon.svg') }}" alt=""> 
                 {{ $post->comments_count }}
             </div>
             <div class="stats-inner" title="Likes">
-                <img src="{{ asset('images/mood_icon.svg') }}" alt=""> 
+                <img class="icon" src="{{ asset('images/mood_icon.svg') }}" alt=""> 
                 {{ $post->likes_count }}
             </div>
             <div class="stats-inner" title="Views">
-                <img src="{{ asset('images/view_icon.svg') }}" alt=""> 
+                <img class="icon" src="{{ asset('images/view_icon.svg') }}" alt=""> 
                 {{ $post->viewers()->count() }}
             </div>
         </div>

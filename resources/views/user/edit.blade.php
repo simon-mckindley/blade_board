@@ -28,7 +28,7 @@
                 <div class="edit-input">
                     <input type="text" name="name" id="name" value="{{ $user->name }}" required readonly>
                     <button type="button" class="edit-btn" id="edit-name-btn" data-field="name" title="Edit Name">
-                        <img height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Info">
+                        <img class="icon" height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Info">
                     </button>
                 </div>
                 <label for="name">Name</label>    
@@ -39,7 +39,7 @@
                 <div class="edit-input">
                     <input type="email" name="email" id="email" value="{{ $user->email }}" required readonly>
                     <button type="button" class="edit-btn" id="edit-email-btn" data-field="email" title="Edit Email">
-                        <img height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Info">
+                        <img class="icon" height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Info">
                     </button>
                 </div>
                 <label for="email">Email</label>
@@ -50,7 +50,7 @@
                 <div class="edit-input">
                     <input type="password" name="password" id="password" placeholder="Leave blank to keep password" readonly>
                     <button type="button" class="edit-btn" id="edit-password-btn" data-field="password" title="Edit Password">
-                        <img height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Info">
+                        <img class="icon" height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Info">
                     </button>
                 </div>
                 <label for="password">Password</label>
@@ -64,7 +64,7 @@
             <div class="edit-actions">
                 <button class="btn submit-btn" type="submit" id="submit-btn" disabled>Change me</button>
                 <button type="button" class="delete-btn" onclick="document.getElementById('delete-user-dialog').showModal()" title="Delete User">
-                    <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="">
+                    <img class="icon" height="24" src="{{ asset('images/delete_icon.svg') }}" alt="">
                 </button>
             </div>
         </form>

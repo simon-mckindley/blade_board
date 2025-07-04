@@ -35,7 +35,7 @@
                 <div class="edit-btn-cont">
                     <button type="submit" class="btn submit-btn">Update tag</button>
                     <button type="button" class="delete-btn" onclick="document.getElementById('delete-tag-dialog').showModal()" title="Delete Tag">
-                        <img height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Tag">
+                        <img class="icon" height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Tag">
                     </button>
                 </div>
             </div>
@@ -43,7 +43,7 @@
     </form>
 
     <button class="btn add-tag-btn" type="button" title="Add a Tag">
-        <img height="24" src="{{ asset('images/add_icon.svg') }}" alt="Add Tag">
+        <img class="icon" height="24" src="{{ asset('images/add_icon.svg') }}" alt="Add Tag">
     </button>
     
     <div id="add-container" class="container tag-form-container">

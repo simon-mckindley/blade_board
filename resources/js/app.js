@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     btn.removeAttribute('style');
                     btn.innerHTML = label;
                     btn.removeAttribute('disabled');
-                }, 10000);
+                }, 15000);
             });
         });
     }
