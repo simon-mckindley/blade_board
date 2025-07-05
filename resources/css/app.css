@@ -434,7 +434,6 @@ input[type="radio"]:checked+.tag-input {
     max-width: 40rem;
 
     .sort-controls {
-        flex-basis: 0;
         font-size: 0.8rem;
         font-weight: normal;
         margin-left: auto;
@@ -1049,6 +1048,10 @@ input[type="radio"]:checked+.tag-input {
 @media (max-width: 620px) {
     header h1 {
         display: none;
+    }
+
+    .sort-controls {
+        flex-basis: 0;
     }
 }
 
