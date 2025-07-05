@@ -13,7 +13,9 @@ use App\Http\Middleware\AdminOnly;
 use App\Http\Middleware\SuperOnly;
 
 // Home
-Route::view('/', 'home')->name('home');
+Route::get('/', function () {
+    return view('home');
+})->name('home');
 
 // Authentication
 Route::controller(UserController::class)->group(function () {
