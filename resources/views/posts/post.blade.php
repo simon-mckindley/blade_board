@@ -33,65 +33,73 @@
     <div class="post-page-grid">
 
         <div class="post">
-            <div class="post-actions">
-                @auth
-                    @if ($post->user->id === auth()->id() || auth()->user()->isAdmin())
-                        {{-- Display if is users own post --}}
-                        @if (!auth()->user()->isAdmin())
-                        <a class="action" href="{{ route('posts.edit', $post) }}" title="Edit Post">
-                            <img class="icon" height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
-                        </a>
-                        @endif
-                        {{-- Display if admin or users own post --}}
-                        <button type="button" class="action delete" onclick="document.getElementById('delete-post-dialog').showModal()" title="Delete Post">
-                            <img class="icon" height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
-                        </button>
-                    @else
-                        <div style="position: relative">
-                            <button 
-                                type="button"
-                                class="action {{ $likeClass }} like-btn" 
-                                data-post-id="{{ $post->id }}"
-                            >
-                                <img class="icon" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Like Post">
-                            </button>
-                            <img class="icon" id="like-conf" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="">
-                        </div>
-                        <div>
-                            &lpar;<span class="likes-count" style="text-align: center; display: inline-block; min-width: 1ch;">{{ $post->likes()->count() }}</span>&rpar;
-                        </div>
-                    @endif
-                @endauth
-                @guest
-                    <img class="icon" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Likes">
-                    <div>
-                        &lpar;{{ $post->likes()->count() }}&rpar;
+            <div class="post-head">
+                <div class="post-actions-row">
+                    <div class="post-tags">
+                        @foreach ($post->tags as $tag)
+                        <span>{{ $tag->name }}</span>
+                        @endforeach
                     </div>
-                @endguest
-            </div>
-            
-            <div class="post-meta">
-                <span class="post-date">Created -> {{ display_time($post->created_at) }}</span>
-                <span class="post-date">Updated -> {{ display_time($post->updated_at) }}</span>
-                <span>{{ ucwords($post->user->name) }}</span>
-            </div>
-            
-            <div class="post-main">
-                <div class="post-title">{{ ucwords($post->title) }}</div>
-                
-                <div class="post-content">{!! ($post->content) !!}</div>
-                
-                <div class="post-tags">
-                    @foreach ($post->tags as $tag)
-                    <span>{{ $tag->name }}</span>
-                    @endforeach
+                    
+                    <div class="post-actions">
+                        @auth
+                            @if ($post->user->id === auth()->id() || auth()->user()->isAdmin())
+                                {{-- Display if is users own post --}}
+                                @if (!auth()->user()->isAdmin())
+                                <a class="action" href="{{ route('posts.edit', $post) }}" title="Edit Post">
+                                    <img class="icon" height="24" src="{{ asset('images/edit_document_icon.svg') }}" alt="Edit Post">
+                                </a>
+                                @endif
+                                {{-- Display if admin or users own post --}}
+                                <button type="button" class="action delete" onclick="document.getElementById('delete-post-dialog').showModal()" title="Delete Post">
+                                    <img class="icon" height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
+                                </button>
+                            @else
+                                <div style="position: relative">
+                                    <button 
+                                        type="button"
+                                        class="action {{ $likeClass }} like-btn" 
+                                        data-post-id="{{ $post->id }}"
+                                    >
+                                        <img class="icon" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Like Post">
+                                    </button>
+                                    <img class="icon" id="like-conf" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="">
+                                </div>
+                                <div>
+                                    &lpar;<span class="likes-count" style="text-align: center; display: inline-block; min-width: 1ch;">{{ $post->likes()->count() }}</span>&rpar;
+                                </div>
+                            @endif
+                        @endauth
+                        @guest
+                            <img class="icon" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Likes">
+                            <div>
+                                &lpar;{{ $post->likes()->count() }}&rpar;
+                            </div>
+                        @endguest
+                    </div>
                 </div>
+                
+                <div class="post-meta">
+                    <span class="post-date">Created -> {{ display_time($post->created_at) }}</span>
+                    @if ($post->created_at !== $post->updated_at)
+                    <span class="post-date">Edited -> {{ display_time($post->updated_at) }}</span>
+                    @endif
+                    <span>{{ ucwords($post->user->name) }}</span>
+                </div>
+                
+                <div class="post-title-row">
+                    <div class="post-title">
+                        {{ ucwords($post->title) }}
+                    </div>
+                    <div class="post-views" title="Views">
+                        <img class="icon" height="24" src="{{ asset('images/view_icon.svg') }}" alt=""> 
+                        &lpar;{{ $post->viewers()->count() }}&rpar;
+                    </div>
+                </div>
+            </div>
+                
+            <div class="post-content">{!! ($post->content) !!}</div>
 
-                <div class="post-views" title="Views">
-                    <img class="icon" height="24" src="{{ asset('images/view_icon.svg') }}" alt=""> 
-                    &lpar;{{ $post->viewers()->count() }}&rpar;
-                </div>
-            </div>
         </div>
                    
         <div class="comments-section">

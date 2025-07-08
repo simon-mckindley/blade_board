@@ -13,15 +13,17 @@
 html {
     --text-color: #ebebeb;
     --text-color-secondary: #acacac;
-    --bg-color: #073f41;
-    --secondary-color: #400a08;
-    --light-secondary: hsl(2, 78%, 24%);
+    --bg-color: #1a1a38;
+    --secondary-color: #3a3a7e;
+    --light-secondary: #3404A5;
+    --white-overlay: rgba(255, 255, 255, 0.2);
+    --white-overlay-heavy: rgba(255, 255, 255, 0.5);
+    --bg-color-overlay: hsla(240, 37%, 16%, 0.7);
+
     --success-color: #2e7d32;
     --error-color: #d32f2f;
     --info-color: #1976d2;
     --warning-color: #be3652;
-    --white-overlay: rgba(255, 255, 255, 0.2);
-    --bg-color-overlay: rgba(7, 63, 65, 0.7);
 
     --max-width: 1600px;
     --outer-padding: 1em;
@@ -448,6 +450,7 @@ input[type="radio"]:checked+.tag-input {
 
 /* Post Cards */
 .post-card {
+    padding: 1em;
     opacity: 0;
     transform: translateY(100%);
     animation: move-in 300ms ease-out forwards;
@@ -458,9 +461,27 @@ input[type="radio"]:checked+.tag-input {
     background-color: var(--white-overlay);
     backdrop-filter: blur(5px);
     border-radius: 10px;
-    padding: 1em;
     margin-bottom: 1em;
     max-width: 50em;
+    overflow: hidden;
+
+    .post-head {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        padding: 1em 1em 0.25em 1em;
+    }
+
+    .post-title-row,
+    .post-actions-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+    }
+
+    .post-title-row {
+        align-items: end;
+    }
 
     .post-name, .post-date {
         font-size: 0.8em;
@@ -473,13 +494,10 @@ input[type="radio"]:checked+.tag-input {
     }
 
     .post-actions {
-        position: absolute;
-        top: 0;
-        right: 0;
         display: flex;
         align-items: center;
         gap: 0.5em;
-        margin: var(--outer-padding);
+        flex-shrink: 0;
 
         .action {
             padding: 0.25em;
@@ -523,9 +541,10 @@ input[type="radio"]:checked+.tag-input {
     }
 
     .post-content {
-        padding: 0.25em 0.5em;
+        color: var(--bg-color);
+        padding: 0.5em 1em 1em 1em;
         border-radius: 4px;
-        background-color: var(--white-overlay);
+        background-color: var(--white-overlay-heavy);
     }
 
     .post-tags {
@@ -545,7 +564,8 @@ input[type="radio"]:checked+.tag-input {
     .post-views {
         display: flex;
         gap: 0.25em;
-        margin-left: auto;
+        justify-content: end;
+        align-items: center;
     }
 
     .post-stats {
@@ -694,7 +714,7 @@ input[type="radio"]:checked+.tag-input {
 
     position: relative;
     box-sizing: border-box;
-    background-color: rgb(173, 216, 230, 0.5);
+    background-color: var(--secondary-color);
     backdrop-filter: blur(5px);
     border-radius: 10px;
     padding: 1em;
@@ -749,7 +769,7 @@ input[type="radio"]:checked+.tag-input {
         padding: 0.25em 0.5em;
         margin-top: 0.5em;
         border-radius: 4px;
-        background-color: var(--white-overlay);
+        background-color: var(--white-overlay-heavy);
     }
 }
 
@@ -912,7 +932,7 @@ input[type="radio"]:checked+.tag-input {
     top: 15dvh;
     right: 0.5rem;
     color: #111;
-    height: 75dvh;
+    min-height: 75dvh;
     width: 25em;
     max-width: 88vw;
     padding: 1em;
@@ -934,6 +954,7 @@ input[type="radio"]:checked+.tag-input {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        row-gap: 0.5em;
         height: 100%;
     }
 

@@ -77,7 +77,6 @@
                 </form>
 
                 <div class="stats">
-                    <h3>Stats</h3>
                     <div>Displayed Posts &lpar;<span class="post-count">{{ $posts->count() }}</span>&rpar;</div>
                     <div>Last Post -> {{ $posts->max('updated_at')->diffForHumans() }}</div>
                 </div>
