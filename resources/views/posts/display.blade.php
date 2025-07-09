@@ -33,6 +33,10 @@
             @endforeach
         </div>
 
+        <div class="pagination-links">
+            {{ $posts->appends(request()->query())->links() }}
+        </div>
+
         <aside class="drawer closed">
             <div class="drawer-content">
                 <form id="filters-form" class="filters">

@@ -37,7 +37,8 @@ class PostController extends Controller
             });
         }
 
-        $posts = $query->get();
+        $posts = $query->paginate(5);
+
         $tags = Tag::all();
 
         return view('posts.display', compact('posts', 'tags'));

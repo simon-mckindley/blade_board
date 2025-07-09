@@ -188,28 +188,29 @@ header {
         height: 100%;
         margin-inline: auto;
     }
+
+    nav {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        translate: 0 -50%;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding-left: var(--outer-padding);
+
+        img {
+            border-radius: 100px;
+            width: 2.5rem;
+            transition: rotate 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        img:hover {
+            rotate: 360deg;
+        }
+    }
 }
 
-nav {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    translate: 0 -50%;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding-left: var(--outer-padding);
-
-    img {
-        border-radius: 100px;
-        width: 2.5rem;
-        transition: rotate 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    img:hover {
-        rotate: 360deg;
-    }
-}
 
 h1 {
     font-family: "Roboto-Bold-Italic", system-ui, sans-serif;
@@ -227,6 +228,81 @@ h1 {
     padding-right: var(--outer-padding);
 }
 
+/* Pagination */
+.pagination-links>nav {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 2em;
+
+    >div {
+
+        /* Next and Previous links */
+        &:first-child {
+            display: flex;
+            justify-content: space-around;
+
+            /* Inactive link */
+            span {
+                visibility: hidden;
+            }
+        }
+
+        &:last-child {
+            display: block;
+
+            >div {
+
+                /* Results Numbers */
+                &:first-child {
+                    text-align: center;
+
+                    p {
+                        margin: 0;
+                    }
+                }
+
+                /* Page Numbers Links */
+                &:last-child {
+                    display: flex;
+                    justify-content: center;
+
+                    >span {
+                        display: flex;
+                        align-items: center;
+                        gap: 1em;
+
+                        >a {
+                            text-decoration: underline;
+                        }
+
+                        /* Current Page */
+                        >span[aria-current="page"] {
+                            font-size: 1.15em;
+                            font-weight: bold;
+                            cursor: default;
+                        }
+
+                        /* Redundant page arrow links */
+                        a:has(svg),
+                        span:has(svg) {
+                            display: none;
+                        }
+
+                        /* Inactive end page link */
+                        span[aria-disabled="true"] {
+                            visibility: hidden;
+                        }
+
+                        /* End page link */
+                        svg {
+                            height: 1.75em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 /* Home Page */
 .home-title {
@@ -1086,6 +1162,10 @@ input[type="radio"]:checked+.tag-input {
 
     .sort-controls {
         flex-basis: 0;
+    }
+
+    .pagination-links>nav>div:first-child {
+        justify-content: space-between;
     }
 }
 
