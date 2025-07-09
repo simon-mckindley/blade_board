@@ -179,7 +179,8 @@ class UserController extends Controller
         $posts = $user->posts()
             ->orderBy('created_at', 'desc')
             ->with('tags')
-            ->withCount('comments', 'likes')->get();
+            ->withCount('comments', 'likes')
+            ->paginate(5);
 
         return view('user.posts', compact('posts', 'user'));
     }
@@ -198,7 +199,7 @@ class UserController extends Controller
             ->whereIn('id', $postIds)
             ->orderBy('created_at', 'desc')
             ->withCount('comments', 'likes')
-            ->get();
+            ->paginate(5);
 
         return view('user.commented', compact('posts'));
     }
@@ -213,22 +214,25 @@ class UserController extends Controller
             ->orderBy('created_at', 'desc')
             ->with('tags')
             ->withCount('comments', 'likes')
-            ->get();
+            ->paginate(5);
 
         return view('user.liked', compact('posts', 'user'));
     }
 
     /**
-     * Display the posts that the user has viewed.
+     * Display the posts that the user has viewed ordered by most recent view.
      */
     public function viewedPosts()
     {
         $user = Auth::user();
-        $posts = $user->viewedPosts()
-            ->orderBy('viewed_at', 'desc')
+
+        $posts = Post::select('posts.*', 'post_user_views.viewed_at as last_viewed_at')
+            ->join('post_user_views', 'posts.id', '=', 'post_user_views.post_id')
+            ->where('post_user_views.user_id', $user->id)
+            ->orderBy('post_user_views.viewed_at', 'desc')
             ->with('tags')
             ->withCount('comments', 'likes')
-            ->get();
+            ->paginate(5);
 
         return view('user.viewed', compact('posts', 'user'));
     }

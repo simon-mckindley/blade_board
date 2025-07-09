@@ -19,5 +19,9 @@
                 <x-post-card :post="$post" />
             @endforeach
         </div>
+
+        <div class="pagination-links">
+            {{ $posts->appends(request()->query())->links() }}
+        </div>
     @endif
 @endsection

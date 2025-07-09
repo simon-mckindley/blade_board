@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Post extends Model
 {
@@ -46,5 +47,10 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'post_user_views')
             ->withPivot('viewed_at')
             ->withTimestamps();
+    }
+
+    public function getLastViewedAtAttribute($value)
+    {
+        return $value ? Carbon::parse($value) : null;
     }
 }
