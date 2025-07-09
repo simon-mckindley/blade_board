@@ -3,7 +3,7 @@
 @section('title', 'Liked Posts')
 
 @section('add-link')
-    <a class="link" href="{{ route('posts.display') }}">All Posts</a>
+    <a class="link" href="{{ route('posts.display') }}">Posts</a>
 @endsection
 
 @section('pagetitle')

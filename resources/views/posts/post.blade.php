@@ -15,7 +15,7 @@
 
  @if (!auth()->check() || auth()->user()->isAdmin())
     @section('add-link')
-        <a class="link" href="{{ route('posts.display') }}">All Posts</a>
+        <a class="link" href="{{ route('posts.display') }}">Posts</a>
     @endsection
 @endif
 
@@ -23,7 +23,7 @@
     @auth
         @if (!auth()->user()->isAdmin())
             <div class="post-navigation">
-                <a class="link" href="{{ route('posts.display') }}">All Posts</a>
+                <a class="link" href="{{ route('posts.display') }}">Posts</a>
                 <a class="link" href="{{ route('user.posts') }}">My Posts</a>
                 <a class="link" href="{{ route('posts.create') }}">Create a Post</a>
             </div>
@@ -55,25 +55,29 @@
                                     <img class="icon" height="24" src="{{ asset('images/delete_icon.svg') }}" alt="Delete Post">
                                 </button>
                             @else
-                                <div style="position: relative">
-                                    <button 
-                                        type="button"
-                                        class="action {{ $likeClass }} like-btn" 
-                                        data-post-id="{{ $post->id }}"
-                                    >
-                                        <img class="icon" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Like Post">
-                                    </button>
-                                    <img class="icon" id="like-conf" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="">
-                                </div>
-                                <div>
-                                    &lpar;<span class="likes-count" style="text-align: center; display: inline-block; min-width: 1ch;">{{ $post->likes()->count() }}</span>&rpar;
+                                <div class="likes-cont">
+                                    <div style="position: relative">
+                                        <button 
+                                            type="button"
+                                            class="action {{ $likeClass }} like-btn" 
+                                            data-post-id="{{ $post->id }}"
+                                        >
+                                            <img class="icon" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Like Post">
+                                        </button>
+                                        <img class="icon" id="like-conf" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="">
+                                    </div>
+                                    <div>
+                                        &lpar;<span class="likes-count">{{ $post->likes()->count() }}</span>&rpar;
+                                    </div>
                                 </div>
                             @endif
                         @endauth
                         @guest
-                            <img class="icon" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Likes">
-                            <div>
-                                &lpar;{{ $post->likes()->count() }}&rpar;
+                            <div class="likes-cont">
+                                <img class="icon" height="24" src="{{ asset('images/mood_icon.svg') }}" alt="Likes">
+                                <div>
+                                    &lpar;{{ $post->likes()->count() }}&rpar;
+                                </div>
                             </div>
                         @endguest
                     </div>
@@ -81,7 +85,7 @@
                 
                 <div class="post-meta">
                     <span class="post-date">Created -> {{ display_time($post->created_at) }}</span>
-                    @if ($post->created_at !== $post->updated_at)
+                    @if ($post->created_at != $post->updated_at)
                     <span class="post-date">Edited -> {{ display_time($post->updated_at) }}</span>
                     @endif
                     <span>{{ ucwords($post->user->name) }}</span>

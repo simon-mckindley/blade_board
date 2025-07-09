@@ -527,6 +527,25 @@ input[type="radio"]:checked+.tag-input {
         }
     }
 
+    .likes-cont {
+        display: flex;
+        align-items: center;
+        gap: 0.25em;
+
+        .likes-count {
+            text-align: center;
+            display: inline-block;
+            min-width: 1ch;
+        }
+    }
+
+    #like-conf {
+        position: absolute;
+        inset: 0.25em;
+        display: none;
+        animation: move-out-high 2000ms linear forwards;
+    }
+
     .post-main {
         display: flex;
         flex-direction: column;
@@ -577,13 +596,6 @@ input[type="radio"]:checked+.tag-input {
             align-items: center;
             gap: 0.5em;
         }
-    }
-
-    #like-conf {
-        position: absolute;
-        inset: 0.25em;
-        display: none;
-        animation: move-out-high 2000ms linear forwards;
     }
 }
 

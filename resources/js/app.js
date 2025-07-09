@@ -20,17 +20,16 @@ const btnSpinner =
 
 const pageSpinner =
     `
-    <div class="spinner-overlay" style ="
-        position: absolute; 
+    <div class="spinner-overlay" 
+        style="
+        position: fixed; 
         inset: 0;
         display: grid;
         place-content: center;
         z-index: 2000;
         background-color: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(2px);">
-    <div style="
-        width: fit-content; text-align: center;
-        animation: show-in 2000ms linear;">
+    <div style="animation: show-in 2000ms linear;">
         <p>Loading...</p>
         <div class="page-spinner">
             <div class="line top"></div>
@@ -91,12 +90,17 @@ const pageSpinner =
     </style>
     `;
 
+const template = document.createElement('template');
+template.innerHTML = pageSpinner.trim();
+const spinnerNode = template.content.firstElementChild;
+    
 
+// Romve the spinner overlay when the page is shown (after browser navigation)
 window.addEventListener('pageshow', () => {
     const overlay = document.querySelector('.spinner-overlay');
     if (overlay) overlay.remove();
 });
-      
+
 
 document.addEventListener('DOMContentLoaded', function () {
     // Post Sorting
@@ -158,8 +162,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (links) {
         links.forEach(link => {
             link.addEventListener('click', () => {
-                const main = document.querySelector('.padding-box');
-                main.innerHTML = pageSpinner;
+                const body = document.querySelector('body');
+                body.appendChild(spinnerNode);
             })
         })
     }
