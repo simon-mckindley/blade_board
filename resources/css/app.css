@@ -566,6 +566,7 @@ input[type="radio"]:checked+.tag-input {
         gap: 0.25em;
         justify-content: end;
         align-items: center;
+        flex-shrink: 0;
     }
 
     .post-stats {
@@ -928,6 +929,7 @@ input[type="radio"]:checked+.tag-input {
 
 /* Drawer */
 .drawer {
+    display: flex;
     position: fixed;
     top: 15dvh;
     right: 0.5rem;
@@ -936,7 +938,7 @@ input[type="radio"]:checked+.tag-input {
     width: 25em;
     max-width: 88vw;
     padding: 1em;
-    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+    background: linear-gradient(var(--white-overlay-heavy), var(--white-overlay));
     backdrop-filter: blur(5px);
     border-radius: 10px;
     z-index: 1000;
@@ -955,7 +957,6 @@ input[type="radio"]:checked+.tag-input {
         flex-direction: column;
         justify-content: space-between;
         row-gap: 0.5em;
-        height: 100%;
     }
 
     .drawer-tab {
@@ -963,7 +964,7 @@ input[type="radio"]:checked+.tag-input {
         top: 2em;
         left: -2em;
         width: 2em;
-        background-color: var(--white-overlay);
+        background-color: var(--white-overlay-heavy);
         border-top-left-radius: 50px;
         border-bottom-left-radius: 50px;
 
@@ -1030,7 +1031,8 @@ input[type="radio"]:checked+.tag-input {
         right: 1em;
 
         button[type='reset'] {
-            background-color: var(--white-overlay);
+            color: var(--bg-color);
+            background-color: var(--white-overlay-heavy);
 
             &:hover,
             &:focus-visible {
