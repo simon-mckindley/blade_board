@@ -117,6 +117,11 @@
             document.getElementById('filters-form').addEventListener('submit', function(e) {
                 e.preventDefault();
 
+                // Close drawer on small screens
+                if (window.innerWidth < 1024) {
+                    drawer.classList.add('closed'); 
+                }
+
                 const formData = new FormData(this);
                 const filter = formData.get('filter'); // 'title' or 'user'
                 const query = formData.get('query')?.toLowerCase() || '';

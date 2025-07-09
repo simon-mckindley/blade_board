@@ -20,8 +20,16 @@ const btnSpinner =
 
 const pageSpinner =
     `
+    <div class="spinner-overlay" style ="
+        position: absolute; 
+        inset: 0;
+        display: grid;
+        place-content: center;
+        z-index: 2000;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);">
     <div style="
-        margin: 30vh auto 0; width: fit-content; text-align: center;
+        width: fit-content; text-align: center;
         animation: show-in 2000ms linear;">
         <p>Loading...</p>
         <div class="page-spinner">
@@ -82,6 +90,13 @@ const pageSpinner =
         }
     </style>
     `;
+
+
+window.addEventListener('pageshow', () => {
+    const overlay = document.querySelector('.spinner-overlay');
+    if (overlay) overlay.remove();
+});
+      
 
 document.addEventListener('DOMContentLoaded', function () {
     // Post Sorting

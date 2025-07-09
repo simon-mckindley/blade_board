@@ -463,7 +463,6 @@ input[type="radio"]:checked+.tag-input {
     border-radius: 10px;
     margin-bottom: 1em;
     max-width: 50em;
-    overflow: hidden;
 
     .post-head {
         display: flex;
@@ -543,7 +542,7 @@ input[type="radio"]:checked+.tag-input {
     .post-content {
         color: var(--bg-color);
         padding: 0.5em 1em 1em 1em;
-        border-radius: 4px;
+        border-radius: 4px 4px 10px 10px;
         background-color: var(--white-overlay-heavy);
     }
 
