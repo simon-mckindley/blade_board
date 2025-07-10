@@ -906,7 +906,7 @@ input[type="radio"]:checked+.tag-input {
         column-gap: 2em;
 
         strong {
-            color: #073f41;
+            color: var(--bg-color);
             background-color: var(--white-overlay);
             padding: 0.1em 0.5em;
             border-radius: 8px;
@@ -1103,7 +1103,7 @@ input[type="radio"]:checked+.tag-input {
         text-align: center;
         background-color: var(--text-color-secondary);
         border-radius: 8px;
-        min-width: 5ch;
+        min-width: 6ch;
         padding: 0.25em 0.5em;
     }
 

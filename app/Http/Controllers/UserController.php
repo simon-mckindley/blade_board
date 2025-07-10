@@ -111,7 +111,7 @@ class UserController extends Controller
                     ->with('alert', [
                         'type' => 'success',
                         'message' => 'Registration successful!',
-                ]);
+                    ]);
             }
 
             Auth::login($user);
@@ -131,20 +131,49 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //Ensure only Admins can view this
-        if (Auth::user() && Auth::user()->isAdmin()) {
-            $users = User::orderBy('created_at', 'desc')->withCount('posts', 'comments')->get();
-            return view('admin.users', compact('users'));
+        if (!Auth::user() || !Auth::user()->isAdmin()) {
+            return redirect()->route('home')
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'You do not have permission to view this page.',
+                ]);
         }
 
-        return redirect()->route('home')
-            ->with('alert', [
-                'type' => 'error',
-                'message' => 'You do not have permission to view this page.',
-            ]);
+        if (!$request->input('search')) {
+            return view('admin.users');
+        }
+
+        $validated = $request->validate(
+            [
+                'search' => 'required|string|min:3|max:25'
+            ]
+        );
+
+        $searchTerm = strtolower($request->input('search'));
+
+        $query = User::withCount(['posts', 'comments']);
+
+        if ($searchTerm) {
+            $query->whereRaw('LOWER(name) LIKE ?', ["%{$searchTerm}%"])
+                ->orWhereRaw('LOWER(email) LIKE ?', ["%{$searchTerm}%"]);
+        }
+
+        $users = $query->get();
+
+        $messEnd = $users->count() == 1 ? '' : 's';
+
+        return view('admin.users', [
+            'users' => $users,
+            'searchTerm' => $searchTerm,
+            'alert' => [
+                'type' => 'info',
+                'message' => 'Search for "' . $searchTerm . '" returned ' . $users->count() . ' result' . $messEnd . '.',
+            ],
+        ]);
     }
+
 
     /**
      * Display the specified resource.
@@ -324,7 +353,7 @@ class UserController extends Controller
         }
 
         $route = Auth::user()->isAdmin() ? 'admin.users.index' : 'home';
-        
+
         $user->delete();
 
         return redirect()

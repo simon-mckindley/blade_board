@@ -42,10 +42,14 @@
         </div>
     </main>
 
-    @if (session('alert'))
+    @php
+        $alert = $alert ?? session('alert');
+    @endphp
+
+    @if (isset($alert))
         <x-alert 
-            :type="session('alert.type')" 
-            :message="session('alert.message')"/>
+            :type="$alert['type']" 
+            :message="$alert['message']"/>
     @endif
 </body>
 
