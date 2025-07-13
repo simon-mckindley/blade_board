@@ -93,7 +93,7 @@ const pageSpinner =
 const template = document.createElement('template');
 template.innerHTML = pageSpinner.trim();
 const spinnerNode = template.content.firstElementChild;
-    
+
 
 // Romve the spinner overlay when the page is shown (after browser navigation)
 window.addEventListener('pageshow', () => {
@@ -103,34 +103,40 @@ window.addEventListener('pageshow', () => {
 
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Sort-by change handler
+    document.getElementById('sort-by')?.addEventListener('change', function () {
+        document.getElementById('sort-form').submit();
+        this.setAttribute('disabled', 'true');
+    });
+
     // Post Sorting
-    const select = document.getElementById('sort-by');
-    const container = document.querySelector('.posts-container'); // Update this if the container has a different class
+    // const select = document.getElementById('sort-by');
+    // const container = document.querySelector('.posts-container'); // Update this if the container has a different class
 
-    if (select && container) {
-        select.addEventListener('change', () => {
-            const key = select.value;
-            const posts = Array.from(container.querySelectorAll('.post-card'));
-            console.log(key);
+    // if (select && container) {
+    //     select.addEventListener('change', () => {
+    //         const key = select.value;
+    //         const posts = Array.from(container.querySelectorAll('.post-card'));
+    //         console.log(key);
 
-            posts.sort((a, b) => {
-                let aVal = a.dataset[key];
-                let bVal = b.dataset[key];
+    //         posts.sort((a, b) => {
+    //             let aVal = a.dataset[key];
+    //             let bVal = b.dataset[key];
 
-                if (key === 'created') {
-                    aVal = new Date(aVal);
-                    bVal = new Date(bVal);
-                } else {
-                    aVal = parseInt(aVal);
-                    bVal = parseInt(bVal);
-                }
+    //             if (key === 'created') {
+    //                 aVal = new Date(aVal);
+    //                 bVal = new Date(bVal);
+    //             } else {
+    //                 aVal = parseInt(aVal);
+    //                 bVal = parseInt(bVal);
+    //             }
 
-                return bVal - aVal; // always descending
-            });
+    //             return bVal - aVal; // always descending
+    //         });
 
-            posts.forEach(post => container.appendChild(post));
-        });
-    }
+    //         posts.forEach(post => container.appendChild(post));
+    //     });
+    // }
 
     // Button Spinner
     const submitButtons = document.querySelectorAll('button.submit-btn');

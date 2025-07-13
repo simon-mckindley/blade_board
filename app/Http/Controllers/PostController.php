@@ -16,26 +16,11 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $query = Post::with('tags')
-            ->orderBy('created_at', 'desc')
             ->withCount('comments', 'likes');
 
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', '%' . $search . '%')
-                    ->orWhere('content', 'like', '%' . $search . '%');
-            });
-        }
-        // Filter by user if specified
-        if ($request->has('user')) {
-            $query->where('user_id', $request->user);
-        }
-        // Filter by tag if specified
-        if ($request->has('tag')) {
-            $query->whereHas('tags', function ($q) use ($request) {
-                $q->where('id', $request->tag);
-            });
-        }
+        $sort = $request->query('sort', 'created');
+
+        Controller::postSortOrder($query, $sort);
 
         $posts = $query->paginate(5);
 

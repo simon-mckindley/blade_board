@@ -7,7 +7,7 @@
 @endsection
 
 @section('pagetitle')
-    <x-sort-header title="Liked Posts" />
+    <x-sort-header title="Liked Posts" action="user.liked" />
 @endsection
 
 @section('maincontent')

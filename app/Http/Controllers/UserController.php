@@ -202,14 +202,19 @@ class UserController extends Controller
     /**
      * Display the posts created by the user.
      */
-    public function userPosts()
+    public function userPosts(Request $request)
     {
         $user = Auth::user();
-        $posts = $user->posts()
-            ->orderBy('created_at', 'desc')
+
+        $query = $user->posts()
             ->with('tags')
-            ->withCount('comments', 'likes')
-            ->paginate(5);
+            ->withCount('comments', 'likes');
+
+        $sort = $request->query('sort', 'created');
+
+        Controller::postSortOrder($query, $sort);
+
+        $posts = $query->paginate(5);
 
         return view('user.posts', compact('posts', 'user'));
     }
@@ -217,18 +222,22 @@ class UserController extends Controller
     /**
      * Display the posts that the user has commented on.
      */
-    public function commentedPosts()
+    public function commentedPosts(Request $request)
     {
         $user = Auth::user();
 
         // Get unique post IDs from the user's comments, then load the posts
         $postIds = $user->comments()->pluck('post_id')->unique();
 
-        $posts = Post::with(['user', 'tags'])
+        $query = Post::with(['user', 'tags'])
             ->whereIn('id', $postIds)
-            ->orderBy('created_at', 'desc')
-            ->withCount('comments', 'likes')
-            ->paginate(5);
+            ->withCount('comments', 'likes');
+
+        $sort = $request->query('sort', 'created');
+
+        Controller::postSortOrder($query, $sort);
+
+        $posts = $query->paginate(5);
 
         return view('user.commented', compact('posts'));
     }
@@ -236,14 +245,18 @@ class UserController extends Controller
     /**
      * Display the posts that the user has liked.
      */
-    public function likedPosts()
+    public function likedPosts(Request $request)
     {
         $user = Auth::user();
-        $posts = $user->likedPosts()
-            ->orderBy('created_at', 'desc')
+        $query = $user->likedPosts()
             ->with('tags')
-            ->withCount('comments', 'likes')
-            ->paginate(5);
+            ->withCount('comments', 'likes');
+
+        $sort = $request->query('sort', 'created');
+
+        Controller::postSortOrder($query, $sort);
+
+        $posts = $query->paginate(5);
 
         return view('user.liked', compact('posts', 'user'));
     }
@@ -300,7 +313,7 @@ class UserController extends Controller
         // Validate input
         $validated = $request->validate(
             [
-                'name' => 'required|string|min:3,max:25',
+                'name' => 'required|string|min:3|max:25',
                 'email' => 'required|email|unique:users,email,' . $user->id,
                 'password' => 'nullable|confirmed|min:6',
             ],

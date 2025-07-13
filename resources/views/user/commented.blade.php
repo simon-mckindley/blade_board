@@ -7,7 +7,7 @@
 @endsection
 
 @section('pagetitle')
-    <x-sort-header title="Commented Posts" />
+    <x-sort-header title="Commented Posts" action="user.commented" />
 @endsection
 
 @section('maincontent')

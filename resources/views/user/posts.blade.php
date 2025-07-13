@@ -7,7 +7,7 @@
 @endsection
 
 @section('pagetitle')
-    <x-sort-header title="My Posts" />
+    <x-sort-header title="My Posts" action="user.posts" />
 @endsection
 
 @section('maincontent')
