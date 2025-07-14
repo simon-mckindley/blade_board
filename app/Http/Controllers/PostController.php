@@ -18,45 +18,13 @@ class PostController extends Controller
         $query = Post::with('tags')
             ->withCount('comments', 'likes');
 
-        // Filter by title/user
-        if ($request->filled('query') && $request->filled('filter')) {
-            $term = strtolower($request->input('query'));
-            $filter = $request->input('filter');
-
-            $query->whereHas('user', function ($q) use ($filter, $term) {
-                if ($filter === 'user') {
-                    $q->whereRaw('LOWER(name) LIKE ?', ["%{$term}%"]);
-                }
-            });
-
-            if ($filter === 'title') {
-                $query->whereRaw('LOWER(title) LIKE ?', ["%{$term}%"]);
-            }
-        }
-
-        // Filter by tag
-        if ($request->filled('tags')) {
-            $tagIds = $request->input('tags');
-            foreach ($tagIds as $tagId) {
-                $query->whereHas('tags', function ($q) use ($tagId) {
-                    $q->where('tags.id', $tagId);
-                });
-            }
-        }
-
-        // Filter by date range
-        if ($request->filled('start_date')) {
-            $query->whereDate('created_at', '>=', $request->input('start_date'));
-        }
-        if ($request->filled('end_date')) {
-            $query->whereDate('created_at', '<=', $request->input('end_date'));
-        }
+        Controller::postFilter($query, $request);
 
         $sort = $request->query('sort', 'created');
         Controller::postSortOrder($query, $sort);
 
         $posts = $query->paginate(5);
-        
+
         $tags = Tag::all();
 
         return view('posts.display', compact('posts', 'tags'));

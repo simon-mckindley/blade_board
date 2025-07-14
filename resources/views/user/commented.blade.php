@@ -7,7 +7,7 @@
 @endsection
 
 @section('pagetitle')
-    <x-sort-header title="Commented Posts" action="user.commented" />
+    <x-sort-header title="Commented Posts" />
 @endsection
 
 @section('maincontent')
@@ -24,4 +24,7 @@
             {{ $posts->appends(request()->query())->links() }}
         </div>
     @endif
+
+    <x-drawer :tags="$tags" :posts="$posts" :action="'user.commented'" />
+
 @endsection

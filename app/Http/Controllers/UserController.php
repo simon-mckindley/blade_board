@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -210,13 +211,16 @@ class UserController extends Controller
             ->with('tags')
             ->withCount('comments', 'likes');
 
-        $sort = $request->query('sort', 'created');
+        Controller::postFilter($query, $request);
 
+        $sort = $request->query('sort', 'created');
         Controller::postSortOrder($query, $sort);
 
         $posts = $query->paginate(5);
 
-        return view('user.posts', compact('posts', 'user'));
+        $tags = Tag::all();
+
+        return view('user.posts', compact('posts', 'tags'));
     }
 
     /**
@@ -233,13 +237,16 @@ class UserController extends Controller
             ->whereIn('id', $postIds)
             ->withCount('comments', 'likes');
 
-        $sort = $request->query('sort', 'created');
+        Controller::postFilter($query, $request);
 
+        $sort = $request->query('sort', 'created');
         Controller::postSortOrder($query, $sort);
 
         $posts = $query->paginate(5);
 
-        return view('user.commented', compact('posts'));
+        $tags = Tag::all();
+
+        return view('user.commented', compact('posts', 'tags'));
     }
 
     /**
@@ -252,13 +259,16 @@ class UserController extends Controller
             ->with('tags')
             ->withCount('comments', 'likes');
 
-        $sort = $request->query('sort', 'created');
+        Controller::postFilter($query, $request);
 
+        $sort = $request->query('sort', 'created');
         Controller::postSortOrder($query, $sort);
 
         $posts = $query->paginate(5);
 
-        return view('user.liked', compact('posts', 'user'));
+        $tags = Tag::all();
+
+        return view('user.liked', compact('posts', 'tags'));
     }
 
     /**
@@ -276,7 +286,7 @@ class UserController extends Controller
             ->withCount('comments', 'likes')
             ->paginate(5);
 
-        return view('user.viewed', compact('posts', 'user'));
+        return view('user.viewed', compact('posts'));
     }
 
     /**

@@ -7,7 +7,7 @@
 @endsection
 
 @section('pagetitle')
-    <x-sort-header title="Liked Posts" action="user.liked" />
+    <x-sort-header title="Liked Posts" />
 @endsection
 
 @section('maincontent')
@@ -24,4 +24,7 @@
             {{ $posts->appends(request()->query())->links() }}
         </div>
     @endif
+
+    <x-drawer :tags="$tags" :posts="$posts" :action="'user.liked'" />
+
 @endsection

@@ -40,7 +40,7 @@
             </div>
 
             <div class="filter-btns">
-                <button class="btn submit-btn" type="reset" onclick="window.location.href='{{ route('posts.display') }}'">
+                <button class="btn submit-btn" type="reset" onclick="window.location.href='{{ route($action) }}'">
                     Clear</button>
                 <button class="btn submit-btn" type="submit">Go</button>
             </div>

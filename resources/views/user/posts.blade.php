@@ -7,7 +7,7 @@
 @endsection
 
 @section('pagetitle')
-    <x-sort-header title="My Posts" action="user.posts" />
+    <x-sort-header title="My Posts" />
 @endsection
 
 @section('maincontent')
@@ -24,4 +24,7 @@
             {{ $posts->appends(request()->query())->links() }}
         </div>
     @endif
+
+    <x-drawer :tags="$tags" :posts="$posts" :needsUser="false" :action="'user.posts'" />
+
 @endsection
