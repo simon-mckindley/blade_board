@@ -1116,6 +1116,8 @@ input[type="radio"]:checked+.tag-input {
         position: absolute;
         top: 1em;
         right: 1em;
+        display: flex;
+        gap: 0.5em;
 
         button[type='reset'] {
             color: var(--bg-color);

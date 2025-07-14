@@ -103,40 +103,36 @@ window.addEventListener('pageshow', () => {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Sort-by change handler
-    document.getElementById('sort-by')?.addEventListener('change', function () {
-        document.getElementById('sort-form').submit();
-        this.setAttribute('disabled', 'true');
-    });
+    // Drawer Actions
+    const drawer = document.querySelector('.drawer');
 
-    // Post Sorting
-    // const select = document.getElementById('sort-by');
-    // const container = document.querySelector('.posts-container'); // Update this if the container has a different class
+    if (drawer) {
+        drawer.querySelector('.drawer-tab').addEventListener('click', function () {
+            drawer.classList.toggle('closed');
+        });
 
-    // if (select && container) {
-    //     select.addEventListener('change', () => {
-    //         const key = select.value;
-    //         const posts = Array.from(container.querySelectorAll('.post-card'));
-    //         console.log(key);
+        // Open drawer on large screens
+        if (window.innerWidth >= 1024) {
+            drawer.classList.remove('closed');
+        }
 
-    //         posts.sort((a, b) => {
-    //             let aVal = a.dataset[key];
-    //             let bVal = b.dataset[key];
+        // Set date labels
+        drawer.querySelectorAll('input[type="date"]').forEach(input => {
+            const update = () => {
+                input.parentElement.classList.toggle('has-input', input.value !== '');
+            };
 
-    //             if (key === 'created') {
-    //                 aVal = new Date(aVal);
-    //                 bVal = new Date(bVal);
-    //             } else {
-    //                 aVal = parseInt(aVal);
-    //                 bVal = parseInt(bVal);
-    //             }
+            input.addEventListener('input', update);
+            update(); // run once on page load
+        });
 
-    //             return bVal - aVal; // always descending
-    //         });
+        // Sort-by change handler
+        document.getElementById('sort-by')?.addEventListener('change', function () {
+            document.getElementById('filters-form').submit();
+            this.setAttribute('disabled', 'true');
+        });
+    }
 
-    //         posts.forEach(post => container.appendChild(post));
-    //     });
-    // }
 
     // Button Spinner
     const submitButtons = document.querySelectorAll('button.submit-btn');
