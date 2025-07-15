@@ -14,12 +14,21 @@
     <header>
         <div class="header-inner">
             <nav>
-                <a href="{{ route('home') }}" class="back-button">
+                <div class="large-scrn-nav">
+                    <a class="home-button" href="{{ route('home') }}">
+                        <img src="{{ asset('images/bladeboard_icon.png') }}" alt="B" width="32">
+                    </a>
+                    @auth
+                    <a class="link" href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
+                    @endauth
+                </div>
+                <div class="small-menu-wrapper small-scrn-nav" onclick="this.classList.toggle('clicked')">
                     <img src="{{ asset('images/bladeboard_icon.png') }}" alt="B" width="32">
-                </a>
-                @auth
-                <a class="link user-link" href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
-                @endauth
+                    <a class="link" href="{{ route('home') }}">Home</a>
+                    @auth
+                    <a class="link" href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
+                    @endauth
+                </div>
             </nav>
             
             <h1>@yield('header', "BLADE_board")</h1>
