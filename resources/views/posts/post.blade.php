@@ -96,7 +96,10 @@
                         {{ ucwords($post->title) }}
                     </div>
                     <div class="post-views" title="Views">
-                        <img class="icon" height="24" src="{{ asset('images/view_icon.svg') }}" alt=""> 
+                        <div style="position: relative">
+                            <img class="icon" height="24" src="{{ asset('images/view_icon.svg') }}" alt=""> 
+                            <img class="icon" id="view-conf" height="24" src="{{ asset('images/view_icon.svg') }}" alt="">
+                        </div>
                         &lpar;{{ $post->viewers()->count() }}&rpar;
                     </div>
                 </div>
@@ -191,6 +194,9 @@
                 });
             });
 
+            const viewConf = document.getElementById('view-conf');
+            viewConf.addEventListener('animationend', () => viewConf.removeAttribute('style'));
+
             // Log-View Ajax call
             fetch('{{ route('posts.logView', $post->id) }}', {
                 method: 'POST',
@@ -199,10 +205,18 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
-            }
-            ).then(res => res.json())
-             .then(data => console.log(data))
-             .catch(err => console.error(err));
+            })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Failed to log view');
+                }
+                return res.json();
+            })
+            .then(data => {
+                console.log(data);
+                viewConf.style.display = 'block';
+            })
+            .catch(err => console.error('View log failed:', err));
 
             // Like toggle Ajax call
             const likeButton = document.querySelector('.like-btn');

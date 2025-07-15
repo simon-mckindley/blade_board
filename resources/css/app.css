@@ -615,11 +615,16 @@ input[type="radio"]:checked+.tag-input {
         }
     }
 
-    #like-conf {
+    #like-conf,
+    #view-conf {
         position: absolute;
         inset: 0.25em;
         display: none;
         animation: move-out-high 2000ms linear forwards;
+    }
+
+    #view-conf {
+        inset: 0;
     }
 
     .post-main {
