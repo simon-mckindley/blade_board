@@ -220,7 +220,18 @@ class UserController extends Controller
 
         $tags = Tag::all();
 
-        return view('user.posts', compact('posts', 'tags'));
+        $messEnd = $posts->total() == 1 ? ' post' : ' posts';
+
+        return view(
+            'user.posts',
+            compact('posts', 'tags'),
+            [
+                'alert' => [
+                    'type' => 'info',
+                    'message' => 'Showing ' . $posts->total() . $messEnd . '.',
+                ],
+            ]
+        );
     }
 
     /**
@@ -246,7 +257,18 @@ class UserController extends Controller
 
         $tags = Tag::all();
 
-        return view('user.commented', compact('posts', 'tags'));
+        $messEnd = $posts->total() == 1 ? ' post' : ' posts';
+
+        return view(
+            'user.commented',
+            compact('posts', 'tags'),
+            [
+                'alert' => [
+                    'type' => 'info',
+                    'message' => 'Showing ' . $posts->total() . $messEnd . '.',
+                ],
+            ]
+        );
     }
 
     /**
@@ -268,7 +290,18 @@ class UserController extends Controller
 
         $tags = Tag::all();
 
-        return view('user.liked', compact('posts', 'tags'));
+        $messEnd = $posts->total() == 1 ? ' post' : ' posts';
+
+        return view(
+            'user.liked',
+            compact('posts', 'tags'),
+            [
+                'alert' => [
+                    'type' => 'info',
+                    'message' => 'Showing ' . $posts->total() . $messEnd . '.',
+                ],
+            ]
+        );
     }
 
     /**
@@ -286,7 +319,18 @@ class UserController extends Controller
             ->withCount('comments', 'likes')
             ->paginate(5);
 
-        return view('user.viewed', compact('posts'));
+        $messEnd = $posts->total() == 1 ? ' post' : ' posts';
+
+        return view(
+            'user.viewed',
+            compact('posts'),
+            [
+                'alert' => [
+                    'type' => 'info',
+                    'message' => 'Showing ' . $posts->total() . $messEnd . '.',
+                ],
+            ]
+        );
     }
 
     /**

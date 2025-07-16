@@ -27,7 +27,18 @@ class PostController extends Controller
 
         $tags = Tag::all();
 
-        return view('posts.display', compact('posts', 'tags'));
+        $messEnd = $posts->total() == 1 ? ' post' : ' posts';
+
+        return view(
+            'posts.display',
+            compact('posts', 'tags'),
+            [
+                'alert' => [
+                    'type' => 'info',
+                    'message' => 'Showing ' . $posts->total() . $messEnd . '.',
+                ],
+            ]
+        );
     }
 
     /**
