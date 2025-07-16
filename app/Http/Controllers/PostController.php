@@ -171,7 +171,7 @@ class PostController extends Controller
      */
     public function logView(Request $request, Post $post)
     {
-        if (!Auth::check()) {
+        if (!Auth::check() || Auth::user()->isAdmin()) {
             return response()->json(['message' => 'Unauthenticated'], 401);
         }
 
