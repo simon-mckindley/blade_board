@@ -217,14 +217,14 @@ header {
 
 .small-scrn-nav {
     display: none;
-    --row-height: 0px;
-    grid-template-rows: repeat(3, var(--row-height));
+    --_row-height: 0px;
+    --_num-rows: 4;
+    grid-template-rows: repeat(var(--_num-rows), var(--_row-height));
     align-items: start;
     width: max-content;
     transition: grid-template-rows 500ms, background-color 1000ms, padding 500ms;
     border-radius: 4px;
     z-index: 100;
-    backdrop-filter: blur(5px);
 
     .link {
         color: var(--bg-color);
@@ -236,10 +236,11 @@ header {
     }
 }
 
-.small-scrn-nav.clicked {
-    --row-height: 2.5em;
+.small-scrn-nav:has(.clicked) {
+    --_row-height: 2.5em;
     background-color: var(--white-overlay-heavy);
-    padding: 0.2em 1em 0.5em 0.5em;
+    backdrop-filter: blur(5px);
+    padding: 0.2em 3em 0.5em 0.5em;
 
     .link {
         width: max-content;

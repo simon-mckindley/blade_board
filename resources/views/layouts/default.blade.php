@@ -22,12 +22,18 @@
                     <a class="link" href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
                     @endauth
                 </div>
-                <div class="small-menu-wrapper small-scrn-nav" onclick="this.classList.toggle('clicked')">
-                    <img src="{{ asset('images/bladeboard_icon.png') }}" alt="B" width="32">
-                    <a class="link" href="{{ route('home') }}">Home</a>
-                    @auth
-                    <a class="link" href="{{ route('user.show') }}">{{ auth()->user()->name }}</a>
-                    @endauth
+                <div class="small-scrn-nav">
+                    <img src="{{ asset('images/bladeboard_icon.png') }}" alt="B" width="32" onclick="this.classList.toggle('clicked')">
+                    @if (auth()->check() && auth()->user()->isAdmin())
+                        <a class="link" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+                        <a class="link" href="{{ route('user.show') }}">Profile</a>
+                    @else
+                        <a class="link" href="{{ route('home') }}">Home</a>
+                        <a class="link" href="{{ route('posts.display') }}">Posts</a>
+                        @auth
+                        <a class="link" href="{{ route('user.show') }}">Profile</a>
+                        @endauth
+                    @endif
                 </div>
             </nav>
             

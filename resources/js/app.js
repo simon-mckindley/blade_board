@@ -103,6 +103,21 @@ window.addEventListener('pageshow', () => {
 
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Small Screen Navigation functions
+    const smallNav = document.querySelector('.small-scrn-nav');
+    const smallNavImg = smallNav.querySelector('img');
+    const numRows = smallNav.childElementCount;
+    // Set the number of grid rows dynamically based on the number of children
+    smallNav.style.setProperty('--_num-rows', numRows);
+
+    document.addEventListener('click', function (event) {
+        const target = event.target;
+        // If the clicked element is NOT the small nav or its children, remove the clicked class
+        if (target.closest('.small-scrn-nav') !== smallNav) {
+            smallNavImg.classList.remove('clicked');
+        }
+    });
+
     // Drawer Actions
     const drawer = document.querySelector('.drawer');
 
