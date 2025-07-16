@@ -23,7 +23,10 @@
                     @endauth
                 </div>
                 <div class="small-scrn-nav">
-                    <img src="{{ asset('images/bladeboard_icon.png') }}" alt="B" width="32" onclick="this.classList.toggle('clicked')">
+                    <div class="small-scrn-nav-head">
+                        <i>BLADE_board</i>
+                        <img src="{{ asset('images/bladeboard_icon.png') }}" alt="B" width="32" onclick="this.classList.toggle('clicked')">
+                    </div>
                     @if (auth()->check() && auth()->user()->isAdmin())
                         <a class="link" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
                         <a class="link" href="{{ route('user.show') }}">Profile</a>
