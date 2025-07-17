@@ -465,11 +465,6 @@ h1 {
             opacity: 0.5;
             transition: margin-inline-end 300ms, opacity 300ms;
         }
-
-        &:hover span {
-            margin-inline-end: 0;
-            opacity: 1;
-        }
     }
 
     dd {
@@ -486,6 +481,11 @@ h1 {
     .joined-cont {
         grid-row-start: 2;
     }
+}
+
+.profile-cont:hover span {
+    margin-inline-end: 0;
+    opacity: 1;
 }
 
 .profile-cont:hover dd {
