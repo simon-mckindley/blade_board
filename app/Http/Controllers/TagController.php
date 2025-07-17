@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class TagController extends Controller
 {
@@ -12,8 +13,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::all();
-        return view('admin.tags', compact('tags'));
+        return view('admin.tags');
     }
 
     /**
@@ -29,6 +29,9 @@ class TagController extends Controller
             $tag = Tag::create([
                 'name' => $request->input('name'),
             ]);
+
+            // Clear the cache for all tags
+            Cache::forget('all_tags');
 
             return redirect()
                 ->route('admin.tags.index')
@@ -67,6 +70,9 @@ class TagController extends Controller
                 'name' => $request->input('name-edit'),
             ]);
 
+            // Clear the cache for all tags
+            Cache::forget('all_tags');
+
             return redirect()
                 ->route('admin.tags.index')
                 ->with('alert', [
@@ -90,10 +96,14 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
         $tag->delete();
+
+        // Clear the cache for all tags
+        Cache::forget('all_tags');
+
         return redirect()
             ->route('admin.tags.index')
             ->with('alert', [
-                'type' => 'warning',
+                'type' => 'info',
                 'message' => 'Tag deleted successfully!',
             ]);
     }

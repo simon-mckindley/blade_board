@@ -25,13 +25,11 @@ class PostController extends Controller
 
         $posts = $query->paginate(5);
 
-        $tags = Tag::all();
-
         $messEnd = $posts->total() == 1 ? ' post' : ' posts';
 
         return view(
             'posts.display',
-            compact('posts', 'tags'),
+            compact('posts'),
             [
                 'alert' => [
                     'type' => 'info',
@@ -46,8 +44,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $tags = Tag::all();
-        return view('posts.create', compact('tags'));
+        return view('posts.create');
     }
 
     /**
@@ -109,8 +106,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $post->load('tags');
-        $tags = Tag::all();
-        return view('posts.edit', compact('post', 'tags'));
+        return view('posts.edit', compact('post'));
     }
 
     /**

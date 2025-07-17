@@ -218,13 +218,11 @@ class UserController extends Controller
 
         $posts = $query->paginate(5);
 
-        $tags = Tag::all();
-
         $messEnd = $posts->total() == 1 ? ' post' : ' posts';
 
         return view(
             'user.posts',
-            compact('posts', 'tags'),
+            compact('posts'),
             [
                 'alert' => [
                     'type' => 'info',
@@ -255,13 +253,11 @@ class UserController extends Controller
 
         $posts = $query->paginate(5);
 
-        $tags = Tag::all();
-
         $messEnd = $posts->total() == 1 ? ' post' : ' posts';
 
         return view(
             'user.commented',
-            compact('posts', 'tags'),
+            compact('posts'),
             [
                 'alert' => [
                     'type' => 'info',
@@ -288,13 +284,11 @@ class UserController extends Controller
 
         $posts = $query->paginate(5);
 
-        $tags = Tag::all();
-
         $messEnd = $posts->total() == 1 ? ' post' : ' posts';
 
         return view(
             'user.liked',
-            compact('posts', 'tags'),
+            compact('posts'),
             [
                 'alert' => [
                     'type' => 'info',
