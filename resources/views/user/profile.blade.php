@@ -11,7 +11,11 @@
 @section('maincontent')
     <dl class="profile">
         <div class="profile-cont">
-            <dt>Email</dt>
+            <dt>Email
+                <span>
+                    <img class="icon" src="{{ asset('images/email_icon.svg') }}" alt="">
+                </span>
+            </dt>
             <dd>{{ $user->email }}</dd>
         </div>
 
@@ -22,7 +26,11 @@
             <dt>Posts</dt>
             @else
             <a class="link" href="{{ route('user.posts') }}" >
-                <dt>Posts</dt>
+                <dt>Posts
+                    <span>
+                        <img class="icon" src="{{ asset('images/post_icon.svg') }}" alt="">
+                    </span>
+                </dt>
             </a>
             @endif
             <dd>{{ $postCount }}</dd>
@@ -33,7 +41,11 @@
             <dt>Comments</dt>
             @else
             <a class="link" href="{{ route('user.commented') }}">
-                <dt>Comments</dt>
+                <dt>Comments
+                    <span>
+                        <img class="icon" src="{{ asset('images/comment_icon.svg') }}" alt="">
+                    </span>
+                </dt>
             </a>
             @endif
             <dd>{{ $commentCount }}</dd>
@@ -44,7 +56,11 @@
             <dt>Likes</dt>
             @else
             <a class="link" href="{{ route('user.liked') }}">
-                <dt>Likes</dt>
+                <dt>Likes
+                    <span>
+                        <img class="icon" src="{{ asset('images/mood_icon.svg') }}" alt="">
+                    </span>
+                </dt>
             </a>
             @endif
             <dd>{{ $likeCount }}</dd>
@@ -55,7 +71,11 @@
             <dt>Viewed</dt>
             @else
             <a class="link" href="{{ route('user.viewed') }}">
-                <dt>Viewed</dt>
+                <dt>Viewed
+                    <span>
+                        <img class="icon" src="{{ asset('images/view_icon.svg') }}" alt="">
+                    </span>
+                </dt>
             </a>
             @endif
             <dd>{{ $viewCount }}</dd>
@@ -64,7 +84,11 @@
         @endif
 
         <div class="profile-cont joined-cont">
-            <dt>Joined</dt>
+            <dt>Joined
+                <span>
+                    <img class="icon" src="{{ asset('images/time_icon.svg') }}" alt="">
+                </span>
+            </dt>
             <dd>{{ display_time($user->created_at) }}</dd>
         </div>
     </dl>    

@@ -455,6 +455,23 @@ h1 {
         border-radius: 8px;
     }
 
+    dt {
+        display: flex;
+        align-items: start;
+
+        span {
+            margin-inline-end: 5%;
+            margin-inline-start: auto;
+            opacity: 0.5;
+            transition: margin-inline-end 300ms, opacity 300ms;
+        }
+
+        &:hover span {
+            margin-inline-end: 0;
+            opacity: 1;
+        }
+    }
+
     dd {
         font-size: 1.3em;
         margin-inline-start: 0.1em;
