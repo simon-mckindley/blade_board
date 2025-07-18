@@ -43,13 +43,16 @@
             <div class="input-cont">
                 @error('title') <span class="input-error">{{ $message }}</span> @enderror
                 <input type="text" name="title" id="title" value="{{ $post->title }}">
-                <label for="title">Title</label>
+                <label for="title">
+                    <img class="icon" src="{{ asset('images/post_icon.svg') }}" alt="">
+                    <span>Title</span>
+                </label>
             </div>
             
             <div class="input-cont">
                 @error('content') <span class="input-error">{{ $message }}</span> @enderror
                 <textarea name="content" id="content" rows="5">{{ $post->content }}</textarea>
-                <label for="content">Content</label>
+                <label for="content"><span>Content</span></label>
             </div>
 
             <div class="input-cont">

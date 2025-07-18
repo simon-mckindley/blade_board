@@ -29,7 +29,10 @@
                 <div class="input-cont">
                     @error('name-edit') <span class="input-error">{{ $message }}</span> @enderror
                     <input type="text" id="name-edit" name="name-edit" value="{{ old('name-edit') }}">
-                    <label for="name-edit">Update Name</label>
+                    <label for="name-edit">
+                        <img class="icon" src="{{ asset('images/edit_note_icon.svg') }}" alt="">
+                        <span>Update Name</span>
+                    </label>
                 </div>
 
                 <div class="edit-btn-cont">
@@ -54,7 +57,10 @@
                 <div class="input-cont">
                     @error('name') <span class="input-error">{{ $message }}</span> @enderror
                     <input type="text" id="name" name="name" value="{{ old('name') }}">
-                    <label for="name">Name</label>
+                    <label for="name">
+                        <img class="icon" src="{{ asset('images/edit_note_icon.svg') }}" alt="">
+                        <span>Name</span>
+                    </label>
                 </div>
 
                 <button class="btn submit-btn" type="submit">Create tag</button>

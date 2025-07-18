@@ -31,7 +31,10 @@
                         <img class="icon" height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Info">
                     </button>
                 </div>
-                <label for="name">Name</label>    
+                <label for="name">
+                    <img class="icon" src="{{ asset('images/edit_note_icon.svg') }}" alt="">
+                    <span>Name</span>
+                </label>    
             </div>
 
             <div class="input-cont">
@@ -42,7 +45,10 @@
                         <img class="icon" height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Info">
                     </button>
                 </div>
-                <label for="email">Email</label>
+                <label for="email">
+                    <img class="icon" src="{{ asset('images/email_icon.svg') }}" alt="">
+                    <span>Email</span>
+                </label>
             </div>
 
             <div class="input-cont">
@@ -53,12 +59,15 @@
                         <img class="icon" height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Info">
                     </button>
                 </div>
-                <label for="password">Password</label>
+                <label for="password">
+                    <img class="icon" src="{{ asset('images/password_icon.svg') }}" alt="">
+                    <span>Password</span>
+                </label>
             </div>
 
             <div class="input-cont">
                 <input type="password" name="password_confirmation" id="password_confirmation" readonly>
-                <label for="password_confirmation">Confirm Password</label>
+                <label for="password_confirmation"><span>Confirm Password</span></label>
             </div>
 
             <div class="edit-actions">

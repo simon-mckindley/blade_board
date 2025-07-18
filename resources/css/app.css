@@ -247,6 +247,7 @@ header {
         font-size: 1.2em;
         font-weight: bold;
         width: 0;
+        margin-inline-start: 1.5em;
         overflow: hidden;
         align-self: end;
         opacity: 0;
@@ -534,15 +535,28 @@ h1 {
     }
 
     label {
-        transform-origin: left;
-        transition:
-            translate 200ms ease,
-            rotate 200ms ease;
+        --_label-gap: 0.25em;
+        --_label-icon-offset: 1.25em;
+        position: relative;
+        overflow: hidden;
+
+        .icon {
+            position: absolute;
+            display: inline;
+            width: 1em;
+            translate: 0 var(--_label-icon-offset);
+            transition: translate 800ms ease;
+        }
+
+        span {
+            margin-inline-start: var(--_label-gap);
+            transition: margin 1000ms ease;
+        }
     }
 
     input:focus-within+label, textarea:focus-within+label {
-        translate: 0.5em;
-        rotate: -2deg;
+        --_label-gap: 2em;
+        --_label-icon-offset: 0;
     }
 }
 
