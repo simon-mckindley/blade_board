@@ -10,7 +10,7 @@
 
         <div class="input-cont">
             @error('name') <span class="input-error">{{ $message }}</span> @enderror
-            <input type="text" name="name" id="name" value="{{ old('name') }}" autocomplete="nickname">
+            <input type="text" name="name" id="name" value="{{ old('name') }}" autocomplete="username">
             <label for="name">
                 <img class="icon" src="{{ asset('images/edit_note_icon.svg') }}" alt="">
                 <span>Name</span>

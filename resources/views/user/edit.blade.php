@@ -26,7 +26,7 @@
             <div class="input-cont">
                 @error('name') <span class="input-error">{{ $message }}</span> @enderror
                 <div class="edit-input">
-                    <input type="text" name="name" id="name" value="{{ $user->name }}" required readonly>
+                    <input type="text" name="name" id="name" value="{{ $user->name }}" required readonly autocomplete="username">
                     <button type="button" class="edit-btn" id="edit-name-btn" data-field="name" title="Edit Name">
                         <img class="icon" height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Info">
                     </button>
@@ -40,7 +40,7 @@
             <div class="input-cont">
                 @error('email') <span class="input-error">{{ $message }}</span> @enderror
                 <div class="edit-input">
-                    <input type="email" name="email" id="email" value="{{ $user->email }}" required readonly>
+                    <input type="email" name="email" id="email" value="{{ $user->email }}" required readonly autocomplete="email">
                     <button type="button" class="edit-btn" id="edit-email-btn" data-field="email" title="Edit Email">
                         <img class="icon" height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Info">
                     </button>
@@ -54,7 +54,7 @@
             <div class="input-cont">
                 @error('password') <span class="input-error">{{ $message }}</span> @enderror
                 <div class="edit-input">
-                    <input type="password" name="password" id="password" placeholder="Leave blank to keep password" readonly>
+                    <input type="password" name="password" id="password" placeholder="Leave blank to keep password" readonly autocomplete="new-password">
                     <button type="button" class="edit-btn" id="edit-password-btn" data-field="password" title="Edit Password">
                         <img class="icon" height="24" src="{{ asset('images/edit_square.svg') }}" alt="Edit Info">
                     </button>
@@ -66,7 +66,7 @@
             </div>
 
             <div class="input-cont">
-                <input type="password" name="password_confirmation" id="password_confirmation" readonly>
+                <input type="password" name="password_confirmation" id="password_confirmation" readonly autocomplete="new-password">
                 <label for="password_confirmation"><span>Confirm Password</span></label>
             </div>
 

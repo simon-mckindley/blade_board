@@ -24,7 +24,7 @@
 
         <div class="input-cont">
             @error('name') <span class="input-error">{{ $message }}</span> @enderror
-            <input type="text" name="name" id="name" value="{{ old('name') }}">
+            <input type="text" name="name" id="name" value="{{ old('name') }}" autocomplete="username">
             <label for="name">
                 <img class="icon" src="{{ asset('images/edit_note_icon.svg') }}" alt="">
                 <span>Name</span>
@@ -33,7 +33,7 @@
         
         <div class="input-cont">
             @error('email') <span class="input-error">{{ $message }}</span> @enderror
-            <input type="email" name="email" id="email" value="{{ old('email') }}">
+            <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="email">
             <label for="email">
                 <img class="icon" src="{{ asset('images/email_icon.svg') }}" alt="">
                 <span>Email</span>
@@ -42,7 +42,7 @@
                 
         <div class="input-cont">
             @error('password') <span class="input-error">{{ $message }}</span> @enderror
-            <input type="password" name="password" id="password">
+            <input type="password" name="password" id="password" autocomplete="new-password">
             <label for="password">
                 <img class="icon" src="{{ asset('images/password_icon.svg') }}" alt="">
                 <span>Password</span>
@@ -50,7 +50,7 @@
         </div>
                 
         <div class="input-cont">
-            <input type="password" name="password_confirmation" id="password_confirmation">
+            <input type="password" name="password_confirmation" id="password_confirmation" autocomplete="new-password">
             <label for="password_confirmation"><span>Confirm Password</span></label>
         </div>
 
