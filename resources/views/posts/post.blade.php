@@ -83,17 +83,13 @@
                     </div>
                 </div>
                 
-                <div class="post-meta">
-                    <span class="post-date">Created -> {{ display_time($post->created_at) }}</span>
-                    @if ($post->created_at != $post->updated_at)
-                    <span class="post-date">Edited -> {{ display_time($post->updated_at) }}</span>
-                    @endif
-                    <span>{{ ucwords($post->user->name) }}</span>
-                </div>
-                
-                <div class="post-title-row">
-                    <div class="post-title">
-                        {{ ucwords($post->title) }}
+                <div class="post-meta-row">
+                    <div class="post-meta">
+                        <span class="post-date">Created -> {{ display_time($post->created_at) }}</span>
+                        @if ($post->created_at != $post->updated_at)
+                        <span class="post-date">Edited -> {{ display_time($post->updated_at) }}</span>
+                        @endif
+                        <span>{{ ucwords($post->user->name) }}</span>
                     </div>
                     <div class="post-views" title="Views">
                         <div style="position: relative">
@@ -102,6 +98,10 @@
                         </div>
                         &lpar;{{ $post->viewers()->count() }}&rpar;
                     </div>
+                </div>
+                
+                <div class="post-title">
+                    {{ ucwords($post->title) }}
                 </div>
             </div>
                 

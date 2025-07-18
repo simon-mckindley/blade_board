@@ -34,7 +34,7 @@
 1. Clone the repo:
 
    ```bash
-   git clone https://github.com/your-username/bladeboard.git
+   git clone https://github.com/simon-mckindley/blade_board
    cd bladeboard
 
 2. Install dependencies:
