@@ -72,6 +72,18 @@
 
             <div class="edit-actions">
                 <button class="btn submit-btn" type="submit" id="submit-btn" disabled>Change me</button>
+                @if (auth()->user()->isAdmin())
+                <div style="width: min-content;">
+                    <label for="status">Status</label>
+                    <select name="status" id="status" style="padding: 0;">
+                        @foreach (\App\Enums\UserStatus::cases() as $status)
+                            <option value="{{ $status->value }}" {{ $user->status->value === $status->value ? 'selected' : '' }}>
+                                {{ $status->label() }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                @endif
                 <button type="button" class="delete-btn" onclick="document.getElementById('delete-user-dialog').showModal()" title="Delete User">
                     <img class="icon" height="24" src="{{ asset('images/delete_icon.svg') }}" alt="">
                 </button>
@@ -118,6 +130,10 @@
                     submitBtn.removeAttribute('disabled');
                 });
             });
+
+            // Enable the submit button when the status is changed
+            document.getElementById('status')?.addEventListener('change', 
+                () => submitBtn.removeAttribute('disabled'));
 
             function toggleEdit(field) {
                 const input = document.getElementById(field);

@@ -31,6 +31,18 @@
         @error('invalid')
             <div class="input-error">{{ $message }}</div>
         @enderror
+
+        @error('inactive')
+            <div class="input-error">
+                {{ $errors->first('inactive') }}
+                @if ($errors->has('contact'))
+                <br>
+                Please contact support at -> 
+                <a style="text-decoration: underline" href="mailto:{{ $errors->first('contact') }}">{{ $errors->first('contact') }}</a>
+                for more information.
+                @endif
+            </div>
+        @enderror
     </form>
 
     <div class="auth-link">

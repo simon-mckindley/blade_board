@@ -9,6 +9,7 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Enums\UserStatus;
 
 class UserController extends Controller
 {
@@ -28,7 +29,8 @@ class UserController extends Controller
             if (Auth::user()->status !== \App\Enums\UserStatus::Active) {
                 Auth::logout();
                 return back()->withErrors([
-                    'invalid' => 'Your account is not active. Please contact support for more information.',
+                    'inactive' => 'Your account is not active.',
+                    'contact' => 'admin@bladeboard.com',
                 ]);
             }
 
@@ -142,44 +144,43 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if (!Auth::user() || !Auth::user()->isAdmin()) {
-            return redirect()->route('home')
-                ->with('alert', [
-                    'type' => 'error',
-                    'message' => 'You do not have permission to view this page.',
-                ]);
+            return redirect()->route('home')->with('alert', [
+                'type' => 'error',
+                'message' => 'You do not have permission to view this page.',
+            ]);
         }
 
-        if (!$request->input('search')) {
-            return view('admin.users');
+        // Check if 'search' input exists
+        if ($request->has('search')) {
+            $validated = $request->validate([
+                'search' => 'required|string|min:3|max:25',
+            ]);
+
+            $searchTerm = strtolower($validated['search']);
+
+            $query = User::withCount(['posts', 'comments'])->orderBy('created_at', 'desc');
+
+            $query->where(function ($q) use ($searchTerm) {
+                $q->whereRaw('LOWER(name) LIKE ?', ["%{$searchTerm}%"])
+                    ->orWhereRaw('LOWER(email) LIKE ?', ["%{$searchTerm}%"]);
+            });
+
+            $users = $query->get();
+
+            $messEnd = $users->count() == 1 ? '' : 's';
+
+            return view('admin.users', [
+                'users' => $users,
+                'searchTerm' => $searchTerm,
+                'alert' => [
+                    'type' => 'info',
+                    'message' => 'Search for "' . $searchTerm . '" returned ' . $users->count() . ' result' . $messEnd . '.',
+                ],
+            ]);
         }
 
-        $validated = $request->validate(
-            [
-                'search' => 'required|string|min:3|max:25'
-            ]
-        );
-
-        $searchTerm = strtolower($request->input('search'));
-
-        $query = User::withCount(['posts', 'comments']);
-
-        if ($searchTerm) {
-            $query->whereRaw('LOWER(name) LIKE ?', ["%{$searchTerm}%"])
-                ->orWhereRaw('LOWER(email) LIKE ?', ["%{$searchTerm}%"]);
-        }
-
-        $users = $query->get();
-
-        $messEnd = $users->count() == 1 ? '' : 's';
-
-        return view('admin.users', [
-            'users' => $users,
-            'searchTerm' => $searchTerm,
-            'alert' => [
-                'type' => 'info',
-                'message' => 'Search for "' . $searchTerm . '" returned ' . $users->count() . ' result' . $messEnd . '.',
-            ],
-        ]);
+        // No search yet — just render the page with no users
+        return view('admin.users');
     }
 
 
@@ -365,28 +366,44 @@ class UserController extends Controller
                 ]);
         }
 
+        // Base validation
+        $rules = [
+            'name' => 'required|string|min:3|max:25',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|confirmed|min:6',
+        ];
+
+        // Add status validation if user is admin
+        if (Auth::user()->isAdmin()) {
+            $rules['status'] = 'required|in:' . implode(',', array_column(UserStatus::cases(), 'value'));
+        }
+
         // Validate input
         $validated = $request->validate(
-            [
-                'name' => 'required|string|min:3|max:25',
-                'email' => 'required|email|unique:users,email,' . $user->id,
-                'password' => 'nullable|confirmed|min:6',
-            ],
+            $rules,
             [
                 'email.email' => 'The email must be a valid email address.',
                 'email.required' => 'The email is required.',
                 'email.unique' => 'This email is already registered.',
                 'password.confirmed' => 'The password confirmation does not match.',
+                'status.in' => 'Invalid status selected.',
             ]
         );
 
-        // Update the user
         try {
+            // Update fields
             $user->name = $validated['name'];
             $user->email = $validated['email'];
+
             if ($request->filled('password')) {
                 $user->password = Hash::make($validated['password']);
             }
+
+            // Only update status if admin submitted it
+            if (Auth::user()->isAdmin() && isset($validated['status'])) {
+                $user->status = UserStatus::from($validated['status']);
+            }
+
             $user->save();
 
             return redirect()
@@ -401,7 +418,7 @@ class UserController extends Controller
                 ->withInput()
                 ->with('alert', [
                     'type' => 'error',
-                    'message' => 'There was a problem creating the account: ' . $e->getMessage(),
+                    'message' => 'There was a problem updating the profile: ' . $e->getMessage(),
                 ]);
         }
     }
