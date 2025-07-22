@@ -1047,6 +1047,23 @@ input[type="radio"]:checked+.tag-input {
             border-radius: 8px;
         }
     }
+
+    .user-status {
+        color: var(--bg-color);
+        background-color: var(--text-color);
+        padding: 0.1em 0.5em;
+        border-radius: 8px;
+
+        &.active {
+            color: var(--text-color);
+            background-color: var(--success-color);
+        }
+
+        &.suspended {
+            color: var(--text-color);
+            background-color: var(--warning-color);
+        }
+    }
 }
 
 /* Admin Register page */

@@ -25,6 +25,13 @@ class UserController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            if (Auth::user()->status !== \App\Enums\UserStatus::Active) {
+                Auth::logout();
+                return back()->withErrors([
+                    'invalid' => 'Your account is not active. Please contact support for more information.',
+                ]);
+            }
+
             $request->session()->regenerate();
             return redirect('/')
                 ->with('alert', [

@@ -30,14 +30,13 @@
             <p>Users found -> &lpar;{{ $users->count() }}&rpar;</p>
 
             @foreach ($users as $user)
-                @if ($user->isAdmin() && !auth()->user()->isSuper())
-                    @continue
-                @endif
-
                 <div class="user-card">
                     <div class="user-header">
                         <h3>{{ $user->name }}</h3>
-                        <a class="btn" href="{{ route('user.edit', $user->id) }}">Edit</a>
+                        {{-- Display edit button only if the user is not an admin or if the current user is a super admin --}}
+                         @if (!$user->isAdmin() || auth()->user()->isSuper())
+                            <a class="btn" href="{{ route('user.edit', $user->id) }}">Edit</a>
+                        @endif
                     </div>
                     <div class="user-content">
                         <div class="user-email">{{ $user->email }}</div>
@@ -48,10 +47,10 @@
                         @else
                             <div>Posts &lpar;{{ $user->posts_count }}&rpar;</div>
                             <div>Comments &lpar;{{ $user->comments_count }}&rpar;</div>
+                        @endif   
                             <div>
                                 Status -> <span class="user-status {{ $user->status }}">{{ $user->status->label() }}</span>
-                            </div>
-                        @endif               
+                            </div>            
                         </div>
                     </div>
                 </div>
