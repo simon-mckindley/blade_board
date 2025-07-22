@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', AdminOnly::class])->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/user/{user}', [AdminController::class, 'showUserManagement'])->name('user');
 
     // Tags
     Route::controller(TagController::class)->prefix('tags')->name('tags.')->group(function () {

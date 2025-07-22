@@ -35,7 +35,7 @@
                         <h3>{{ $user->name }}</h3>
                         {{-- Display edit button only if the user is not an admin or if the current user is a super admin --}}
                          @if (!$user->isAdmin() || auth()->user()->isSuper())
-                            <a class="btn" href="{{ route('user.edit', $user->id) }}">Edit</a>
+                            <a class="btn" href="{{ route('admin.user', $user->id) }}">View</a>
                         @endif
                     </div>
                     <div class="user-content">
