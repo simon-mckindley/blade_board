@@ -127,9 +127,12 @@ button:disabled {
 
 /* General Elements */
 .page-title {
-    position: sticky;
-    top: 3.5em;
     z-index: 50;
+}
+
+.page-title:has(.sort-header) {
+    position: sticky;
+    top: 2.8em;
     background-color: var(--bg-color-overlay);
     box-shadow: 0 0 10px 1px var(--bg-color-overlay);
 }
@@ -773,7 +776,7 @@ input[type="radio"]:checked+.tag-input {
         color: var(--bg-color);
         padding: 0.5em 1em 1em 1em;
         border-radius: 4px 4px 10px 10px;
-        background-color: var(--white-overlay-heavy);
+        background-color: var(--text-color);
     }
 
     .post-tags {
