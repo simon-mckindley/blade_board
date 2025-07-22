@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Enums\UserStatus;
 
 /**
  * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
@@ -108,4 +109,8 @@ class User extends Authenticatable
     {
         return $this->role === 'super';
     }
+
+    protected $casts = [
+        'status' => UserStatus::class,
+    ];
 }

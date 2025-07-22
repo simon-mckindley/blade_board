@@ -48,6 +48,9 @@
                         @else
                             <div>Posts &lpar;{{ $user->posts_count }}&rpar;</div>
                             <div>Comments &lpar;{{ $user->comments_count }}&rpar;</div>
+                            <div>
+                                Status -> <span class="user-status {{ $user->status }}">{{ $user->status->label() }}</span>
+                            </div>
                         @endif               
                         </div>
                     </div>

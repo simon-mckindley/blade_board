@@ -53,4 +53,9 @@ class Post extends Model
     {
         return $value ? Carbon::parse($value) : null;
     }
+
+    public function reports()
+    {
+        return $this->morphMany(Report::class, 'reportable');
+    }
 }
