@@ -107,9 +107,13 @@
                 
             <div class="post-content">
                 {!! ($post->content) !!}
-                @if ($post->user->id !== auth()->id())
-                <button class="report-btn" type="button" title="Report post" data-post-id="{{ $post->id }}">
-                    <img class="icon" id="report-btn" height="24" src="{{ asset('images/report_icon.svg') }}" alt="">
+                @if (auth()->check() && $post->user->id !== auth()->id())
+                <button type="button" class="report-btn" 
+                    title="Report this post" 
+                    data-id="{{ $post->id }}" 
+                    data-type="post"
+                >
+                    <img height="24" src="{{ asset('images/report_icon.svg') }}" alt="">
                 </button>
                 @endif
             </div>
@@ -153,6 +157,37 @@
 
     </div>
 
+
+    <dialog id="report-dialog" class="report-dialog">
+        <h3>Report this <span id="report-head-text"></span></h3>
+        <p>This report will be submitted to the BLADE_board admin for review.</p>
+        <form action="{{ route('reports.store') }}" method="POST" class="report-form auth-form">
+            @csrf
+            <input type="hidden" name="reportable_type">  {{-- 'post' or 'comment' --}}
+            <input type="hidden" name="reportable_id">
+
+            <div class="input-cont">
+                <select name="reason" id="reason" required>
+                    @foreach (\App\Enums\ReportReason::cases() as $reason)
+                    <option value="{{ $reason->value }}">{{ $reason->label() }}</option>
+                    @endforeach
+                </select>
+                <label for="reason">Reason</label>
+            </div>
+
+            <div class="input-cont">
+                <textarea name="description" id="description" rows="4" placeholder="Describe why you're reporting this content..."></textarea>
+                <label for="description">Additional details (optional)</label>
+            </div>
+
+            <div class="dialog-actions">
+                <button type="button" class="btn" onclick="this.closest('dialog').close()">Forget It</button>
+                <button type="submit" class="btn submit-btn">Submit Report</button>
+            </div>
+        </form>
+    </dialog>
+
+
     <dialog id="delete-post-dialog" class="delete-confirm-dialog">
         <h3>Are you sure you want to delete this post?</h3>
         <p>This action cannot be undone!</p>
@@ -165,6 +200,7 @@
             </div>
         </form>
     </dialog>
+
 
     @if (!$post->comments->isEmpty())
         <dialog id="delete-comment-dialog" class="delete-confirm-dialog">
@@ -185,12 +221,25 @@
 @section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Open report dialog and assign data
+            document.querySelectorAll('.report-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelector('[name="reportable_type"]').value = btn.dataset.type;
+                    document.getElementById('report-head-text').innerText = btn.dataset.type;
+                    document.querySelector('[name="reportable_id"]').value = btn.dataset.id;
+
+                    document.getElementById('report-dialog').showModal();
+                });
+            });
+
+            // Open comment form
             const commentForm = document.getElementById('container');
             
             document.querySelector('.comment-action').addEventListener('click', function() {
                 commentForm.classList.toggle('open');
             });
             
+            // Open comment delete dialog and assign data
             document.querySelectorAll('.comment-delete').forEach(button => {
                 button.addEventListener('click', () => {
                     const commentId = button.getAttribute('data-comment-id');

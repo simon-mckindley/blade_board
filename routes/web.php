@@ -7,6 +7,7 @@ use App\Http\Controllers\{
     CommentController,
     LikeController,
     AdminController,
+    ReportController,
     TagController
 };
 use App\Http\Middleware\AdminOnly;
@@ -66,6 +67,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/posts/{post}/comments', 'store')->name('comments.store');
         Route::get('/user/{user}/comments', 'index')->name('comments.index');
         Route::delete('/posts/comments/{comment}', 'destroy')->name('comments.destroy');
+    });
+
+    // Reports
+    Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {
+        Route::post('/', 'store')->name('store');
     });
 });
 

@@ -896,16 +896,18 @@ input[type="radio"]:checked+.tag-input {
     inset: auto 0.125em 0.125em auto;
     background-color: var(--bg-color);
     border-radius: 100px;
-    opacity: 0.8;
-    transition: background-color 300ms ease;
+    opacity: 0.5;
+    transition: background-color 300ms ease, opacity 300ms ease;
 }
 
 .report-btn:hover {
+    opacity: 1;
     background-color: var(--warning-color);
 }
 
 
 /* Dialog element */
+.report-dialog,
 .delete-confirm-dialog {
     color: inherit;
     background-color: var(--bg-color-overlay);
@@ -941,9 +943,28 @@ input[type="radio"]:checked+.tag-input {
     }
 }
 
+.report-dialog::backdrop,
 .delete-confirm-dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(2px);
+}
+
+.report-form {
+    margin: 0 auto;
+
+    .dialog-actions>.btn:not(:disabled) {
+        border-color: var(--light-secondary);
+        background-color: var(--secondary-color);
+    }
+
+    .dialog-actions>.btn:not(:disabled):hover {
+        background-color: var(--light-secondary);
+    }
+
+    .dialog-actions>.submit-btn:not(:disabled):hover {
+        border-color: var(--warning-color);
+        background-color: var(--light-secondary);
+    }
 }
 
 
