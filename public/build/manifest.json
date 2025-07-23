@@ -11,6 +11,11 @@
     "file": "assets/bladeboard_logo-oTVDV4Lc.png",
     "src": "public/images/bladeboard_logo.png"
   },
+  "resources/css/admin.css": {
+    "file": "assets/admin-D09qEuam.css",
+    "src": "resources/css/admin.css",
+    "isEntry": true
+  },
   "resources/css/app.css": {
     "file": "assets/app-De9-svyP.css",
     "src": "resources/css/app.css",
