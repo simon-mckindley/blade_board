@@ -93,6 +93,8 @@
 }
 
 .admin-user-form {
+    --_form-width: 0;
+    --_form-height: 0;
     display: flex;
     flex-direction: column;
     background-color: var(--white-overlay-heavy);
@@ -121,7 +123,7 @@
         flex-direction: column;
         gap: 0.5em;
         overflow: hidden;
-        height: 0em;
+        height: var(--_form-height);
         transition: height 500ms;
     }
 
@@ -145,19 +147,19 @@
     }
 
     .submit-btn-cont {
-        width: 0;
         overflow: hidden;
         text-align: end;
+        width: var(--_form-width);
         transition: width 500ms;
     }
 }
 
-.admin-user-form:hover .submit-btn-cont {
-    width: 11ch;
+#status-form.open .submit-btn-cont {
+    --_form-width: 11ch;
 }
 
-.admin-user-form:hover .password-body {
-    height: 7.25em;
+#password-form.open .password-body {
+    --_form-height: 7.25em;
 }
 
 .admin-user-data {
