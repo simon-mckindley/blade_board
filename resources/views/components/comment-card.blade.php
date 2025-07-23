@@ -18,7 +18,10 @@
         >
             <img height="20" src="{{ asset('images/cancel_icon.svg') }}" alt="Delete">
         </button>
-
+    @else
+        <button class="report-btn" type="button" title="Report comment" data-comment-id="{{ $comment->id }}">
+            <img class="icon" id="report-btn" height="24" src="{{ asset('images/report_icon.svg') }}" alt="">
+        </button>
     @endif
     <div class="comment-content">{{ $comment->content }}</div>
 </div>

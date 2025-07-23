@@ -105,7 +105,14 @@
                 </div>
             </div>
                 
-            <div class="post-content">{!! ($post->content) !!}</div>
+            <div class="post-content">
+                {!! ($post->content) !!}
+                @if ($post->user->id !== auth()->id())
+                <button class="report-btn" type="button" title="Report post" data-post-id="{{ $post->id }}">
+                    <img class="icon" id="report-btn" height="24" src="{{ asset('images/report_icon.svg') }}" alt="">
+                </button>
+                @endif
+            </div>
 
         </div>
                    

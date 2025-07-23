@@ -774,6 +774,7 @@ input[type="radio"]:checked+.tag-input {
     }
 
     .post-content {
+        position: relative;
         color: var(--bg-color);
         padding: 0.5em 1em 1em 1em;
         border-radius: 4px 4px 10px 10px;
@@ -888,6 +889,19 @@ input[type="radio"]:checked+.tag-input {
             backdrop-filter: blur(5px);
         }
     }
+}
+
+.report-btn {
+    position: absolute;
+    inset: auto 0.125em 0.125em auto;
+    background-color: var(--bg-color);
+    border-radius: 100px;
+    opacity: 0.8;
+    transition: background-color 300ms ease;
+}
+
+.report-btn:hover {
+    background-color: var(--warning-color);
 }
 
 
