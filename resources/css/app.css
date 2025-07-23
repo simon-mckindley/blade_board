@@ -96,6 +96,7 @@ input[readonly], textarea[readonly], select[readonly] {
     cursor: auto;
     background-color: var(--text-color-secondary);
     color: var(--bg-color);
+    opacity: 1;
 }
 
 a {
@@ -1006,126 +1007,6 @@ input[type="radio"]:checked+.tag-input {
     flex-direction: column;
     font-size: 0.8em;
     margin-left: 1.5em;
-}
-
-/*** Admin Pages ***/
-/* Users Page */
-.new-admin-btn {
-    display: block;
-    margin-bottom: 1em;
-}
-
-.user-card {
-    background-color: var(--white-overlay);
-    backdrop-filter: blur(5px);
-    border-radius: 10px;
-    padding: 1em;
-    margin-bottom: 1em;
-    max-width: 50em;
-
-    .user-header {
-        display: flex;
-        align-items: start;
-        justify-content: space-between;
-    }
-
-    h3 {
-        margin-block: 0 0.5em;
-    }
-
-    .user-content {
-        display: flex;
-        flex-direction: column;
-        row-gap: 0.25em;
-    }
-
-    .user-meta {
-        display: flex;
-        column-gap: 2em;
-
-        strong {
-            color: var(--bg-color);
-            background-color: var(--white-overlay);
-            padding: 0.1em 0.5em;
-            border-radius: 8px;
-        }
-    }
-
-    .user-status {
-        color: var(--bg-color);
-        background-color: var(--text-color);
-        padding: 0.1em 0.5em;
-        border-radius: 8px;
-
-        &.active {
-            color: var(--text-color);
-            background-color: var(--success-color);
-        }
-
-        &.suspended {
-            color: var(--text-color);
-            background-color: var(--warning-color);
-        }
-    }
-}
-
-/* Admin Register page */
-.admin-radio-inputs {
-    display: flex;
-    gap: 0.25em;
-    margin-top: 0.25em;
-
-    input[type="radio"] {
-        display: none;
-    }
-
-    label {
-        border-radius: 4px;
-        cursor: pointer;
-        transition: color 200ms ease, background-color 200ms ease;
-        padding: 0.25em 0.5em;
-    }
-
-    input[type="radio"]:checked+label {
-        background-color: var(--light-secondary);
-        color: var(--text-color);
-        transform: translateY(-2px);
-    }
-}
-
-/* Tags Page */
-.add-tag-btn {
-    margin-bottom: 0.5em;
-}
-
-.tag-form-container,
-.tag-edit-container {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 500ms;
-
-    div {
-        overflow: hidden;
-    }
-
-    .edit-btn-cont {
-        display: flex;
-        align-items: end;
-        justify-content: space-between;
-        margin-top: 1em;
-        padding: 0 2px 2px;
-
-        .delete-btn {
-            padding: 0.25em;
-            border-radius: 4px;
-            transition: background-color 300ms ease;
-        }
-
-        .delete-btn:hover,
-        .delete-btn:focus-visible {
-            background-color: var(--warning-color);
-        }
-    }
 }
 
 
