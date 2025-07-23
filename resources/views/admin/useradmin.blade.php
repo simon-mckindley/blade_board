@@ -11,7 +11,12 @@
 @section('maincontent')
     @if (auth()->user()->isAdmin())
     <div class="admin-user-actions">
-        <form class="admin-user-form" action="" method="post" id="password-form">
+        <form class="admin-user-form" action="{{ route('user.update', $user->id) }}" method="POST" id="password-form">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="name" value="{{ $user->name }}">
+            <input type="hidden" name="email" value="{{ $user->email}}">
+            <input type="hidden" name="status" value="{{ $user->status}}">
             <div class="form-head">
                 <label for="password">Reset Password</label>
                 <button type="button" class="edit-btn" data-form="password" title="Reset Password">
@@ -19,20 +24,25 @@
                 </button>
             </div>
 
+            @error('password') <span class="input-error">{{ $message }}</span> @enderror
+
             <div class="password-body">
                 <div class="input-cont">
-                    @error('password') <span class="input-error">{{ $message }}</span> @enderror
-                    <input type="text" name="password" id="password" autocomplete="new-password" disabled>
+                    <input type="text" name="password" id="password" class="password-input" autocomplete="new-password" disabled>
                 </div>
                 <div class="input-cont">
-                    <input type="text" name="password_confirmation" id="password_confirmation" autocomplete="new-password" disabled>
+                    <input type="text" name="password_confirmation" id="password_confirmation" class="password-input" autocomplete="new-password" disabled>
                     <label for="password_confirmation">Confirm Password</label>
                 </div>
-                <button class="btn warning-btn" type="submit" disabled>Reset Password</button>
+                <button class="btn warning-btn submit-btn" type="submit" disabled>Reset Password</button>
             </div>
         </form>
 
-        <form class="admin-user-form" action="" method="post" id="status-form">
+        <form class="admin-user-form" action="{{ route('user.update', $user->id) }}" method="POST" id="status-form">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="name" value="{{ $user->name }}">
+            <input type="hidden" name="email" value="{{ $user->email}}">
             <div class="form-head">
                 <label for="status">Status</label>
                 <button type="button" class="edit-btn" data-form="status" title="Update Status">
@@ -41,7 +51,7 @@
             </div>
 
             <div class="status-body">
-                <select name="status" id="status" disabled>
+                <select name="status" id="status" class="{{ $user->status }}" disabled>
                     @foreach (\App\Enums\UserStatus::cases() as $status)
                     <option value="{{ $status->value }}" {{ $user->status->value === $status->value ? 'selected' : '' }}>
                         {{ $status->label() }}
@@ -49,7 +59,7 @@
                     @endforeach
                 </select>
                 <div class="submit-btn-cont">
-                    <button class="btn warning-btn" type="submit" disabled>Update Status</button>
+                    <button class="btn warning-btn submit-btn" type="submit" disabled>Update Status</button>
                 </div>
             </div>
         </form>
@@ -103,6 +113,13 @@
         const CLOSE_DELAY = 200;
         const forms = document.querySelectorAll('form');
 
+        // Open form if contains error message
+        forms.forEach(form => {
+            if (form.querySelector('.input-error')) {
+                formOpen(form);
+            }
+        });
+
         document.querySelectorAll('.edit-btn').forEach(btn => {
             btn.addEventListener('click', () => toggleForm(btn.dataset.form));
         });
@@ -122,7 +139,7 @@
             form.querySelectorAll('input, select, .btn').forEach(el => {
                 setTimeout(() => {
                     el.disabled = false;
-                    if (form.id === 'password-form' && el instanceof HTMLInputElement) {
+                    if (form.id === 'password-form' && el.classList.contains('password-input')) {
                         // Reset password value to default on open
                         el.value = '123456';
                     }
@@ -135,7 +152,7 @@
             form.querySelectorAll('input, select, .btn').forEach(el => {
                 setTimeout(() => {
                     el.disabled = true;
-                    if (form.id === 'password-form' && el instanceof HTMLInputElement) {
+                    if (form.id === 'password-form' && el.classList.contains('password-input')) {
                         el.value = '';
                     }
                 }, CLOSE_DELAY);
