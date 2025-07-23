@@ -188,9 +188,12 @@
         border-radius: 4px;
 
         .btn {
-            margin-inline-start: auto;
             border-radius: 4px;
             padding: 0.125em 0.25em;
+        }
+
+        :nth-child(2) {
+            margin-inline-start: auto;
         }
     }
 

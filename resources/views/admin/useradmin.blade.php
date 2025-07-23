@@ -83,18 +83,18 @@
         @if (!$user->isAdmin())
             
         <div class="data-cont linked-cont">
-            <dt>Posts</dt>
+            <dt>Reported Posts</dt>
             <dd>&lpar;{{ $postCount }}&rpar;</dd>
             @if ($postCount > 0)
-            <a class="btn" href="{{ route('user.posts') }}" >View Posts</a>
+            <a class="btn" href="{{ route('user.posts') }}" >View</a>
             @endif
         </div>
 
         <div class="data-cont linked-cont">
-            <dt>Comments</dt>
+            <dt>Reported Comments</dt>
             <dd>&lpar;{{ $commentCount }}&rpar;</dd>
             @if ($commentCount > 0)
-            <a class="btn" href="{{ route('user.commented') }}">View Comments</a>
+            <a class="btn" href="{{ route('user.commented') }}">View</a>
             @endif
         </div>
         
