@@ -13,6 +13,7 @@
     
     <div class="home-actions">
         <a class="btn" href="{{ route('admin.users.index') }}">Users</a>
+        <a class="btn" href="{{ route('admin.reports.index') }}">Reports</a>
         <a class="btn" href="{{ route('posts.display') }}">Posts & Comments</a>
         <a class="btn" href="{{ route('admin.tags.index') }}">Tags</a>
     </div>

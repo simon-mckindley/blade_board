@@ -91,6 +91,13 @@ Route::middleware(['auth', AdminOnly::class])->prefix('admin')->name('admin.')->
 
     // Users
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+    // Reports
+    Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        // Route::get('/{id}', 'show')->name('reports.show');
+        Route::get('/{id}/json', 'showJson')->name('showJson');
+    });
 });
 
 // Super Admin Only

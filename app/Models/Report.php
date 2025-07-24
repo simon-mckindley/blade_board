@@ -8,7 +8,15 @@ use App\Enums\ReportReason;
 
 class Report extends Model
 {
-    protected $fillable = ['title', 'content'];
+    protected $fillable = [
+        'user_id',
+        'reportable_type',
+        'reportable_id',
+        'reason',
+        'description',
+        'status',
+        'action_text',
+    ];
 
     public function reportable()
     {

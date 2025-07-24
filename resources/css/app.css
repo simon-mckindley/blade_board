@@ -907,8 +907,7 @@ input[type="radio"]:checked+.tag-input {
 
 
 /* Dialog element */
-.report-dialog,
-.delete-confirm-dialog {
+dialog {
     color: inherit;
     background-color: var(--bg-color-overlay);
     backdrop-filter: blur(10px);
@@ -921,6 +920,17 @@ input[type="radio"]:checked+.tag-input {
         gap: 1em;
         justify-content: end;
         margin-top: 3em;
+    }
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+}
+
+.report-dialog,
+.delete-confirm-dialog {
+    .dialog-actions {
 
         .btn:not(:disabled) {
             background-color: var(--bg-color);
@@ -941,12 +951,6 @@ input[type="radio"]:checked+.tag-input {
             background-color: var(--error-color);
         }
     }
-}
-
-.report-dialog::backdrop,
-.delete-confirm-dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(2px);
 }
 
 .report-form {

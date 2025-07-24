@@ -136,7 +136,7 @@
     }
 
     select {
-        padding: 0;
+        padding: 0 0.125em;
         outline: 2px solid var(--text-color);
         outline-offset: -1px;
 
@@ -202,6 +202,116 @@
         font-weight: bold;
         overflow-wrap: anywhere;
     }
+}
+
+/* Reports */
+.report-filter-form {
+    #status {
+        padding: 0 0.125em;
+    }
+}
+
+.report-card-cont {
+    min-width: 20em;
+    width: max-content;
+}
+
+.report-card {
+    color: var(--bg-color);
+    background-color: var(--text-color);
+    padding: 0.5em;
+    border-radius: 4px;
+    margin-bottom: 1em;
+
+    .report-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 0.5em;
+    }
+
+    .btn {
+        border-radius: 4px;
+        padding: 0.125em 0.25em;
+    }
+
+    .report-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125em;
+
+        .report-status {
+            color: var(--text-color);
+            padding: 0.125em 0.25em;
+            width: max-content;
+            border-radius: 4px;
+
+            &.pending {
+                background-color: var(--error-color);
+            }
+
+            &.reviewed {
+                background-color: var(--warning-color);
+            }
+
+            &.action_taken {
+                background-color: var(--info-color);
+            }
+
+            &.dismissed {
+                background-color: var(--success-color);
+            }
+        }
+    }
+}
+
+.admin-report-dialog {
+    font-size: 0.9rem;
+
+    dl {
+        max-width: 30em;
+    }
+
+    .data-cont {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        column-gap: 1em;
+        margin-bottom: 0.5em;
+
+        dd {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: underline;
+
+            &:hover {
+                color: var(--text-color-secondary);
+            }
+        }
+    }
+
+    .report-form {
+        input, select {
+            padding: 0 0.125em;
+        }
+
+        textarea {
+            padding: 0.125em 0.25em;
+        }
+    }
+
+    .dialog-actions {
+        margin-top: 1em;
+    }
+}
+
+.fillable:empty {
+    width: 15ch;
+    height: 1.1em;
+    background-color: var(--text-color-secondary);
 }
 
 /* Tags Page */
