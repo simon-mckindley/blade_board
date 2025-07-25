@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use App\Models\Comment;
 use App\Enums\ReportReason;
 use App\Enums\ReportStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
 {
@@ -28,21 +30,34 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         if (! Auth::check()) {
-            return back()->withErrors('alert', [
+            return back()->with('alert', [
                 'type' => 'error',
                 'message' => 'You must be logged in to submit a report',
             ]);
         }
 
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'reportable_type' => 'required|string|in:post,comment',
             'reportable_id' => 'required|integer|exists:' . $this->resolveModelTable($request->reportable_type) . ',id',
             'reason' => 'required|in:' . implode(',', array_column(ReportReason::cases(), 'value')),
             'description' => 'nullable|string|max:100',
         ]);
 
+        // Manual validation messaging
+        if ($validator->fails()) {
+            $allErrors = $validator->errors()->all(); // array of all messages
+            $message = implode(' ', $allErrors);
+
+            return back()->with('alert', [
+                'type' => 'error',
+                'message' => 'Report submition error! ' . $message,
+            ])->withErrors($validator)->withInput();
+        }
+
+        $validated = $validator->validated();
+
         try {
-            $report = Report::create([
+            Report::create([
                 'user_id' => Auth::id(),
                 'reportable_type' => $this->resolveModelClass($validated['reportable_type']),
                 'reportable_id' => $validated['reportable_id'],
@@ -100,13 +115,21 @@ class ReportController extends Controller
             }
         }
 
+        // Find the post ID if the reportable is a comment
+        $postId = $report->reportable_id;
+        if ($report->reportable_type === Comment::class && $report->reportable) {
+            $postId = $report->reportable->post_id;
+        }
+
         return response()->json([
             'id' => $report->id,
-            'reportable_type' => $report->reportable_type,
+            'reportable_type' => class_basename($report->reportable_type),
             'reportable_id' => $report->reportable_id,
-            'reason' => $report->reason,
+            'post_id' => $postId,
+            'reason' => $report->reason->label(),
             'description' => $report->description,
             'status' => $report->status,
+            'status_label' => $report->status->label(),
             'action_text' => $report->action_text,
             'reporter' => $reporter,
             'reportable_author' => $reportableAuthor,

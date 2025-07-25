@@ -267,9 +267,10 @@
 
 .admin-report-dialog {
     font-size: 0.9rem;
+    width: 30em;
 
     dl {
-        max-width: 30em;
+        width: 100%;
     }
 
     .data-cont {
@@ -278,6 +279,10 @@
         align-items: end;
         column-gap: 1em;
         margin-bottom: 0.5em;
+
+        dt {
+            min-width: 10ch;
+        }
 
         dd {
             font-size: 1.1em;
@@ -305,13 +310,53 @@
 
     .dialog-actions {
         margin-top: 1em;
+
+        .btn:not(:disabled) {
+            border: 2px solid var(--light-secondary);
+        }
     }
 }
 
+.fillable {
+    --_fillable-width: 15ch;
+    
+    position: relative;
+    transition: background-color 1000ms, color 3000ms;
+}
+
+.fillable.type,
+.fillable.status {
+    --_fillable-width: 8ch;
+}
+
 .fillable:empty {
-    width: 15ch;
-    height: 1.1em;
-    background-color: var(--text-color-secondary);
+    position: relative;
+    width: var(--_fillable-width);
+    height: 1.25em;
+    color: var(--white-overlay);
+    background-color: var(--white-overlay);
+    border-radius: 4px;
+
+    &::before {
+        content: '_';
+        position: absolute;
+        bottom: 0;
+        left: 2px;
+        color: var(--text-color-secondary);
+        font-weight: bold;
+        opacity: 0.8;
+        animation: fillableSlide 6000ms ease-in-out infinite;
+    }
+}
+
+@keyframes fillableSlide {
+    50% {
+        translate: calc(var(--_fillable-width) - 1ch);
+    }
+
+    100% {
+        translate: 0;
+    }
 }
 
 /* Tags Page */

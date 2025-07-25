@@ -20,7 +20,7 @@
             <label for="reason">Filter by status</label>
         </div>
     </form>   
-<dd class="fillable"></dd>here
+
     @if ($reports->isEmpty())
         <p>No reports found!</p>
     @else
@@ -45,11 +45,12 @@
     <dialog id="report-dialog" class="admin-report-dialog">
         <h3>Report details</h3>
         <dl>
-            <div class="data-cont"><dt>Created</dt><dd class="fillable date">Text</dd></div>
+            <div class="data-cont"><dt>Created</dt><dd class="fillable date"></dd></div>
+            <div class="data-cont"><dt>Reporting user</dt><a class="user-link" href=""><dd class="fillable user"></dd></a></div>
             <div class="data-cont"><dt>Reason</dt><dd class="fillable reason"></dd></div>
             <div class="data-cont"><dt>Description</dt><dd class="fillable description"></dd></div>
             <div class="data-cont"><dt>Reported document</dt><a class="type-link" href=""><dd class="fillable type"></dd></a></div>
-            <div class="data-cont"><dt>Reporting user</dt><a class="user-link" href=""><dd class="fillable user"></dd></a></div>
+            <div class="data-cont"><dt>Document author</dt><a class="author-link" href=""><dd class="fillable author"></dd></a></div>
             <div class="data-cont"><dt>Actions</dt><dd class="fillable actions"></dd></div>
             <div class="data-cont"><dt>Current status</dt><dd class="fillable status"></dd></div>
         </dl>
@@ -102,7 +103,7 @@ function closeDialog(dialog) {
 
 async function loadReport(reportId, dialog) {
     try {
-        const url = `../admin/reports/${reportId}/json`;
+        const url = `reports/${reportId}/json`;
         const response = await fetch(url);
 
         if (!response.ok) throw new Error('Failed to fetch report');
@@ -110,20 +111,22 @@ async function loadReport(reportId, dialog) {
         const data = await response.json();
 
         // Fill static fillables
-        dialog.querySelector('.fillable.date').textContent = new Date(data.created_at).toLocaleString('AU');
-        dialog.querySelector('.fillable.reason').textContent = data.reason;
-        dialog.querySelector('.fillable.description').textContent = data.description;
-        dialog.querySelector('.fillable.type').textContent = data.reportable_type;
+        dialog.querySelector('.fillable.date').textContent = new Date(data.created_at).toLocaleString('en-AU');
         dialog.querySelector('.fillable.user').textContent = data.reporter?.name || 'Unknown';
+        dialog.querySelector('.fillable.reason').textContent = data.reason;
+        dialog.querySelector('.fillable.description').textContent = data.description || 'None';
+        dialog.querySelector('.fillable.type').textContent = data.reportable_type;
+        dialog.querySelector('.fillable.author').textContent = data.reportable_author?.name || 'Unknown';
         dialog.querySelector('.fillable.actions').textContent = data.action_text || 'None';
-        dialog.querySelector('.fillable.status').textContent = data.status;
+        dialog.querySelector('.fillable.status').textContent = data.status_label;
 
         // Set links
-        dialog.querySelector('.type-link').href = `/${data.reportable_type.toLowerCase()}s/${data.reportable_id}`;
-        dialog.querySelector('.user-link').href = `/users/${data.reporter?.id}`;
+        dialog.querySelector('.type-link').href = `../posts/${data.post_id}`;
+        dialog.querySelector('.user-link').href = `user/${data.reporter?.id}`;
+        dialog.querySelector('.author-link').href = `user/${data.reportable_author?.id}`;
 
         // Fill form hidden fields
-        dialog.querySelector('input[name="reportable_type"]').value = data.reportable_type;
+        dialog.querySelector('input[name="reportable_type"]').value = data.reportable_type.toLowerCase();
         dialog.querySelector('input[name="reportable_id"]').value = data.reportable_id;
 
         // Pre-select current status in the select dropdown

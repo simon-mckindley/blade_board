@@ -168,6 +168,7 @@
 
             <div class="input-cont">
                 <select name="reason" id="reason" required>
+                    <option value="">Select reason</option>
                     @foreach (\App\Enums\ReportReason::cases() as $reason)
                     <option value="{{ $reason->value }}">{{ $reason->label() }}</option>
                     @endforeach
