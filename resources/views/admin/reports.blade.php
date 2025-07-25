@@ -137,14 +137,49 @@ async function loadReport(reportId, dialog) {
             });
         }
 
-        // Clear actions text area
-        dialog.querySelector('textarea[name="action_text"]').value = '';
-
     } catch (error) {
         console.error('Error loading report:', error);
         dialog.close();
         alert('Could not load report details.');
     }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Card filtering
+    const statusSelect = document.getElementById('status');
+    const reportCards = document.querySelectorAll('.report-card');
+    const reportCount = document.getElementById('report-count');
+
+    statusSelect.addEventListener('change', function () {
+        const selectedStatus = this.value;
+        let visibleCount = 0;
+        
+        reportCards.forEach(card => {
+            card.style.display = 'none';
+            const cardStatus = card.dataset.status;
+
+            setTimeout(() => {
+                if (!selectedStatus || cardStatus === selectedStatus) {
+                    card.style.display = '';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+
+                reportCount.textContent = visibleCount;
+            }, 300);
+        });
+    });
+
+    // Close dialog on link click
+    document.querySelectorAll('dialog a').forEach(link => {
+        link.addEventListener('click', function () {
+            setTimeout(() => {
+                closeDialog(this.closest('dialog'));
+            }, 300);
+        });
+    })
+});
+
 </script>
 @endsection
