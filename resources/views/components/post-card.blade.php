@@ -1,9 +1,12 @@
 @php
     $highlightClass = $highlightOwn && $post->user->id === auth()->id() ? 
         'highlighted' : '';
+            
+    $reportClass = (auth()->check() && auth()->user()->isAdmin() && $post->hasReport()) ? 
+        'reported' : '';
 @endphp
 
-<div class="post-card {{ $highlightClass }}">
+<div class="post-card {{ $highlightClass }} {{ $reportClass }}">
     <div class="post-date">{{ display_time($post->created_at) }}</div>
     
     <div class="post-main">

@@ -815,6 +815,19 @@ input[type="radio"]:checked+.tag-input {
     }
 }
 
+.post.reported::before,
+.post-card.reported::before,
+.comment-card.reported::before {
+    content: 'Reported';
+    position: absolute;
+    top: -0.75em;
+    left: -0.5em;
+    font-size: 0.8em;
+    padding: 0.125em 0.5em;
+    background-color: var(--warning-color);
+    border-radius: 10px;
+}
+
 
 /* Post Page */
 .post-navigation {

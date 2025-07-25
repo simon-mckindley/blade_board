@@ -6,6 +6,8 @@
 
     $commentActionVisibility = !auth()->check() || auth()->user()->isAdmin() ? 
         'hidden' : 'visible';
+
+    $reportClass = (auth()->check() && auth()->user()->isAdmin() && $post->hasReport()) ? 'reported' : '';
 @endphp
 
 
@@ -32,7 +34,7 @@
 
     <div class="post-page-grid">
 
-        <div class="post">
+        <div class="post {{ $reportClass }}">
             <div class="post-head">
                 <div class="post-actions-row">
                     <div class="post-tags">

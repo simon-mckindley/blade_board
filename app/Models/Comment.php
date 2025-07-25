@@ -28,4 +28,9 @@ class Comment extends Model
     {
         return $this->morphMany(Report::class, 'reportable');
     }
+
+    public function hasReport()
+    {
+        return $this->reports()->exists();
+    }
 }

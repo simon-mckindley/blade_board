@@ -3,9 +3,12 @@
         (auth()->check() && 
             ($comment->user->id === auth()->id() || auth()->user()->isAdmin())
         ) ? 'highlighted' : '';
+
+    $reportClass = (auth()->check() && auth()->user()->isAdmin() && $comment->hasReport()) ? 
+        'reported' : '';
 @endphp
 
-<div class="comment-card {{ $highlightClass }}">
+<div class="comment-card {{ $highlightClass }} {{ $reportClass }}">
     <div class="comment-meta">
         <div>{{ $comment->user->name }}</div>
         <div>{{ display_time($comment->created_at) }}</div>
