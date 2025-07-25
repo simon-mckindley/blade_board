@@ -6,6 +6,7 @@ use App\Models\Report;
 use App\Models\Comment;
 use App\Enums\ReportReason;
 use App\Enums\ReportStatus;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -41,6 +42,7 @@ class ReportController extends Controller
             'reportable_id' => 'required|integer|exists:' . $this->resolveModelTable($request->reportable_type) . ',id',
             'reason' => 'required|in:' . implode(',', array_column(ReportReason::cases(), 'value')),
             'description' => 'nullable|string|max:100',
+            'action_text' => 'nullable|string|max:100',
         ]);
 
         // Manual validation messaging
@@ -75,6 +77,50 @@ class ReportController extends Controller
                 'type' => 'error',
                 'message' => 'There was an issue submitting the report: ' . $e->getMessage(),
             ]);
+        }
+    }
+
+    /**
+     * Update the resource
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'report' => 'required|exists:reports,id',
+            'status' => ['required', new Enum(ReportStatus::class)],
+            'action_text' => ['nullable', 'string'],
+        ], [
+            'status.required' => 'The status is required.',
+            'status.enum' => 'The status provided is invalid.',
+            'action_text.string' => 'The action text must be a string.',
+        ]);
+
+        try {
+            $report = Report::findOrFail($request->input('report'));
+
+            // Append action_text if provided
+            if ($request->filled('action_text')) {
+                $newActionText = trim($report->action_text . ' ' . $request->input('action_text'));
+                $report->action_text = $newActionText;
+            }
+
+            $report->status = $request->input('status');
+            $report->save();
+
+            return redirect()
+                ->back()
+                ->with('alert', [
+                    'type' => 'success',
+                    'message' => 'Report updated!',
+                ]);
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('alert', [
+                    'type' => 'error',
+                    'message' => 'There was a problem updating the report: ' . $e->getMessage(),
+                ]);
         }
     }
 
@@ -126,7 +172,8 @@ class ReportController extends Controller
             'reportable_type' => class_basename($report->reportable_type),
             'reportable_id' => $report->reportable_id,
             'post_id' => $postId,
-            'reason' => $report->reason->label(),
+            'reason' => $report->reason,
+            'reason_label' => $report->reason->label(),
             'description' => $report->description,
             'status' => $report->status,
             'status_label' => $report->status->label(),

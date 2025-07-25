@@ -11,13 +11,13 @@
 @section('maincontent')
     <form class="auth-form report-filter-form" action="{{ route('admin.users.index') }}" method="">
         <div class="input-cont">
-            <select name="status" id="status" required>
+            <select name="status-filter" id="status-filter" required>
                 <option value="">No filter</option>
                 @foreach (\App\Enums\ReportStatus::cases() as $status)
                 <option value="{{ $status->value }}">{{ $status->label() }}</option>
                 @endforeach
             </select>
-            <label for="reason">Filter by status</label>
+            <label for="status-filter">Filter by status</label>
         </div>
     </form>   
 
@@ -49,18 +49,20 @@
             <div class="data-cont"><dt>Reporting user</dt><a class="user-link" href=""><dd class="fillable user"></dd></a></div>
             <div class="data-cont"><dt>Reason</dt><dd class="fillable reason"></dd></div>
             <div class="data-cont"><dt>Description</dt><dd class="fillable description"></dd></div>
-            <div class="data-cont"><dt>Reported document</dt><a class="type-link" href=""><dd class="fillable type"></dd></a></div>
-            <div class="data-cont"><dt>Document author</dt><a class="author-link" href=""><dd class="fillable author"></dd></a></div>
+            <div class="data-cont"><dt>Reported document</dt><a class="type-link"><dd class="fillable type"></dd></a></div>
+            <div class="data-cont"><dt>Document author</dt><a class="author-link"><dd class="fillable author"></dd></a></div>
             <div class="data-cont"><dt>Actions</dt><dd class="fillable actions"></dd></div>
             <div class="data-cont"><dt>Current status</dt><dd class="fillable status"></dd></div>
         </dl>
-        <form action="{{ route('reports.store') }}" method="POST" class="report-form auth-form">
+        
+        <form action="{{ route('admin.reports.update') }}" method="POST" class="report-form auth-form">
             @csrf
-            <input type="hidden" name="reportable_type">
-            <input type="hidden" name="reportable_id">
+            @method('PUT')
+            <input type="hidden" name="report">
 
             <div class="input-cont">
                 <select name="status" id="status" required>
+                    <option value="">Select</option>
                     @foreach (\App\Enums\ReportStatus::cases() as $status)
                     <option value="{{ $status->value }}">{{ $status->label() }}</option>
                     @endforeach
@@ -90,13 +92,21 @@ function openDialog(reportId) {
 }
 
 function closeDialog(dialog) {
+    // Clear data
     dialog.querySelectorAll('dd').forEach(el => {
         el.textContent = '';
     });
 
+    // Clear links
     dialog.querySelectorAll('a').forEach(el => {
-        el.href = '';
+        el.removeAttribute('href');
     });
+
+    // Un-select current status in the select dropdown
+    const statusSelect = dialog.querySelector('select[name="status"]');
+    if (statusSelect) {
+        [...statusSelect.options].forEach(option => option.selected = false);
+    }
 
     dialog.close();
 }
@@ -113,7 +123,7 @@ async function loadReport(reportId, dialog) {
         // Fill static fillables
         dialog.querySelector('.fillable.date').textContent = new Date(data.created_at).toLocaleString('en-AU');
         dialog.querySelector('.fillable.user').textContent = data.reporter?.name || 'Unknown';
-        dialog.querySelector('.fillable.reason').textContent = data.reason;
+        dialog.querySelector('.fillable.reason').textContent = data.reason_label;
         dialog.querySelector('.fillable.description').textContent = data.description || 'None';
         dialog.querySelector('.fillable.type').textContent = data.reportable_type;
         dialog.querySelector('.fillable.author').textContent = data.reportable_author?.name || 'Unknown';
@@ -125,9 +135,8 @@ async function loadReport(reportId, dialog) {
         dialog.querySelector('.user-link').href = `user/${data.reporter?.id}`;
         dialog.querySelector('.author-link').href = `user/${data.reportable_author?.id}`;
 
-        // Fill form hidden fields
-        dialog.querySelector('input[name="reportable_type"]').value = data.reportable_type.toLowerCase();
-        dialog.querySelector('input[name="reportable_id"]').value = data.reportable_id;
+        // Fill form hidden field
+        dialog.querySelector('input[name="report"]').value = data.id;
 
         // Pre-select current status in the select dropdown
         const statusSelect = dialog.querySelector('select[name="status"]');
@@ -146,7 +155,7 @@ async function loadReport(reportId, dialog) {
 
 document.addEventListener('DOMContentLoaded', function () {
     // Card filtering
-    const statusSelect = document.getElementById('status');
+    const statusSelect = document.getElementById('status-filter');
     const reportCards = document.querySelectorAll('.report-card');
     const reportCount = document.getElementById('report-count');
 

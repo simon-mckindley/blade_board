@@ -291,9 +291,11 @@
         dd {
             font-size: 1.1em;
             font-weight: bold;
+            max-height: 3em;
+            overflow-y: auto;
         }
 
-        a {
+        a[href] {
             text-decoration: underline;
 
             &:hover {
@@ -325,7 +327,7 @@
     --_fillable-width: 15ch;
 
     position: relative;
-    transition: background-color 1000ms, color 3000ms;
+    transition: background-color 1000ms, color 1000ms;
 }
 
 .fillable.type,

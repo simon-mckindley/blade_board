@@ -97,6 +97,7 @@ Route::middleware(['auth', AdminOnly::class])->prefix('admin')->name('admin.')->
         Route::get('/', 'index')->name('index');
         // Route::get('/{id}', 'show')->name('reports.show');
         Route::get('/{id}/json', 'showJson')->name('showJson');
+        Route::put('/', 'update')->name('update');
     });
 });
 
