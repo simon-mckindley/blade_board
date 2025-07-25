@@ -7,7 +7,8 @@
     $commentActionVisibility = !auth()->check() || auth()->user()->isAdmin() ? 
         'hidden' : 'visible';
 
-    $reportClass = (auth()->check() && auth()->user()->isAdmin() && $post->hasReport()) ? 'reported' : '';
+    $reportClass = (auth()->check() && auth()->user()->isAdmin() && $post->hasOutstandingReport()) 
+        ? 'reported' : '';
 @endphp
 
 

@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Post::with('tags')
+        $query = Post::with('tags', 'reports')
             ->withCount('comments', 'likes', 'reports');
 
         Controller::postFilter($query, $request);

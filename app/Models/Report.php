@@ -28,6 +28,11 @@ class Report extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function isCompleted() : bool 
+    {
+        return $this->status === ReportStatus::Dismissed || $this->status === ReportStatus::ActionTaken;
+    }
+
     protected $casts = [
         'status' => ReportStatus::class,
         'reason' => ReportReason::class,

@@ -63,4 +63,11 @@ class Post extends Model
     {
         return $this->reports()->exists();
     }
+
+    public function hasOutstandingReport()
+    {
+        return $this->reports()
+            ->whereIn('status', ['pending', 'reviewed'])
+            ->exists();
+    }
 }

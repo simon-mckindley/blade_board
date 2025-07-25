@@ -15,7 +15,7 @@
         <div class="header-inner">
             <nav>
                 <div class="large-scrn-nav">
-                    <a class="home-button" href="{{ route('home') }}">
+                    <a class="home-button" href="{{ route('home') }}" title="Home">
                         <img src="{{ asset('images/bladeboard_icon.png') }}" alt="B" width="32">
                     </a>
                     @auth

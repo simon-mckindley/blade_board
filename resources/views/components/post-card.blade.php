@@ -2,7 +2,7 @@
     $highlightClass = $highlightOwn && $post->user->id === auth()->id() ? 
         'highlighted' : '';
             
-    $reportClass = (auth()->check() && auth()->user()->isAdmin() && $post->hasReport()) ? 
+    $reportClass = (auth()->check() && auth()->user()->isAdmin() && $post->hasOutstandingReport()) ? 
         'reported' : '';
 @endphp
 

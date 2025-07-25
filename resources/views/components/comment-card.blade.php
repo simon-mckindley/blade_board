@@ -4,7 +4,7 @@
             ($comment->user->id === auth()->id() || auth()->user()->isAdmin())
         ) ? 'highlighted' : '';
 
-    $reportClass = (auth()->check() && auth()->user()->isAdmin() && $comment->hasReport()) ? 
+    $reportClass = (auth()->check() && auth()->user()->isAdmin() && $comment->hasOutstandingReport()) ? 
         'reported' : '';
 @endphp
 

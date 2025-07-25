@@ -145,6 +145,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('sort-by')?.addEventListener('change', function () {
             document.getElementById('filters-form').submit();
             this.setAttribute('disabled', 'true');
+            const width = this.getBoundingClientRect().width;
+            this.style.width = width + 'px';
+            this.innerHTML = `<option>Loading...</option>`;
         });
     }
 
