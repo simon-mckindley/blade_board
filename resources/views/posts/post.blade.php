@@ -35,14 +35,14 @@
 
     <div class="post-page-grid">
 
-        <div class="post {{ $reportClass }}">
+        <article class="post {{ $reportClass }}">
             <div class="post-head">
                 <div class="post-actions-row">
-                    <div class="post-tags">
+                    <ul class="post-tags">
                         @foreach ($post->tags as $tag)
-                        <span>{{ $tag->name }}</span>
+                        <li class="tag">{{ $tag->name }}</li>
                         @endforeach
-                    </div>
+                    </ul>
                     
                     <div class="post-actions">
                         @auth
@@ -121,7 +121,7 @@
                 @endif
             </div>
 
-        </div>
+        </article>
                    
         <div class="comments-section">
             <div class="comments-head">

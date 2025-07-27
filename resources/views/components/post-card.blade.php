@@ -6,7 +6,7 @@
         'reported' : '';
 @endphp
 
-<div class="post-card {{ $highlightClass }} {{ $reportClass }}">
+<article class="post-card {{ $highlightClass }} {{ $reportClass }}">
     <div class="post-date">{{ display_time($post->created_at) }}</div>
     
     <div class="post-main">
@@ -14,11 +14,11 @@
             {{ ucwords($post->title) }}
         </a>
         
-        <div class="post-tags"> 
+        <ul class="post-tags"> 
             @foreach ($post->tags as $tag)
-                <span>{{ $tag->name }}</span>
+                <li class="tag">{{ $tag->name }}</li>
             @endforeach
-        </div>
+        </ul>
         
         <div class="post-name">{{ $post->user->name }}</div>
 
@@ -37,4 +37,4 @@
             </div>
         </div>
     </div>
-</div>
+</article>

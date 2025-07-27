@@ -87,6 +87,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'status' => UserStatus::class,
         ];
     }
 
@@ -109,8 +110,4 @@ class User extends Authenticatable
     {
         return $this->role === 'super';
     }
-
-    protected $casts = [
-        'status' => UserStatus::class,
-    ];
 }

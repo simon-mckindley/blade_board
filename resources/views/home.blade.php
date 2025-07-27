@@ -21,15 +21,23 @@
             What would you like to do today?
         </p>
         
-        <div class="home-actions">
+        <ul class="home-actions" role="navigation">
         @if (auth()->user()->isAdmin())
-            <a class="btn" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+            <li>
+                <a class="btn" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+            </li>
         @else
-            <a class="btn" href="{{ route('posts.create') }}">Create</a>
-            <a class="btn" href="{{ route('posts.display') }}">Posts</a>
-            <a class="btn" href="{{ route('user.show') }}">Profile</a>
+            <li>
+                <a class="btn" href="{{ route('posts.create') }}">Create</a>
+            </li>
+            <li>
+                <a class="btn" href="{{ route('posts.display') }}">Posts</a>
+            </li>
+            <li>
+                <a class="btn" href="{{ route('user.show') }}">Profile</a>
+            </li>
         @endif
-        </div>
+        </ul>
 
         <form id="logout" method="POST" action="{{ route('logout') }}">
             @csrf
@@ -37,14 +45,21 @@
     @endauth
     
     @guest
-        <div class="home-actions">
-            <p>Welcome to <i>BLADE_board</i><br>
+        <p>Welcome to <i>BLADE_board</i><br>
             A place to share your thoughts and ideas with the world<br>
-            Sign in or sign up to start sharing</p>
-            <a class="btn" href="{{ route('login') }}">Sign in</a>
-            <a class="btn" href="{{ route('register') }}">Sign up</a>
-            <a class="btn guest-btn" href="{{ route('posts.display') }}">Continue as Guest</a>
-        </div>
+            Sign in or sign up to start sharing
+        </p>
+        <ul class="home-actions" role="navigation">
+            <li>
+                <a class="btn" href="{{ route('login') }}">Sign in</a>
+            </li>
+            <li>
+                <a class="btn" href="{{ route('register') }}">Sign up</a>
+            </li>
+            <li>
+                <a class="btn guest-btn" href="{{ route('posts.display') }}">Continue as Guest</a>
+            </li>
+        </ul>
     @endguest
 
 @endsection
