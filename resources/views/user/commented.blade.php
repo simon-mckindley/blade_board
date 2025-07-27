@@ -6,7 +6,7 @@
     <a class="link" href="{{ route('posts.display') }}">Posts</a>
 @endsection
 
-@section('pagetitle')
+@section('pagetitle-sort')
     <x-sort-header title="Commented Posts" />
 @endsection
 

@@ -18,7 +18,7 @@
     @endsection
 @endguest
 
-@section('pagetitle')
+@section('pagetitle-sort')
     <x-sort-header />
 @endsection
 

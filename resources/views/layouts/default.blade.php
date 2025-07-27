@@ -54,6 +54,7 @@
         <div class="padding-box">
 
             <h2 class="page-title">@yield('pagetitle')</h2>
+            <div class="page-title">@yield('pagetitle-sort')</div>
             
             @yield('maincontent')
 

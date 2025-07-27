@@ -6,7 +6,7 @@
     <a class="link" href="{{ route('posts.create') }}">Create a Post</a>
 @endsection
 
-@section('pagetitle')
+@section('pagetitle-sort')
     <x-sort-header title="My Posts" />
 @endsection
 
