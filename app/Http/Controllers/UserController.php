@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Enums\UserStatus;
+use App\Enums\UserRole;
+
 
 class UserController extends Controller
 {
@@ -73,21 +75,18 @@ class UserController extends Controller
      */
     public function register(Request $request)
     {
-        // Always default to 'user'
-        $role = 'user';
+        $role = UserRole::User; // Default
 
-        // Only allow admins or super users to assign a custom role
         if (Auth::check() && Auth::user()->isSuper()) {
-            $allowedRoles = ['user', 'admin', 'super'];
             $incomingRole = $request->input('role');
 
-            if (in_array($incomingRole, $allowedRoles)) {
-                $role = $incomingRole;
+            if (in_array($incomingRole, UserRole::values())) {
+                $role = UserRole::from($incomingRole);
             }
         }
 
         // Merge final role into request
-        $request->merge(['role' => $role]);
+        $request->merge(['role' => $role->value]);
 
         // Validate input
         $validated = $request->validate(
@@ -113,7 +112,7 @@ class UserController extends Controller
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
-                'role' => $validated['role'], // This will be 'user' if not set
+                'role' => $role, // This will be 'user' if not set
             ]);
 
             if (Auth::check() && Auth::user()->isAdmin()) {

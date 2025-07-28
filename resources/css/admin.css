@@ -1,8 +1,10 @@
 /*** Admin Pages ***/
+/*******************/
+
 /* Users Search Page */
 .new-admin-btn {
     display: block;
-    margin-bottom: 1em;
+    margin-block-end: 1em;
 }
 
 .user-card {

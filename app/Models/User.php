@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Enums\UserStatus;
+use App\Enums\UserRole;
+use Illuminate\Foundation\Auth\User as AuthUser;
 
 /**
  * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
@@ -88,6 +90,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'status' => UserStatus::class,
+            'role' => UserRole::class,
         ];
     }
 
@@ -98,7 +101,7 @@ class User extends Authenticatable
      */
     public function isAdmin(): bool
     {
-        return $this->role === 'admin' || $this->role === 'super';
+        return $this->role === UserRole::Admin || $this->role === UserRole::Super;
     }
 
     /**
@@ -108,6 +111,7 @@ class User extends Authenticatable
      */
     public function isSuper(): bool
     {
-        return $this->role === 'super';
+        return $this->role === UserRole::Super;
     }
+
 }

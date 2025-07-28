@@ -142,12 +142,13 @@ ul {
 
 /* General Elements */
 .page-title {
-    z-index: 50;
+    margin-block-end: 1rem;
 }
 
 .page-title:has(.sort-controls) {
     position: sticky;
     top: 4rem;
+    z-index: 50;
     display: flex;
     width: 100%;
     align-items: center;
