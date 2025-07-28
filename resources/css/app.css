@@ -504,8 +504,12 @@ h1 {
         grid-column-start: 2;
     }
 
-    .joined-cont {
+    .reported-cont {
         grid-row-start: 2;
+    }
+
+    .joined-cont {
+        grid-row-start: 3;
     }
 }
 
@@ -516,6 +520,44 @@ h1 {
 
 .profile-cont:hover dd {
     margin-inline-start: 0.5em;
+}
+
+.user-reports-dialog {
+    min-width: 20em;
+    min-height: 20em;
+
+    h3 {
+        margin-block: 0.5em;
+    }
+
+    .btn-cont {
+        display: flex;
+
+        .btn {
+            margin-left: auto;
+        }
+    }
+
+    .user-report-card {
+        opacity: 0;
+        transform: translateY(100%);
+
+        color: var(--bg-color);
+        background-color: var(--text-color);
+        padding: 0.5em;
+        border-radius: 4px;
+        margin-bottom: 1em;
+        animation: move-in 500ms ease forwards;
+
+        .date {
+            font-size: 0.8rem;
+        }
+
+        .reason {
+            font-weight: bold;
+            margin-block: 0.25em;
+        }
+    }
 }
 
 /* Profile Edit Page */
@@ -1293,7 +1335,8 @@ dialog::backdrop {
             grid-column-start: unset;
         }
 
-        .joined-cont {
+        .joined-cont,
+        .reported-cont {
             grid-row-start: unset;
         }
     }

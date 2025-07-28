@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/commented', 'commentedPosts')->name('commented');
         Route::get('/liked', 'likedPosts')->name('liked');
         Route::get('/viewed', 'viewedPosts')->name('viewed');
+        Route::get('/reports/{user}', 'userReports')->name('reports');
 
         Route::get('/edit/{user}', 'edit')->name('edit');
         Route::put('/{user}', 'update')->name('update');

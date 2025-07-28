@@ -56,6 +56,15 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
+    /**
+     * Get the reports for the user.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
 
     /**
      * The attributes that are mass assignable.

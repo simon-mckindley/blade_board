@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Post;
-use App\Models\Comment;
-use App\Models\Tag;
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -203,8 +202,9 @@ class UserController extends Controller
         $commentCount = $user->comments()->count();
         $likeCount = $user->likedPosts()->count();
         $viewCount = $user->viewedPosts()->count();
+        $reportCount = $user->reports()->count();
 
-        return view('user.profile', compact('user', 'postCount', 'commentCount', 'likeCount', 'viewCount'));
+        return view('user.profile', compact('user', 'postCount', 'commentCount', 'likeCount', 'viewCount', 'reportCount'));
     }
 
     /**
@@ -335,11 +335,44 @@ class UserController extends Controller
     }
 
     /**
+     * Return the reports created by the user as JSON.
+     */
+    public function userReports(User $user)
+    {
+        // Ensure the authenticated user or admin can access
+        if (Auth::id() !== $user->id && !Auth::user()->isAdmin()) {
+            return response()->json([
+                'error' => 'You do not have permission for this profile.'
+            ], 403);
+        }
+
+        $reports = $user->reports()
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($report) {
+                return [
+                    'id' => $report->id,
+                    'created_at' => $report->created_at->toDateTimeString(),
+                    'updated_at' => $report->updated_at->toDateTimeString(),
+                    'reportable_type' => $report->reportable_type,
+                    'reportable_id' => $report->reportable_id,
+                    'reason_label' => $report->reason->label() ?? null,
+                    'status' => $report->status,
+                    'status_label' => $report->status->label() ?? null,
+                ];
+            });
+
+        return response()->json([
+            'reports' => $reports
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(User $user)
     {
-        // Ensure the authenticated user or admim can only edit their own profile
+        // Ensure the authenticated user or admin can only edit their own profile
         if (Auth::user()->id !== $user->id && !Auth::user()->isAdmin()) {
             return redirect()->route('user.show')
                 ->with('alert', [

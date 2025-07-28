@@ -246,7 +246,7 @@
         flex-direction: column;
         gap: 0.125em;
 
-        .report-status {
+        /* .report-status {
             color: var(--text-color);
             padding: 0.125em 0.25em;
             width: max-content;
@@ -267,7 +267,30 @@
             &.dismissed {
                 background-color: var(--success-color);
             }
-        }
+        } */
+    }
+}
+
+.report-status {
+    color: var(--text-color);
+    padding: 0.125em 0.25em;
+    width: max-content;
+    border-radius: 4px;
+
+    &.pending {
+        background-color: var(--error-color);
+    }
+
+    &.reviewed {
+        background-color: var(--warning-color);
+    }
+
+    &.action_taken {
+        background-color: var(--info-color);
+    }
+
+    &.dismissed {
+        background-color: var(--success-color);
     }
 }
 
