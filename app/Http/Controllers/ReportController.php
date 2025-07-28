@@ -100,8 +100,10 @@ class ReportController extends Controller
 
             // Append action_text if provided
             if ($request->filled('action_text')) {
-                $newActionText = trim($report->action_text . ' ' . $request->input('action_text'));
+                $newActionText = trim($report->action_text . '<li>' . $request->input('action_text') . '</li>');
                 $report->action_text = $newActionText;
+            } else {
+                $report->action_text = '<li>' . $report->action_text . '</li>';
             }
 
             $report->status = $request->input('status');

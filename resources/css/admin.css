@@ -245,29 +245,6 @@
         display: flex;
         flex-direction: column;
         gap: 0.125em;
-
-        /* .report-status {
-            color: var(--text-color);
-            padding: 0.125em 0.25em;
-            width: max-content;
-            border-radius: 4px;
-
-            &.pending {
-                background-color: var(--error-color);
-            }
-
-            &.reviewed {
-                background-color: var(--warning-color);
-            }
-
-            &.action_taken {
-                background-color: var(--info-color);
-            }
-
-            &.dismissed {
-                background-color: var(--success-color);
-            }
-        } */
     }
 }
 
@@ -318,6 +295,19 @@
             font-weight: bold;
             max-height: 3em;
             overflow-y: auto;
+        }
+
+        .actions {
+            list-style: decimal;
+            padding-inline: 1.25em 0.5em;
+        }
+
+        li {
+            display: list-item;
+        }
+
+        li::marker {
+            font-size: 0.8em;
         }
 
         a[href] {

@@ -70,7 +70,7 @@
                 <dt>Document author</dt><a class="author-link"><dd class="fillable author"></dd></a>
             </div>
             <div class="data-cont">
-                <dt>Actions</dt><dd class="fillable actions"></dd>
+                <dt>Actions</dt><dd><ol class="fillable actions"></ol></dd>
             </div>
             <div class="data-cont">
                 <dt>Current status</dt><dd class="fillable status"></dd>
@@ -115,8 +115,8 @@ function openDialog(reportId) {
 
 function closeDialog(dialog) {
     // Clear data
-    dialog.querySelectorAll('dd').forEach(el => {
-        el.textContent = '';
+    dialog.querySelectorAll('.fillable').forEach(el => {
+        el.innerHTML = '';
     });
 
     // Clear links
@@ -149,7 +149,7 @@ async function loadReport(reportId, dialog) {
         dialog.querySelector('.fillable.description').textContent = data.description || 'None';
         dialog.querySelector('.fillable.type').textContent = data.reportable_type;
         dialog.querySelector('.fillable.author').textContent = data.reportable_author?.name || 'Unknown';
-        dialog.querySelector('.fillable.actions').textContent = data.action_text || 'None';
+        dialog.querySelector('.fillable.actions').innerHTML = data.action_text || 'None';
         dialog.querySelector('.fillable.status').textContent = data.status_label;
 
         // Set links
