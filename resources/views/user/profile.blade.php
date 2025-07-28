@@ -1,12 +1,18 @@
+@php
+    $pageTitle = 'User Profile';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'User Profile')
+@section('title', $pageTitle)
 
 @section('add-link')
     <a class="link" href="{{ route('user.edit', $user->id) }}">Edit Profile</a>
 @endsection
 
-@section('pagetitle',  $user->name)
+@section('pagetitle')
+    <h2>{{ $user->name }}</h2>
+@endsection
 
 @section('maincontent')
     <dl class="profile">

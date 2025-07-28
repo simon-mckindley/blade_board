@@ -1,13 +1,17 @@
+@php
+    $pageTitle = 'My Posts';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'My Posts')
+@section('title', $pageTitle)
 
 @section('add-link')
     <a class="link" href="{{ route('posts.create') }}">Create a Post</a>
 @endsection
 
-@section('pagetitle-sort')
-    <x-sort-header title="My Posts" />
+@section('pagetitle')
+    <x-sort-header title="{{ $pageTitle }}" />
 @endsection
 
 @section('maincontent')

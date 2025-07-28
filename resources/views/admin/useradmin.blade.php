@@ -1,12 +1,18 @@
+@php
+    $pageTitle = 'Admin User Management';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Admin User Management')
+@section('title', $pageTitle)
 
 @section('add-link')
     <a class="link" href="{{ route('admin.users.index') }}">Users Admin</a>
 @endsection
 
-@section('pagetitle', 'Admin User Management')
+@section('pagetitle')
+    <h2>{{ $pageTitle }}</h2>
+@endsection
 
 @section('maincontent')
     @if (auth()->user()->isAdmin())

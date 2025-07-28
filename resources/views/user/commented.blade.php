@@ -1,13 +1,17 @@
+@php
+    $pageTitle = 'Commented Posts';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Commented Posts')
+@section('title', $pageTitle)
 
 @section('add-link')
     <a class="link" href="{{ route('posts.display') }}">Posts</a>
 @endsection
 
-@section('pagetitle-sort')
-    <x-sort-header title="Commented Posts" />
+@section('pagetitle')
+    <x-sort-header title="{{ $pageTitle }}" />
 @endsection
 
 @section('maincontent')

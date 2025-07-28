@@ -1,12 +1,18 @@
+@php
+    $pageTitle = 'Edit Profile';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Edit Profile')
+@section('title', $pageTitle)
 
 @section('add-link')
     <a class="btn warning-btn" href="{{ route('user.show') }}">Back</a>
 @endsection
 
-@section('pagetitle', 'Edit Profile')
+@section('pagetitle')
+    <h2>{{ $pageTitle }}</h2>
+@endsection
 
 @section('maincontent')
     @if ($user->id === auth()->id() || auth()->user()->isAdmin())

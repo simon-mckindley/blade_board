@@ -1,8 +1,14 @@
+@php
+    $pageTitle = 'Login';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Login')
+@section('title', $pageTitle)
 
-@section('pagetitle', 'Login')
+@section('pagetitle')
+    <h2>{{ $pageTitle }}</h2>
+@endsection
 
 @section('maincontent')
     <form class="auth-form" method="POST" action="{{ route('login') }}">

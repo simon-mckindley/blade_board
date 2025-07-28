@@ -1,13 +1,17 @@
+@php
+    $pageTitle = 'Liked Posts';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Liked Posts')
+@section('title', $pageTitle)
 
 @section('add-link')
     <a class="link" href="{{ route('posts.display') }}">Posts</a>
 @endsection
 
-@section('pagetitle-sort')
-    <x-sort-header title="Liked Posts" />
+@section('pagetitle')
+    <x-sort-header title="{{ $pageTitle }}" />
 @endsection
 
 @section('maincontent')

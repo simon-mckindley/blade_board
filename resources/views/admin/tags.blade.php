@@ -1,12 +1,18 @@
+@php
+    $pageTitle = 'Tags Admin';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Tags Admin')
+@section('title', $pageTitle)
 
 @section('add-link')
     <a class="link" href="{{ route('admin.dashboard') }}">Admin</a>
 @endsection
 
-@section('pagetitle', 'Tags Admin')
+@section('pagetitle')
+    <h2>{{ $pageTitle }}</h2>
+@endsection
 
 @section('maincontent')
     <form class="post-form" method="POST" action="">

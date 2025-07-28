@@ -1,12 +1,18 @@
+@php
+    $pageTitle = 'Reports Admin';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Reports Admin')
+@section('title', $pageTitle)
 
 @section('add-link')
     <a class="link" href="{{ route('admin.dashboard') }}">Admin</a>
 @endsection
 
-@section('pagetitle', 'Reports Admin')
+@section('pagetitle')
+    <h2>{{ $pageTitle }}</h2>
+@endsection
 
 @section('maincontent')
     <form class="auth-form report-filter-form" action="{{ route('admin.users.index') }}" method="">
@@ -45,14 +51,30 @@
     <dialog id="report-dialog" class="admin-report-dialog">
         <h3>Report details</h3>
         <dl>
-            <div class="data-cont"><dt>Created</dt><dd class="fillable date"></dd></div>
-            <div class="data-cont"><dt>Reporting user</dt><a class="user-link" href=""><dd class="fillable user"></dd></a></div>
-            <div class="data-cont"><dt>Reason</dt><dd class="fillable reason"></dd></div>
-            <div class="data-cont"><dt>Description</dt><dd class="fillable description"></dd></div>
-            <div class="data-cont"><dt>Reported document</dt><a class="type-link"><dd class="fillable type"></dd></a></div>
-            <div class="data-cont"><dt>Document author</dt><a class="author-link"><dd class="fillable author"></dd></a></div>
-            <div class="data-cont"><dt>Actions</dt><dd class="fillable actions"></dd></div>
-            <div class="data-cont"><dt>Current status</dt><dd class="fillable status"></dd></div>
+            <div class="data-cont">
+                <dt>Created</dt><dd class="fillable date"></dd>
+            </div>
+            <div class="data-cont">
+                <dt>Reporting user</dt><a class="user-link" href=""><dd class="fillable user"></dd></a>
+            </div>
+            <div class="data-cont">
+                <dt>Reason</dt><dd class="fillable reason"></dd>
+            </div>
+            <div class="data-cont">
+                <dt>Description</dt><dd class="fillable description"></dd>
+            </div>
+            <div class="data-cont">
+                <dt>Reported document</dt><a class="type-link"><dd class="fillable type"></dd></a>
+            </div>
+            <div class="data-cont">
+                <dt>Document author</dt><a class="author-link"><dd class="fillable author"></dd></a>
+            </div>
+            <div class="data-cont">
+                <dt>Actions</dt><dd class="fillable actions"></dd>
+            </div>
+            <div class="data-cont">
+                <dt>Current status</dt><dd class="fillable status"></dd>
+            </div>
         </dl>
         
         <form action="{{ route('admin.reports.update') }}" method="POST" class="report-form auth-form">

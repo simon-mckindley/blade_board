@@ -1,8 +1,14 @@
+@php
+    $pageTitle = 'Register';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Register')
+@section('title', $pageTitle)
 
-@section('pagetitle', 'Register')
+@section('pagetitle')
+    <h2>{{ $pageTitle }}</h2>
+@endsection
 
 @section('maincontent')
     <form class="auth-form" method="POST" action="{{ route('register.submit') }}">

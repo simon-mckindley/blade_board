@@ -1,6 +1,10 @@
+@php
+    $pageTitle = 'Posts';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Posts')
+@section('title', $pageTitle)
 
 @auth
     @section('add-link')
@@ -18,7 +22,7 @@
     @endsection
 @endguest
 
-@section('pagetitle-sort')
+@section('pagetitle')
     <x-sort-header />
 @endsection
 

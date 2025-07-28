@@ -1,12 +1,18 @@
+@php
+    $pageTitle = 'Viewed Posts';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Viewed Posts')
+@section('title', $pageTitle)
 
 @section('add-link')
     <a class="link" href="{{ route('posts.display') }}">Posts</a>
 @endsection
 
-@section('pagetitle', 'Viewed Posts')
+@section('pagetitle')
+    <h2>{{ $pageTitle }}</h2>
+@endsection
 
 @section('maincontent')
     @if ($posts->isEmpty())

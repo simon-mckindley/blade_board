@@ -10,7 +10,9 @@
     @endsection
 @endauth
 
-@section('pagetitle', 'Welcome')
+@section('pagetitle')
+    <h2>Welcome</h2>
+@endsection
 
 @section('maincontent')
     @auth

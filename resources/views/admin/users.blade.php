@@ -1,12 +1,18 @@
+@php
+    $pageTitle = 'Users Admin';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Users Admin')
+@section('title', $pageTitle)
 
 @section('add-link')
     <a class="link" href="{{ route('admin.dashboard') }}">Admin</a>
 @endsection
 
-@section('pagetitle', 'Users Admin')
+@section('pagetitle')
+    <h2>{{ $pageTitle }}</h2>
+@endsection
 
 @section('maincontent')
     @if (auth()->user()->isSuper())

@@ -1,12 +1,18 @@
+@php
+    $pageTitle = 'Register New Admin';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Register Admin')
+@section('title', $pageTitle)
 
 @section('add-link')
     <a class="link" href="{{ route('admin.users.index') }}">Users</a>
 @endsection
 
-@section('pagetitle', 'Register New Admin')
+@section('pagetitle')
+    <h2>{{ $pageTitle }}</h2>
+@endsection
 
 @section('maincontent')
     <form class="auth-form" method="POST" action="{{ route('register.submit') }}">

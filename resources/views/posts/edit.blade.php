@@ -1,6 +1,10 @@
+@php
+    $pageTitle = 'Edit Post';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Edit Post')
+@section('title', $pageTitle)
 
 @section('cdns')
     <script src="https://cdn.tiny.cloud/1/v3fkqpljj4j2kezzon857vndatqa01pjyxocgfcnx3ejkh84/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
@@ -26,7 +30,9 @@
     <a class="btn warning-btn" href="{{ route('posts.show', $post->id) }}">Cancel</a>
 @endsection
 
-@section('pagetitle', 'Edit -> ' . ucwords($post->title))
+@section('pagetitle', )
+    <h2>Edit -> {{ucwords($post->title)}}</h2>
+@endsection
 
 @section('maincontent')
 

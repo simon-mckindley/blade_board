@@ -1,12 +1,18 @@
+@php
+    $pageTitle = 'Admin Dashboard';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Dashboard')
+@section('title', $pageTitle)
 
 @section('add-link')
     <button form="logout" class="btn warning-btn submit-btn" type="submit">Logout</button>
 @endsection
 
-@section('pagetitle', 'Admin Dashboard')
+@section('pagetitle')
+    <h2>{{ $pageTitle }}</h2>
+@endsection
 
 @section('maincontent')
     <p>Select an administration task</p>

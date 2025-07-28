@@ -1,6 +1,10 @@
+@php
+    $pageTitle = 'Create a Post';
+@endphp
+
 @extends('layouts.default')
 
-@section('title', 'Create Post')
+@section('title', $pageTitle)
 
 @section('cdns')
     <script src="https://cdn.tiny.cloud/1/v3fkqpljj4j2kezzon857vndatqa01pjyxocgfcnx3ejkh84/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
@@ -20,7 +24,9 @@
     <a class="link" href="{{ route('posts.display') }}">Posts</a>
 @endsection
 
-@section('pagetitle', 'Create a Post')
+@section('pagetitle')
+    <h2>{{ $pageTitle }}</h2>
+@endsection
 
 @section('maincontent')  
 
