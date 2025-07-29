@@ -89,23 +89,24 @@
         @if (!$user->isAdmin())
             
         <div class="data-cont linked-cont">
-            <dt>Reported Posts</dt>
-            <dd>&lpar;{{ $postCount }}&rpar;</dd>
-            @if ($postCount > 0)
-            <a class="btn" href="{{ route('user.posts') }}" >View</a>
-            @endif
-        </div>
-
-        <div class="data-cont linked-cont">
-            <dt>Reported Comments</dt>
-            <dd>&lpar;{{ $commentCount }}&rpar;</dd>
-            @if ($commentCount > 0)
-            <a class="btn" href="{{ route('user.commented') }}">View</a>
+            <dt>Reports Made</dt>
+            <dd>&lpar;{{ $reportCount }}&rpar;</dd>
+            @if ($reportCount > 0)
+            <button type="button" class="btn admin-btn" onclick="openDialog()" >View</button>
             @endif
         </div>
         
         @endif
     </dl>
+
+    <dialog id="user-reports-dialog" class="user-reports-dialog">
+        <div class="btn-cont">
+            <button type="button" class="btn admin-btn" onclick="this.closest('dialog').close()">X</button>
+        </div>
+        <h3>User Reports</h3>
+        <div id="reports-cont">
+        </div>
+    </dialog>
 
     @else
     <p>Not authorised</p>
@@ -114,6 +115,95 @@
 
 @section('scripts')
 <script>
+    const dialogSpinner = `            
+        <div style="
+            width: 2em;
+            aspect-ratio: 1;
+            margin: 2em auto;
+            border-radius: 1000px;
+            border: dashed 3px var(--text-color);
+            border-bottom-color: transparent;
+            animation: spinner 1200ms ease-in-out alternate infinite;
+            ">
+        </div>
+        
+        <style>
+            @keyframes spinner {100% {rotate: 450deg;}}
+        </style>`;
+
+    function renderReports(reports) {
+        const container = document.getElementById('reports-cont');
+        container.innerHTML = ''; // Clear previous content
+
+        reports.forEach(report => {
+            const card = document.createElement('div');
+            card.classList.add('user-report-card');
+
+            const header = document.createElement('div');
+            header.classList.add('head');
+
+            const link = document.createElement('button');
+            link.innerText = 'View';
+            link.classList.add('btn', 'admin-btn');
+            link.type = 'button';
+            link.onclick = '';
+
+            const created = document.createElement('div');
+            created.classList.add('date')
+            created.textContent = `${new Date(report.created_at).toLocaleDateString('en-AU')}`;
+
+            header.append(created, link);
+
+            const reason = document.createElement('div');
+            reason.classList.add('reason');
+            reason.textContent = `${report.reason_label}`;
+
+            const status = document.createElement('div');
+            status.classList.add('report-status', report.status);
+            status.textContent = `${report.status_label}`;
+
+            const updated = document.createElement('div');
+            updated.classList.add('date');
+            updated.textContent = `Updated -> ${new Date(report.updated_at).toLocaleDateString('en-AU')}`;
+
+            // Append all elements to the card
+            // card.appendChild(created);
+            // card.appendChild(reason);
+            // card.appendChild(status);
+            // card.appendChild(updated);
+            card.append(header, reason, status, updated);
+
+            // Add the card to the container
+            container.appendChild(card);
+        });
+    }
+
+    async function loadReports(dialog) {
+        try {
+            const response = await fetch(`{{ route('user.reports', $user->id) }}`);
+
+            if (!response.ok) throw new Error('Failed to fetch report');
+
+            const data = await response.json();
+            console.log(data);
+
+            renderReports(data.reports);
+
+        }
+        catch (error) {
+            console.error('Error loading reports:', error);
+            dialog.close();
+            alert('Could not load reports.');
+        }
+    }
+
+    function openDialog() {
+        const dialog = document.getElementById('user-reports-dialog');
+        const container = document.getElementById('reports-cont');
+        container.innerHTML = dialogSpinner; // Clear previous content
+        dialog.showModal();
+        loadReports(dialog);
+    }
     document.addEventListener('DOMContentLoaded', function () {
         const OPEN_DELAY = 800;
         const CLOSE_DELAY = 200;

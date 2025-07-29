@@ -1,6 +1,11 @@
 /*** Admin Pages ***/
 /*******************/
 
+.admin-btn {
+    border-radius: 4px;
+    padding: 0.125em 0.25em;
+}
+
 /* Users Search Page */
 .new-admin-btn {
     display: block;
@@ -13,7 +18,7 @@
     border-radius: 10px;
     padding: 1em;
     margin-bottom: 1em;
-    max-width: 50em;
+    max-width: 40em;
 
     .user-header {
         display: flex;
@@ -188,11 +193,6 @@
         padding: 0.25em 1em;
         margin-bottom: 0.5em;
         border-radius: 4px;
-
-        .btn {
-            border-radius: 4px;
-            padding: 0.125em 0.25em;
-        }
 
         :nth-child(2) {
             margin-inline-start: auto;
@@ -371,7 +371,7 @@
 
 @keyframes fillableSlide {
     50% {
-        translate: calc(var(--_fillable-width) - 1ch);
+        translate: calc(var(--_fillable-width) - 1.2ch);
     }
 
     100% {

@@ -156,7 +156,7 @@ class UserController extends Controller
 
             $searchTerm = strtolower($validated['search']);
 
-            $query = User::withCount(['posts', 'comments'])->orderBy('created_at', 'desc');
+            $query = User::withCount(['posts', 'comments', 'reports'])->orderBy('created_at', 'desc');
 
             $query->where(function ($q) use ($searchTerm) {
                 $q->whereRaw('LOWER(name) LIKE ?', ["%{$searchTerm}%"])

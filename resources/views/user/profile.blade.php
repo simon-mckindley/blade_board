@@ -123,83 +123,83 @@
 
 @section('scripts')
 <script>
-const dialogSpinner = `            
-    <div style="
-        width: 2em;
-        aspect-ratio: 1;
-        margin: 2em auto;
-        border-radius: 1000px;
-        border: dashed 3px var(--text-color);
-        border-bottom-color: transparent;
-        animation: spinner 1200ms ease-in-out alternate infinite;
-        ">
-    </div>
-    
-    <style>
-        @keyframes spinner {100% {rotate: 450deg;}}
-    </style>`;
+    const dialogSpinner = `            
+        <div style="
+            width: 2em;
+            aspect-ratio: 1;
+            margin: 2em auto;
+            border-radius: 1000px;
+            border: dashed 3px var(--text-color);
+            border-bottom-color: transparent;
+            animation: spinner 1200ms ease-in-out alternate infinite;
+            ">
+        </div>
+        
+        <style>
+            @keyframes spinner {100% {rotate: 450deg;}}
+        </style>`;
 
-function renderReports(reports) {
-    const container = document.getElementById('reports-cont');
-    container.innerHTML = ''; // Clear previous content
+    function renderReports(reports) {
+        const container = document.getElementById('reports-cont');
+        container.innerHTML = ''; // Clear previous content
 
-    reports.forEach(report => {
-        const card = document.createElement('div');
-        card.classList.add('user-report-card');
+        reports.forEach(report => {
+            const card = document.createElement('div');
+            card.classList.add('user-report-card');
 
-        const created = document.createElement('div');
-        created.classList.add('date')
-        created.textContent = `${new Date(report.created_at).toLocaleDateString('en-AU')}`;
+            const created = document.createElement('div');
+            created.classList.add('date')
+            created.textContent = `${new Date(report.created_at).toLocaleDateString('en-AU')}`;
 
-        const reason = document.createElement('div');
-        reason.classList.add('reason');
-        reason.textContent = `${report.reason_label}`;
+            const reason = document.createElement('div');
+            reason.classList.add('reason');
+            reason.textContent = `${report.reason_label}`;
 
-        const status = document.createElement('div');
-        status.classList.add('report-status', report.status);
-        status.textContent = `${report.status_label}`;
+            const status = document.createElement('div');
+            status.classList.add('report-status', report.status);
+            status.textContent = `${report.status_label}`;
 
-        const updated = document.createElement('div');
-        updated.classList.add('date');
-        updated.textContent = `Updated -> ${new Date(report.updated_at).toLocaleDateString('en-AU')}`;
+            const updated = document.createElement('div');
+            updated.classList.add('date');
+            updated.textContent = `Updated -> ${new Date(report.updated_at).toLocaleDateString('en-AU')}`;
 
-        // Append all elements to the card
-        card.appendChild(created);
-        card.appendChild(reason);
-        card.appendChild(status);
-        card.appendChild(updated);
+            // Append all elements to the card
+            card.appendChild(created);
+            card.appendChild(reason);
+            card.appendChild(status);
+            card.appendChild(updated);
 
-        // Add the card to the container
-        container.appendChild(card);
-    });
-}
-
-async function loadReports(dialog) {
-    try {
-        const response = await fetch(`{{ route('user.reports', $user->id) }}`);
-
-        if (!response.ok) throw new Error('Failed to fetch report');
-
-        const data = await response.json();
-        console.log(data);
-
-        renderReports(data.reports);
-
-    }
-    catch (error) {
-        console.error('Error loading reports:', error);
-        dialog.close();
-        alert('Could not load reports.');
+            // Add the card to the container
+            container.appendChild(card);
+        });
     }
 
-}
+    async function loadReports(dialog) {
+        try {
+            const response = await fetch(`{{ route('user.reports', $user->id) }}`);
 
-function openDialog() {
-    const dialog = document.getElementById('user-reports-dialog');
-    const container = document.getElementById('reports-cont');
-    container.innerHTML = dialogSpinner; // Clear previous content
-    dialog.showModal();
-    loadReports(dialog);
-}
+            if (!response.ok) throw new Error('Failed to fetch report');
+
+            const data = await response.json();
+            console.log(data);
+
+            renderReports(data.reports);
+
+        }
+        catch (error) {
+            console.error('Error loading reports:', error);
+            dialog.close();
+            alert('Could not load reports.');
+        }
+
+    }
+
+    function openDialog() {
+        const dialog = document.getElementById('user-reports-dialog');
+        const container = document.getElementById('reports-cont');
+        container.innerHTML = dialogSpinner; // Clear previous content
+        dialog.showModal();
+        loadReports(dialog);
+    }
 </script>
 @endsection

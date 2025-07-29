@@ -35,8 +35,9 @@ class AdminController extends Controller
 
         $postCount = $user->posts()->count();
         $commentCount = $user->comments()->count();
+        $reportCount = $user->reports()->count();
 
-        return view('admin.useradmin', compact('user', 'postCount', 'commentCount'));
+        return view('admin.useradmin', compact('user', 'postCount', 'commentCount', 'reportCount'));
     }
 
 }

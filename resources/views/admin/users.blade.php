@@ -41,7 +41,7 @@
                         <h3>{{ $user->name }}</h3>
                         {{-- Display edit button only if the user is not an admin or if the current user is a super admin --}}
                          @if (!$user->isAdmin() || auth()->user()->isSuper())
-                            <a class="btn" href="{{ route('admin.user', $user->id) }}">View</a>
+                            <a class="btn admin-btn" href="{{ route('admin.user', $user->id) }}">View</a>
                         @endif
                     </div>
                     <div class="user-content">
@@ -53,6 +53,7 @@
                         @else
                             <div>Posts &lpar;{{ $user->posts_count }}&rpar;</div>
                             <div>Comments &lpar;{{ $user->comments_count }}&rpar;</div>
+                            <div>Reports &lpar;{{ $user->reports_count }}&rpar;</div>
                         @endif   
                             <div>
                                 Status -> <span class="user-status {{ $user->status }}">{{ $user->status->label() }}</span>
