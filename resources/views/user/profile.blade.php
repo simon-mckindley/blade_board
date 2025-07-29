@@ -113,7 +113,7 @@
 
     <dialog id="user-reports-dialog" class="user-reports-dialog">
         <div class="btn-cont">
-            <button type="button" class="btn" onclick="this.closest('dialog').close()">Close</button>
+            <button type="button" class="btn" onclick="this.closest('dialog').close()">X</button>
         </div>
         <h3>My Reports</h3>
         <div id="reports-cont">
@@ -125,7 +125,7 @@
 <script>
 const dialogSpinner = `            
     <div style="
-        width: 1em;
+        width: 2em;
         aspect-ratio: 1;
         margin: 2em auto;
         border-radius: 1000px;

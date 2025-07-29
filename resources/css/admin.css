@@ -273,7 +273,11 @@
 
 .admin-report-dialog {
     font-size: 0.9rem;
-    width: 30em;
+    width: 30rem;
+
+    h3 {
+        margin-block-end: 0.5em;
+    }
 
     dl {
         width: 100%;
@@ -282,7 +286,7 @@
     .data-cont {
         display: flex;
         flex-wrap: wrap;
-        align-items: end;
+        align-items: baseline;
         column-gap: 1em;
         margin-bottom: 0.5em;
 
@@ -298,12 +302,7 @@
         }
 
         .actions {
-            list-style: decimal;
             padding-inline: 1.25em 0.5em;
-        }
-
-        li {
-            display: list-item;
         }
 
         li::marker {
