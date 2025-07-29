@@ -1005,6 +1005,7 @@ dialog {
     backdrop-filter: blur(10px);
     border: 2px solid var(--bg-color);
     border-radius: 10px;
+    overflow: hidden;
     animation: show-in 500ms ease;
 
     .dialog-actions {

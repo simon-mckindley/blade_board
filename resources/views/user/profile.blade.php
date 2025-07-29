@@ -113,7 +113,7 @@
 
     <dialog id="user-reports-dialog" class="user-reports-dialog">
         <div class="btn-cont">
-            <button type="button" class="btn" onclick="this.closest('dialog').close()">X</button>
+            <button type="button" class="btn admin-btn" onclick="this.closest('dialog').close()">X</button>
         </div>
         <h3>My Reports</h3>
         <div id="reports-cont">

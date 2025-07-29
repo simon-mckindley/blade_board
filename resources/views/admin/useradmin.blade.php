@@ -203,6 +203,9 @@
     function goToReportsPage(reportId) {
         // Set report num to session for retrieval in reports page
         sessionStorage.setItem('reportId', reportId);
+
+        const container = document.getElementById('reports-cont').innerHTML = dialogSpinner;
+        
         // Open admin/reports page
         window.open('../reports', '_self');
     }
