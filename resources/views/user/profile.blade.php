@@ -164,10 +164,7 @@
             updated.textContent = `Updated -> ${new Date(report.updated_at).toLocaleDateString('en-AU')}`;
 
             // Append all elements to the card
-            card.appendChild(created);
-            card.appendChild(reason);
-            card.appendChild(status);
-            card.appendChild(updated);
+            card.append(created, reason, status, updated);
 
             // Add the card to the container
             container.appendChild(card);

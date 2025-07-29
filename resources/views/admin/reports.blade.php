@@ -176,6 +176,13 @@ async function loadReport(reportId, dialog) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Open report dialog when id in session storage
+    const sessionData = sessionStorage.getItem('reportId');
+    if (sessionData) {
+        openDialog(sessionData);
+        sessionStorage.removeItem('reportId');
+    }
+
     // Card filtering
     const statusSelect = document.getElementById('status-filter');
     const reportCards = document.querySelectorAll('.report-card');

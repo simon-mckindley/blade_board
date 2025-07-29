@@ -146,7 +146,7 @@
             link.innerText = 'View';
             link.classList.add('btn', 'admin-btn');
             link.type = 'button';
-            link.onclick = '';
+            link.setAttribute('onclick', `goToReportsPage(${report.id})`);
 
             const created = document.createElement('div');
             created.classList.add('date')
@@ -167,10 +167,6 @@
             updated.textContent = `Updated -> ${new Date(report.updated_at).toLocaleDateString('en-AU')}`;
 
             // Append all elements to the card
-            // card.appendChild(created);
-            // card.appendChild(reason);
-            // card.appendChild(status);
-            // card.appendChild(updated);
             card.append(header, reason, status, updated);
 
             // Add the card to the container
@@ -185,7 +181,6 @@
             if (!response.ok) throw new Error('Failed to fetch report');
 
             const data = await response.json();
-            console.log(data);
 
             renderReports(data.reports);
 
@@ -204,6 +199,14 @@
         dialog.showModal();
         loadReports(dialog);
     }
+
+    function goToReportsPage(reportId) {
+        // Set report num to session for retrieval in reports page
+        sessionStorage.setItem('reportId', reportId);
+        // Open admin/reports page
+        window.open('../reports', '_self');
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         const OPEN_DELAY = 800;
         const CLOSE_DELAY = 200;
