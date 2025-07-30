@@ -38,7 +38,9 @@
 
     .user-meta {
         display: flex;
+        flex-wrap: wrap;
         column-gap: 2em;
+        row-gap: 0.25em;
 
         strong {
             color: var(--bg-color);
@@ -411,5 +413,14 @@
         .delete-btn:focus-visible {
             background-color: var(--warning-color);
         }
+    }
+}
+
+
+@media (max-width: 620px) {
+
+    .user-meta .will-wrap {
+        flex-basis: 0;
+        line-height: 1;
     }
 }

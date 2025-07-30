@@ -51,9 +51,9 @@
                         @if ($user->isAdmin())
                             <strong>Admin User</strong>
                         @else
-                            <div>Posts &lpar;{{ $user->posts_count }}&rpar;</div>
-                            <div>Comments &lpar;{{ $user->comments_count }}&rpar;</div>
-                            <div>Reports &lpar;{{ $user->reports_count }}&rpar;</div>
+                            <div class="will-wrap">Posts &lpar;{{ $user->posts_count }}&rpar;</div>
+                            <div class="will-wrap">Comments &lpar;{{ $user->comments_count }}&rpar;</div>
+                            <div class="will-wrap">Reports &lpar;{{ $user->reports_count }}&rpar;</div>
                         @endif   
                             <div>
                                 Status -> <span class="user-status {{ $user->status }}">{{ $user->status->label() }}</span>
